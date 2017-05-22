@@ -29,18 +29,18 @@ A pure JavaScript _(no dependencies)_ Web Component that creates and validates a
 ### Properties
 
 | Property | Type | Description |
-| :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- |
 | `.src` | string | Path to the JSON Schema that defines the form |
 | `.schema` | _object_ | Schema object to use |
 | `.value` | _object_ | Object containing key/value pair of values |
-| `.createUrl` | _string_ | Url to post the form to when the user clicks Create
-| `.updateUrl` | _string_ | Url to post the form to when the user clicks Save
-| `.readonly` | _boolean_ | If true, adds readonly property to all form fields
-| `.title` | _string_ | The title to be rendered before the form
-| `.description` | _string_ | The description before the form
-| `.buttons` | _string_ | Comma separated list of button labels
-| `.persist` | _boolean_ | Partially completed forms survive refreshes _(until browser is closed)_
-| `.disableValidation` | _boolean_ | Disables all form validation
+| `.createUrl` | _string_ | Url to post the form to when the user clicks Create |
+| `.updateUrl` | _string_ | Url to post the form to when the user clicks Save |
+| `.readonly` | _boolean_ | If true, adds readonly property to all form fields |
+| `.title` | _string_ | The title to be rendered before the form |
+| `.description` | _string_ | The description before the form |
+| `.buttons` | _string_ | Comma separated list of button labels |
+| `.persist` | _boolean_ | Partially completed forms survive refreshes _(until browser is closed)_ |
+| `.disableValidation` | _boolean_ | Disables all form validation |
 
 
 ### Methods
