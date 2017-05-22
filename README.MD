@@ -8,10 +8,6 @@ A pure JavaScript (ES5) Web Components that allows the creation of a web form fr
 
 If you submit a PR, please test your changes against the demo page to make sure no functionality has been broken.
 
-## Why did you no build it using ES6 ?
-
-Because I really dont like transpiling, it's an unnecessary overcomplication. JavaScript is a beautifully powerful language that has managed to bring the internet to the stage it's at today. I'm not against progression, I just like to keep things simple.
-
 ## Bug
 
 If you do find a bug, please create a [jsfiddle](https://jsfiddle.net) to replicate the error before raising an issue. Attach the jsfiddle as a link to the issue so I can replicate the error and work out a solution.
