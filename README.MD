@@ -14,17 +14,19 @@ A pure JavaScript _(no dependencies)_ Web Component that creates and validates a
 
 ### Attributes
 
-| Property | Example | Description |
-| :--- | :--- | :--- |
-| `src`  | _http://my-app.io/$address_ |Path to the JSON Schema that defines the form |
-| `create-url` | _http://my-app.io/address_ | Url to post the form to when the user clicks Create
-| `update-url` | _http://my-app.io/address_ | Url to post the form to when the user clicks Save
-| `readonly` | _true_ | If true, adds readonly property to all form fields
-| `title` | _Hello World_ | The title to be rendered before the form
-| `description` | _My pure form_ | The description before the form
-| `buttons` | _Cancel, Okay_ | Comma separated list of button labels
-| `persist` | _true_ | Partially completed forms survive refreshes _(until browser is closed)_
-| `disable-validation` | _true_ | Disables all form validation
+The following HTML attributes are available and can be set directly on the pure-form tag within your HTML page:
+
+| Property | Description |
+| :--- |  :--- |
+| `src`  | Path to the JSON Schema that defines the form |
+| `create-url` | Url to post the form to when the user clicks Create
+| `update-url` | Url to post the form to when the user clicks Save
+| `readonly` | If true, adds readonly property to all form fields
+| `title` | The title to be rendered before the form
+| `description` | The description before the form
+| `buttons` | Comma separated list of button labels
+| `persist` | Partially completed forms survive refreshes _(until browser is closed)_
+| `disable-validation` | Disables all form validation
 
 ### Properties
 
