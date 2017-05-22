@@ -12,6 +12,26 @@ A pure JavaScript _(no dependencies)_ Web Component that creates and validates a
 <pure-form src="path/to/form-schema.json" />
 ```
 
+### Properties & Attributes
+
+| Property | Attribute | Type | Description |
+| :--- | :--- | :--- | :--- |
+| .src  | src | `string` | Path to the JSON Schema that defines the form |
+| .schema  | - | `object` | Schema object to use |
+| .value  | - | `object` | Object containing key/value pair of values |
+| .createUrl  | create-url | `string` | Url to post the form to when the user clicks Create
+| .updateUrl  | update-url | `string` | Url to post the form to when the user clicks Save
+| .readonly  | readonly | `boolean` | If true, adds readonly property to all form fields
+| .title  | title | `string` | The title to be rendered before the form
+| .description  | description | `string` | The description before the form
+| .buttons  | buttons | `string` | Comma separated list of button labels
+| .persist  | persist | `boolean` | Partially completed forms survive refreshes _(until browser is closed)_
+| .disableValidation  | disable-validation | `boolean` | Disables all form validation
+
+### Methods
+
+TODO: add methods
+
 ## Web Components & Browser Compatibility
 
 Although the Web Component standard includes support for HTML Imports and the Shadow DOM, these features are difficult to polyfill for older browsers such as Internet Explorer and have a negative impact on rendering performance. For these reasons I choose to use only the core concept of Web Components ```document.registerElement```. A method that can be [polyfilled](https://github.com/WebReflection/document-register-element) back to IE8.
