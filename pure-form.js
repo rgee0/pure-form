@@ -155,7 +155,8 @@
                 }
             })
             .catch(function (err) {
-                throw new Error('Schema not found!');
+                throw err;
+                //throw new Error('Schema not found!');
             });
     };
 
@@ -790,7 +791,7 @@
                 }
             } break;
 
-            case 'string': {
+            default: {
 
                 if (Array.isArray(item.enum)) {
 
@@ -802,17 +803,28 @@
                     });
                 }
                 else {
-                    el = createEl(null, 'input', { name: id, id: id, type: 'text', value: '' });
+
+                    // switch types for special formats or fallback to type text
+                    switch (format.toLowerCase()) {
+
+                        case "url":
+                        case "uri": {
+                            el = createEl(null, 'input', { name: id, id: id, type: 'url', value: '' });
+                        } break;
+
+                        case "textarea": {
+                            el = createEl(null, 'textarea', { name: id, id: id, value: '', rows: 3 });
+                        } break;
+
+                        case 'date': {
+                            el = createEl(null, 'input', { name: id, id: id, type: 'date', value: '' });
+                        } break;
+
+                        default: {
+                            el = createEl(null, 'input', { name: id, id: id, type: 'text', value: '' });
+                        }
+                    }
                 }
-
-            } break;
-
-            case 'date': {
-                el = createEl(null, 'input', { name: id, id: id, type: 'date', value: '' });
-            } break;
-
-            default: {
-                el = createEl(null, 'input', { name: id, id: id, type: 'text', value: '' });
             }
         }
 
