@@ -78,4 +78,30 @@ describe('pure-form interface', function () {
         expect(typeof el.isValid).toEqual('function');
     });
 
+    it('should not expose private methods', function(){
+
+        var el = document.createElement('pure-form');
+
+        // methods
+        expect(el.regExMatches).not.toBeDefined();
+        expect(el.arrayWhere).not.toBeDefined();
+        expect(el.newGuid).not.toBeDefined();
+        expect(el.setElementValue).not.toBeDefined();
+        expect(el.getSortedSchemaKeys).not.toBeDefined();
+        expect(el.getPropertyByPath).not.toBeDefined();
+        expect(el.validateAgainstSchema).not.toBeDefined();
+        expect(el.cancelEvent).not.toBeDefined();
+        expect(el.stringToDOM).not.toBeDefined();
+        expect(el.createEl).not.toBeDefined();
+        expect(el.schemaItemToHtmlElement).not.toBeDefined();
+        expect(el.populateForm).not.toBeDefined();
+        expect(el.save).not.toBeDefined();
+        expect(el.getRawData).not.toBeDefined();
+        expect(el.getData).not.toBeDefined();
+        expect(el.renderButtons).not.toBeDefined();
+        expect(el.renderDescription).not.toBeDefined();
+        expect(el.renderTitle).not.toBeDefined();
+        expect(el.renderForm).not.toBeDefined();
+    });
+
 });
