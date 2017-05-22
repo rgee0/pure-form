@@ -8,7 +8,7 @@ var fs = require('fs');
 var document = null;
 var window = null;
 
-describe('pure-form', function () {
+describe('pure-form lifecycle', function () {
 
     // create a new browser instance before each test
     beforeEach(function (done) {
@@ -37,45 +37,6 @@ describe('pure-form', function () {
                 done();
             }, 250);
         });
-    });
-
-    it('should be creatable', function () {
-
-        var el = document.createElement('pure-form');
-
-        expect(el).toBeDefined();
-        expect(el.tagName).toEqual('PURE-FORM');
-    });
-
-    it('should have correct default properties', function() {
-
-        var el = document.createElement('pure-form');
-
-        // properties
-        expect(el.src).toEqual('');
-        expect(el.schema).toEqual(null);
-        expect(JSON.stringify(el.value)).toEqual('{}');
-        expect(el.createUrl).toEqual('');
-        expect(el.updateUrl).toEqual('');
-        expect(el.readonly).toEqual(false);
-        expect(el.title).toEqual('');
-        expect(el.description).toEqual('');
-        expect(el.buttons.length).toEqual(0);
-        expect(el.persist).toEqual(false);
-        expect(el.disableValidation).toEqual(false);
-    });
-
-    it('should expose public methods', function(){
-
-        var el = document.createElement('pure-form');
-
-        // methods
-        expect(typeof el.loadSchema).toEqual('function');
-        expect(typeof el.clearValidationErrors).toEqual('function');
-        expect(typeof el.setError).toEqual('function');
-        expect(typeof el.clearError).toEqual('function');
-        expect(typeof el.validateField).toEqual('function');
-        expect(typeof el.isValid).toEqual('function');
     });
 
     it('should not contain children on creation', function () {
