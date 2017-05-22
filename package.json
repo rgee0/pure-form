@@ -1,7 +1,7 @@
 {
   "name": "pure-form",
   "version": "1.0.0",
-  "description": "Pure JavaScript (ES5) Form",
+  "description": "JSON Schema driven Form Web Component written in pure JavaScript",
   "main": "dev-server.js",
   "scripts": {
     "start": "node dev-server.js",
