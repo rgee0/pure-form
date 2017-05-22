@@ -64,4 +64,43 @@ describe('pure-form lifecycle', function () {
         expect(el.textContent.indexOf(testString)).toBeGreaterThan(-1);
     });
 
+    it('should reflect properties as attributes', function () {
+
+        var src = 'http://www.johndoherty.info?dt=' + (new Date()).getTime();
+        var createUrl = 'http://www.google.co.uk?dt=' + (new Date()).getTime();
+        var updateUrl = 'http://www.google.co.uk?dt=' + (new Date()).getTime();
+        var title = 'Hello World ' + (new Date()).getTime();
+        var description = 'Test description ' + (new Date()).getTime();
+        var buttons = 'One, Two, ' + (new Date()).getTime();
+
+        var el = document.createElement('pure-form');
+
+        el.src = src;
+        expect(el.getAttribute('src')).toEqual(src);
+
+        el.createUrl = createUrl;
+        expect(el.getAttribute('create-url')).toEqual(createUrl);
+        
+        el.updateUrl = updateUrl;
+        expect(el.getAttribute('update-url')).toEqual(updateUrl);
+
+        el.readonly = true;
+        expect(el.getAttribute('readonly')).toEqual('true');
+
+        el.title = title;
+        expect(el.getAttribute('title')).toEqual(title);
+
+        el.description = description;
+        expect(el.getAttribute('description')).toEqual(description);
+
+        el.buttons = buttons;
+        expect(el.getAttribute('buttons')).toEqual(buttons);
+
+        el.persist = true;
+        expect(el.getAttribute('persist')).toEqual('true');
+
+        el.disableValidation = true;
+        expect(el.getAttribute('disable-validation')).toEqual('true');
+    });
+
 });

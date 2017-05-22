@@ -511,7 +511,7 @@
         var self = this;
 
         // add buttons from array if we have them
-        if (this.buttons.length > 0) {
+        if (this.form && this.buttons.length > 0) {
 
             // insert button container if it does not already exist
             var buttonContainer = this.form.querySelector('.pure-form-buttons') || createEl(this.form, 'div', { 'class': 'pure-form-buttons' });
