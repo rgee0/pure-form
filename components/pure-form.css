@@ -4,6 +4,7 @@ pure-form {
     display: block;
     position: relative;
     padding: 20px;
+    min-width: 320px;
 }
 
 pure-form:empty {
@@ -24,7 +25,7 @@ pure-form form {
     padding: 0;
     display: block;
     margin: 0;
-    overflow: auto;
+    /*overflow: auto;*/
 }
 
 pure-form form:empty {
@@ -57,7 +58,7 @@ pure-form .pure-form-label {
     position: relative;
     clear: both;
     float: none;
-    overflow: auto;
+    /*overflow: auto;*/
 }
 
 pure-form .pure-form-label[data-required=true] .pure-form-label-text:after {
@@ -153,3 +154,32 @@ pure-form .pure-form-button:last-child {
 
 pure-form ::-webkit-input-placeholder { font-size: 14px; }
 pure-form ::-moz-placeholder  { font-size: 14px; }
+
+/* responsive */
+
+@media (max-width: 550px) {
+
+    pure-form .pure-form-label-text {
+        display: block;
+        width: 100%;
+    }
+
+    pure-form input[type=password], 
+    pure-form input[type=email], 
+    pure-form input[type=url], 
+    pure-form input[type=date], 
+    pure-form input[type=month], 
+    pure-form input[type=time], 
+    pure-form input[type=datetime], 
+    pure-form input[type=datetime-local], 
+    pure-form input[type=week], 
+    pure-form input[type=tel], 
+    pure-form input[type=color], 
+    pure-form input[type=number], 
+    pure-form input[type=search], 
+    pure-form input[type=text], 
+    pure-form select, 
+    pure-form textarea {
+        width: 100%;
+    }
+}
