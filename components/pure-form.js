@@ -1084,7 +1084,12 @@
         return ((pattern.constructor !== RegExp) ? new RegExp(pattern, "gm") : pattern).test(src);
     };
 
-    // register component with the dom
-    document.registerElement(componentName, { prototype: proto });
+    if (document.registerElement){
+        // register component with the dom
+        document.registerElement(componentName, { prototype: proto });
+    }
+    else {
+        throw new Error('document.registerElement does not exist. Are you missing the polyfill?');
+    }
 
 })(HTMLElement.prototype, this, document);
