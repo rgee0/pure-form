@@ -16,7 +16,7 @@ A pure JavaScript _(no dependencies)_ Web Component that creates and validates a
 
 | Property | Example | Description |
 | :--- | :--- | :--- |
-| `src`  | _http://json-schema.org/example/address.json_ |Path to the JSON Schema that defines the form |
+| `src`  | _http://my-app.io/$address_ |Path to the JSON Schema that defines the form |
 | `create-url` | _http://my-app.io/address_ | Url to post the form to when the user clicks Create
 | `update-url` | _http://my-app.io/address_ | Url to post the form to when the user clicks Save
 | `readonly` | _true_ | If true, adds readonly property to all form fields
