@@ -8,8 +8,90 @@ A pure JavaScript Web Component that creates and validates a web form using a JS
 
 ## Usage
 
+You can create a pure form using `document.createElement('pure-form')` or you can include it in your page, for example:
+
 ```html
-<pure-form src="path/to/form-schema.json" />
+<pure-form src="contact-form.json" buttons="Send" />
+```
+
+If the `contact-form.json` contained the following JSON Schema (v3)
+
+```json
+{
+  "type": "object",
+  "id": "contact-form",
+  "$schema": "http://json-schema.org/draft-03/schema#",
+  "title": "Contact Us",
+  "description": "Got a question? Get in touch!",
+  "properties": {
+    "title": {
+      "title": "Title",
+      "id": "order:010",
+      "type": "string",
+      "required": true,
+      "enum": [
+        "Mr",
+        "Mrs",
+        "Ms"
+      ]
+    },
+    "firstName": {
+      "title": "First name",
+      "id": "order:020",
+      "type": "string",
+      "required": true
+    },
+    "surname": {
+      "title": "Surname",
+      "id": "order:030",
+      "type": "string",
+      "required": true,
+      "description": "Family name"
+    },
+    "dateOfBirth": {
+      "title": "Email",
+      "id": "order:040",
+      "type": "string",
+      "format": "textarea",
+      "required": true
+    }
+  }
+}
+```
+
+The component would generate the following:
+
+```html
+<pure-form src="schemas/contact-form.json" buttons="Send" title="Contact Us" description="Got a question? Get in touch!">
+   <div class="pure-form-title">Contact Us</div>
+   <div class="pure-form-description">Got a question? Get in touch!</div>
+   <form action="" method="post" novalidate="novalidate">
+      <label for="title" class="pure-form-label" data-type="string" data-required="true" data-error="This field must have a value">
+         <span class="pure-form-label-text">Title</span>
+         <select name="title" id="title" autocomplete="off" required="required" autofocus="true" data-invalid="true">
+            <option value=""></option>
+            <option value="Mr">Mr</option>
+            <option value="Mrs">Mrs</option>
+            <option value="Ms">Ms</option>
+         </select>
+      </label>
+      <label for="firstName" class="pure-form-label" data-type="string" data-required="true">
+        <span class="pure-form-label-text">First name</span>
+        <input name="firstName" id="firstName" type="text" autocomplete="off" required="required" />
+      </label>
+      <label for="surname" class="pure-form-label" data-type="string" data-required="true" />
+        <span class="pure-form-label-text">Surname</span>
+        <input name="surname" id="surname" type="text" autocomplete="off" required="required" placeholder="Family name" />
+      </label>
+      <label for="dateOfBirth" class="pure-form-label" data-format="textarea" data-type="string" data-required="true">
+        <span class="pure-form-label-text">Email</span>
+        <textarea name="dateOfBirth" id="dateOfBirth" rows="3" autocomplete="off" required="required"></textarea>
+      </label>
+      <div class="pure-form-buttons">
+        <input type="submit" value="Send" class="pure-form-button" />
+      </div>
+   </form>
+</pure-form>
 ```
 
 ### Attributes
