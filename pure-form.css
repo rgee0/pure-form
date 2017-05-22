@@ -1,3 +1,9 @@
+/**
+ * @summary Pure JavaScript, JSON Schema driven Form Web Component
+ * @author John Doherty <www.johndoherty.info>
+ * @copyright John Doherty 2017
+ * @license MIT
+ */
 pure-form {
     border: 1px solid #ccc;
     border-radius: 4px;

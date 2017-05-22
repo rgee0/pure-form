@@ -1,7 +1,7 @@
 /**
- * pure-form.js is a JSON schema driven web component that creates a form.
- *
- * @author John Doherty <@CambridgeMVP>
+ * @summary Pure JavaScript, JSON Schema driven Form Web Component
+ * @author John Doherty <www.johndoherty.info>
+ * @copyright John Doherty 2017
  * @license MIT
  */
 (function (base, window, document) {
