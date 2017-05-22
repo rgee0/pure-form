@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "id": "contact-form",
+  "$schema": "http://json-schema.org/draft-03/schema#",
+  "title": "Contact Us",
+  "description": "Got a question? Get in touch!",
+  "links": [],
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "title": "Title",
+      "id": "order:010",
+      "type": "string",
+      "required": true,
+      "enum": [
+        "Mr",
+        "Mrs",
+        "Ms"
+      ]
+    },
+    "firstName": {
+      "title": "First name",
+      "id": "order:020",
+      "type": "string",
+      "required": true
+    },
+    "surname": {
+      "title": "Surname",
+      "id": "order:030",
+      "type": "string",
+      "required": true,
+      "description": "Family name"
+    },
+    "dateOfBirth": {
+      "title": "Email",
+      "id": "order:040",
+      "type": "string",
+      "format": "textarea",
+      "required": true
+    }
+  }
+}
