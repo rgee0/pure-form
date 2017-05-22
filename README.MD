@@ -4,7 +4,7 @@
 
 ## Installation
 
-A pure JavaScript _(no dependencies)_ Web Component that creates and validates a web form using a JSON Schema.
+A pure JavaScript Web Component that creates and validates a web form using a JSON Schema.
 
 ## Usage
 
@@ -29,6 +29,8 @@ The following HTML attributes are available and can be set directly on the pure-
 | `disable-validation` | Disables all form validation
 
 ### Properties
+
+The following JavaScript properties are available:
 
 | Property | Type | Description |
 | :--- | :--- | :--- |
