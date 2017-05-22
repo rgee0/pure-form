@@ -2,8 +2,9 @@
   "name": "pure-form",
   "version": "1.0.0",
   "description": "Pure JavaScript (ES5) Form",
-  "main": "server.js",
+  "main": "dev-server.js",
   "scripts": {
+    "start": "node dev-server.js",
     "test": "jasmine-node test --verbose --color --forceexit --junitreport || true"
   },
   "author": "John Doherty <contact@johndoherty.info> (www.johndoherty.info)",
