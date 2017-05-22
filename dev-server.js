@@ -5,7 +5,7 @@ function Server() {
     var port = 8080;
     var app = express();
 
-    app.use(express.static('.', { etag: true, extensions: ['css', 'js', 'png', 'jpg', 'html'] }));
+    app.use(express.static('.', { etag: true, extensions: ['css', 'js', 'png', 'jpg', 'html', 'json'] }));
     
     // start the server
     app.listen(port, function () {
