@@ -2,8 +2,6 @@
 
 [![Linked In](https://img.shields.io/badge/Linked-In-blue.svg)](https://www.linkedin.com/in/john-i-doherty) [![Twitter Follow](https://img.shields.io/twitter/follow/CambridgeMVP.svg?style=social&label=Twitter&style=plastic)](https://twitter.com/CambridgeMVP)
 
-## Installation
-
 A pure JavaScript Web Component that creates and validates a web form using a JSON Schema.
 
 ## Usage
