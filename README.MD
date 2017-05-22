@@ -94,7 +94,7 @@ The component would generate the following:
 
 ### Attributes
 
-The following HTML attributes are available and can be set directly on the pure-form tag within your HTML page:
+The following HTML attributes are can be set directly on the pure-form tag within your page:
 
 | Property | Description |
 | :--- |  :--- |
