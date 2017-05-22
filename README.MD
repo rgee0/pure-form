@@ -12,21 +12,36 @@ A pure JavaScript _(no dependencies)_ Web Component that creates and validates a
 <pure-form src="path/to/form-schema.json" />
 ```
 
-### Properties & Attributes
+### Attributes
 
-| Property | Attribute | Type | Description |
+| Property | Example | Description |
+| :--- | :--- | :--- |
+| `src`  | _http://json-schema.org/example/address.json_ |Path to the JSON Schema that defines the form |
+| `create-url` | _http://my-app.io/address_ | Url to post the form to when the user clicks Create
+| `update-url` | _http://my-app.io/address_ | Url to post the form to when the user clicks Save
+| `readonly` | _true_ | If true, adds readonly property to all form fields
+| `title` | _Hello World_ | The title to be rendered before the form
+| `description` | _My pure form_ | The description before the form
+| `buttons` | _Cancel, Okay_ | Comma separated list of button labels
+| `persist` | _true_ | Partially completed forms survive refreshes _(until browser is closed)_
+| `disable-validation` | _true_ | Disables all form validation
+
+### Properties
+
+| Property | Type | Description |
 | :--- | :--- | :--- | :--- |
-| .src  | src | `string` | Path to the JSON Schema that defines the form |
-| .schema  | - | `object` | Schema object to use |
-| .value  | - | `object` | Object containing key/value pair of values |
-| .createUrl  | create-url | `string` | Url to post the form to when the user clicks Create
-| .updateUrl  | update-url | `string` | Url to post the form to when the user clicks Save
-| .readonly  | readonly | `boolean` | If true, adds readonly property to all form fields
-| .title  | title | `string` | The title to be rendered before the form
-| .description  | description | `string` | The description before the form
-| .buttons  | buttons | `string` | Comma separated list of button labels
-| .persist  | persist | `boolean` | Partially completed forms survive refreshes _(until browser is closed)_
-| .disableValidation  | disable-validation | `boolean` | Disables all form validation
+| `.src` | string | Path to the JSON Schema that defines the form |
+| `.schema` | _object_ | Schema object to use |
+| `.value` | _object_ | Object containing key/value pair of values |
+| `.createUrl` | _string_ | Url to post the form to when the user clicks Create
+| `.updateUrl` | _string_ | Url to post the form to when the user clicks Save
+| `.readonly` | _boolean_ | If true, adds readonly property to all form fields
+| `.title` | _string_ | The title to be rendered before the form
+| `.description` | _string_ | The description before the form
+| `.buttons` | _string_ | Comma separated list of button labels
+| `.persist` | _boolean_ | Partially completed forms survive refreshes _(until browser is closed)_
+| `.disableValidation` | _boolean_ | Disables all form validation
+
 
 ### Methods
 
