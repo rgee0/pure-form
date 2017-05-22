@@ -5,7 +5,9 @@
   "main": "dev-server.js",
   "scripts": {
     "start": "node dev-server.js",
-    "test": "jasmine-node test --verbose --color --forceexit --junitreport || true"
+    "test": "jasmine-node test --verbose --color --forceexit --junitreport || true",
+    "build": "node_modules/gulp/bin/gulp.js build",
+    "clean": "node_modules/gulp/bin/gulp.js clean"
   },
   "author": "John Doherty <contact@johndoherty.info> (www.johndoherty.info)",
   "license": "MIT",
@@ -13,8 +15,14 @@
     "express": "4.15.3"
   },
   "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.3.1",
+    "gulp-minify": "^1.0.0",
+    "gulp-rename": "^1.2.2",
     "jasmine-node": "1.14.5",
     "jsdom": "10.1.0",
-    "nock": "9.0.13"
+    "nock": "9.0.13",
+    "run-sequence": "^1.2.2"
   }
 }
