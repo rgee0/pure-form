@@ -4,7 +4,7 @@
   "description": "JSON Schema driven Form Web Component written in pure JavaScript",
   "main": "dev-server.js",
   "scripts": {
-    "start": "node dev-server.js",
+    "start": "node server/dev-server.js",
     "test": "jasmine-node test --verbose --color --forceexit --junitreport || true",
     "build": "node_modules/gulp/bin/gulp.js build",
     "clean": "node_modules/gulp/bin/gulp.js clean"
