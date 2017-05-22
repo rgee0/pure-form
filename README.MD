@@ -57,11 +57,11 @@ Although the Web Component standard includes support for HTML Imports and the Sh
 
 ## Reporting Bugs
 
-If you do find a bug, please create a [jsfiddle](https://jsfiddle.net) to replicate the error before raising an issue. Attach the jsfiddle as a link to the issue so I can replicate the error and work out a solution.
+If you find a bug, please create a [jsfiddle](https://jsfiddle.net) to replicate the error before raising an issue. Attach the jsfiddle as a link to the issue so I can replicate the error and work out a solution.
 
 ## Pull Requests
 
-If you submit a PR, please ensure you include unit tests where needed.
+If you submit a PR, please ensure you include unit tests.
 
 ## License
 
