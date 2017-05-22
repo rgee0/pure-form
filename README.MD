@@ -34,7 +34,7 @@ The following JavaScript properties are available:
 
 | Property | Type | Description |
 | :--- | :--- | :--- |
-| `.src` | string | Path to the JSON Schema that defines the form |
+| `.src` | _string_ | Path to the JSON Schema that defines the form |
 | `.schema` | _object_ | Schema object to use |
 | `.value` | _object_ | Object containing key/value pair of values |
 | `.createUrl` | _string_ | Url to post the form to when the user clicks Create |
