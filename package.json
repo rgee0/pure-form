@@ -7,7 +7,7 @@
     "test": "jasmine-node test --verbose --color --forceexit --junitreport || true"
   },
   "author": "John Doherty <contact@johndoherty.info> (www.johndoherty.info)",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "express": "4.15.3"
   },
