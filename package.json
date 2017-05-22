@@ -1,0 +1,19 @@
+{
+  "name": "pure-form",
+  "version": "1.0.0",
+  "description": "Pure JavaScript (ES5) Form",
+  "main": "server.js",
+  "scripts": {
+    "test": "jasmine-node test --verbose --color --forceexit --junitreport || true"
+  },
+  "author": "John Doherty <contact@johndoherty.info> (www.johndoherty.info)",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.15.3"
+  },
+  "devDependencies": {
+    "jasmine-node": "1.14.5",
+    "jsdom": "10.1.0",
+    "nock": "9.0.13"
+  }
+}

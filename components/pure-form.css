@@ -1,0 +1,155 @@
+pure-form {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: block;
+    position: relative;
+    padding: 20px;
+}
+
+pure-form:empty {
+    display: none;
+}
+
+pure-form .pure-form-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+}
+
+pure-form .pure-form-description {
+    margin: 0 0 10px 0;
+}
+
+pure-form form {
+    padding: 0;
+    display: block;
+    margin: 0;
+    overflow: auto;
+}
+
+pure-form form:empty {
+    text-align: center;
+}
+
+pure-form form:empty:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(200,200,200,0.2);
+}
+
+pure-form form:empty:after {
+    content: "Loading, please wait...";
+    color: #666;
+}
+
+pure-form .pure-form-title {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+pure-form .pure-form-label {
+    display: block;
+    margin: 10px 0;
+    position: relative;
+    clear: both;
+    float: none;
+    overflow: auto;
+}
+
+pure-form .pure-form-label[data-required=true] .pure-form-label-text:after {
+    content: " * ";
+    color: #800;
+    font-size: 12px;
+    vertical-align: top;
+}
+
+pure-form .pure-form-label-text {
+    display: inline-block;
+    padding: 10px 10px 10px 0;
+    min-width: 160px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+pure-form .pure-form-item-description {
+    display: block;
+    font-size: 12px;
+    color: #888;
+    text-align: right;
+    padding: 4px 2px 14px 0;
+    width: calc(100% - 180px);
+    float: right;
+}
+
+pure-form input[type=password], 
+pure-form input[type=email], 
+pure-form input[type=url], 
+pure-form input[type=date], 
+pure-form input[type=month], 
+pure-form input[type=time], 
+pure-form input[type=datetime], 
+pure-form input[type=datetime-local], 
+pure-form input[type=week], 
+pure-form input[type=tel], 
+pure-form input[type=color], 
+pure-form input[type=number], 
+pure-form input[type=search], 
+pure-form input[type=text], 
+pure-form select, 
+pure-form textarea {
+    padding: 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 0px 1px #ddd;
+    border-radius: 2px;
+    vertical-align: middle;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-appearance: none;
+    font-size: 14px;
+    vertical-align: middle;
+    width: calc(100% - 170px);
+}
+
+pure-form select {
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMnB4IiBoZWlnaHQ9IjMycHgiIHZpZXdCb3g9IjAgMCA5NiAxMDAiPjxwb2x5Z29uIHBvaW50cz0iNDggNzAuNDIgOC41IDMwLjkzIDEyLjA3IDI3LjM2IDQ4IDYzLjI5IDgzLjkzIDI3LjM2IDg3LjUgMzAuOTMgNDggNzAuNDIiLz48L3N2Zz4=');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 8px) center;
+    background-size: 24px;
+    cursor: pointer;
+}
+
+pure-form .pure-form-buttons {
+    display: block;
+    clear: both;
+    text-align: right;
+}
+
+pure-form .pure-form-button {
+    padding: 10px 20px;
+    display: inline-block;
+    background-color: #0078e7;
+    color: #fff;
+    font-size: 14px;
+    vertical-align: middle;
+    border-radius: 2px;
+    border: 1px solid #006acc;
+    cursor: pointer;
+    margin: 0 10px 0 0;
+}
+
+pure-form .pure-form-button:first-child {
+    margin-left: 0;
+}
+
+pure-form .pure-form-button:last-child {
+    margin-right: 0;
+}
+
+pure-form ::-webkit-input-placeholder { font-size: 14px; }
+pure-form ::-moz-placeholder  { font-size: 14px; }
