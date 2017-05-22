@@ -125,6 +125,10 @@
         }
     });
 
+    /*----------------*/
+    /* PUBLIC METHODS */
+    /*----------------*/
+
     proto.loadSchema = function () {
 
         var self = this;
@@ -206,6 +210,137 @@
             } break;
         }
     };
+
+    proto.clearValidationErrors = function () {
+
+        // clear previous validation errors
+        this.form.removeAttribute('data-error');
+
+        Array.prototype.slice.call(this.querySelectorAll('[data-error]')).forEach(function (item) {
+            item.removeAttribute('data-error');
+        });
+    };
+
+    proto.setError = function (fieldName, error) {
+        if (error !== '') {
+
+            var el = this.querySelector('[name="' + fieldName + '"]');
+
+            if (el) {
+                // mark field as invalid
+                el.setAttribute('data-invalid', 'true');
+                el.parentNode.setAttribute('data-error', error);
+                //el.focus();
+            }
+        }
+    };
+
+    proto.clearError = function (fieldName) {
+
+        var el = this.querySelector('[name="' + fieldName + '"]');
+
+        if (el) {
+            el.removeAttribute('data-invalid');
+            el.parentNode.removeAttribute('data-error');
+        }
+    };
+
+    /**
+     * Executes validation for an individual field
+     * @param {string} key - id of field to validate
+     * @param {object} value - value to test against schema
+     */
+    proto.validateField = function (key, value) {
+
+        // create fake data object
+        var dataItem = {};
+
+        // populate key
+        dataItem[key] = value;
+
+        // execute regular form validation but passing a single property to test
+        this.isValid(dataItem);
+    };
+
+    /**
+     * Returns true if form data is valid, otherwise false
+     * Also updates the UI with any validation errors
+     */
+    proto.isValid = function (data) {
+
+        // if validation has been disabled (for example, the Form Builder doesn't want/need it)
+        if (this.disableValidation) return true;
+
+        // if a data object is not passed, get the current values
+        data = data || getData.call(this);
+
+        var self = this;
+        var schema = this.schema;
+        var valid = true;
+
+        Object.keys(data).forEach(function(key) {
+
+            // if the item has a regex patter, grab the raw string - we do this because parseInt strips zero's
+            var inputEl = self.querySelector('[name="' + key + '"]');
+            var value = (schema.properties[key].pattern) ? inputEl && inputEl.value || data[key] : data[key];
+
+            var error = validateAgainstSchema(schema, key, value);
+
+            if (error) {
+                self.setError(key, error);
+                valid = false;
+            }
+            else {
+                self.clearError(key);
+            }
+        });
+
+        // update session stored form data
+        if (this.persist && window.sessionStorage) {
+            sessionStorage[this.src] = JSON.stringify(getRawData.call(this));
+        }
+
+        return valid;
+    };
+
+    /**
+     * Event handler fired when a record is created (return true to continue with next step)
+     * @param {object} data - json data that was sent to the server
+     * @param {object} next - next hateoas link returned from creation (if present)
+     */
+    proto.oncreate = function (data, next) {
+        return true;
+    };
+
+    /**
+     * Event handler fired when a record is update (return true to continue with next step)
+     * @param {object} data - json data that was sent to the server
+     * @param {object} next - next hateoas link returned from update (if present)
+     */
+    proto.onupdate = function (data, next) {
+        return true;
+    };
+
+    proto.onbuttonclick = function (label) {
+        return true;
+    };
+
+    proto.onpopulatecomplete = function () {
+        return true;
+    };
+
+    /**
+     * Event handler fired when a schema loads
+     * @param {string} schemaTitle - .title from loaded schema
+     * @param {object} schema - actual loaded schema
+     */
+    proto.onschemaloaded = function (schemaTitle, schema) {
+
+    };
+
+    /*-----------------*/
+    /* PRIVATE METHODS */
+    /*-----------------*/
 
     /**
      * Builds the HTML form based on the value of the assigned JSON .schema object
@@ -527,98 +662,6 @@
         return formData;
     };
 
-    proto.clearValidationErrors = function () {
-
-        // clear previous validation errors
-        this.form.removeAttribute('data-error');
-
-        Array.prototype.slice.call(this.querySelectorAll('[data-error]')).forEach(function (item) {
-            item.removeAttribute('data-error');
-        });
-    };
-
-    proto.setError = function (fieldName, error) {
-        if (error !== '') {
-
-            var el = this.querySelector('[name="' + fieldName + '"]');
-
-            if (el) {
-                // mark field as invalid
-                el.setAttribute('data-invalid', 'true');
-                el.parentNode.setAttribute('data-error', error);
-                //el.focus();
-            }
-        }
-    };
-
-    proto.clearError = function (fieldName) {
-
-        var el = this.querySelector('[name="' + fieldName + '"]');
-
-        if (el) {
-            el.removeAttribute('data-invalid');
-            el.parentNode.removeAttribute('data-error');
-        }
-    };
-
-    /**
-     * Executes validation for an individual field
-     * @param {string} key - id of field to validate
-     * @param {object} value - value to test against schema
-     */
-    proto.validateField = function (key, value) {
-
-        // create fake data object
-        var dataItem = {};
-
-        // populate key
-        dataItem[key] = value;
-
-        // execute regular form validation but passing a single property to test
-        this.isValid(dataItem);
-    };
-
-    /**
-     * Returns true if form data is valid, otherwise false
-     * Also updates the UI with any validation errors
-     */
-    proto.isValid = function (data) {
-
-        // if validation has been disabled (for example, the Form Builder doesn't want/need it)
-        if (this.disableValidation) return true;
-
-        // if a data object is not passed, get the current values
-        data = data || getData.call(this);
-
-        var self = this;
-        var schema = this.schema;
-        var valid = true;
-
-        Object.keys(data).forEach(function(key) {
-
-            // if the item has a regex patter, grab the raw string - we do this because parseInt strips zero's
-            var inputEl = self.querySelector('[name="' + key + '"]');
-            var value = (schema.properties[key].pattern) ? inputEl && inputEl.value || data[key] : data[key];
-
-            var error = validateAgainstSchema(schema, key, value);
-
-            if (error) {
-                self.setError(key, error);
-                valid = false;
-            }
-            else {
-                self.clearError(key);
-            }
-        });
-
-        // update session stored form data
-        if (this.persist && window.sessionStorage) {
-            sessionStorage[this.src] = JSON.stringify(getRawData.call(this));
-        }
-
-        return valid;
-    };
-
     /**
      * Saves the form data back to the server
      * @access Private
@@ -686,41 +729,6 @@
         else {
             self.onsave.call(self, formData);
         }
-    };
-
-    /**
-     * Event handler fired when a record is created (return true to continue with next step)
-     * @param {object} data - json data that was sent to the server
-     * @param {object} next - next hateoas link returned from creation (if present)
-     */
-    proto.oncreate = function (data, next) {
-        return true;
-    };
-
-    /**
-     * Event handler fired when a record is update (return true to continue with next step)
-     * @param {object} data - json data that was sent to the server
-     * @param {object} next - next hateoas link returned from update (if present)
-     */
-    proto.onupdate = function (data, next) {
-        return true;
-    };
-
-    proto.onbuttonclick = function (label) {
-        return true;
-    };
-
-    proto.onpopulatecomplete = function () {
-        return true;
-    };
-
-    /**
-     * Event handler fired when a schema loads
-     * @param {string} schemaTitle - .title from loaded schema
-     * @param {object} schema - actual loaded schema
-     */
-    proto.onschemaloaded = function (schemaTitle, schema) {
-
     };
 
     /**
@@ -828,6 +836,8 @@
         return el;
     };
 
+
+    /*----------------*/
     /* HELPER METHODS */
     /*----------------*/
 
