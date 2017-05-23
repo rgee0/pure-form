@@ -1,5 +1,5 @@
 /*!
- * @summary JSON Schema driven Form Web Component written in pure JavaScript
+ * @summary JSON Schema driven Form written in pure JavaScript as a Web Component
  * @author John Doherty <www.johndoherty.info>
  * @copyright John Doherty 2017
  * @license MIT
