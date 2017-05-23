@@ -122,6 +122,14 @@
             set: function (value) {
                 this.setAttribute('disable-validation', value === true);
             }
+        },
+        placeholderMaxLength: {
+            get: function () {
+                return parseInt(this.getAttribute('placeholder-maxlength') || '75');
+            },
+            set: function (value) {
+                this.setAttribute('placeholder-maxlength', value);
+            }
         }
     });
 
