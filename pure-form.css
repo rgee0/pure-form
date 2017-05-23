@@ -79,25 +79,6 @@ pure-form .pure-form-label[data-error] .pure-form-label {
     color: #a94442;
 }
 
-pure-form .pure-form-label[data-error] input[type=password], 
-pure-form .pure-form-label[data-error] input[type=email], 
-pure-form .pure-form-label[data-error] input[type=url], 
-pure-form .pure-form-label[data-error] input[type=date], 
-pure-form .pure-form-label[data-error] input[type=month], 
-pure-form .pure-form-label[data-error] input[type=time], 
-pure-form .pure-form-label[data-error] input[type=datetime], 
-pure-form .pure-form-label[data-error] input[type=datetime-local], 
-pure-form .pure-form-label[data-error] input[type=week], 
-pure-form .pure-form-label[data-error] input[type=tel], 
-pure-form .pure-form-label[data-error] input[type=color], 
-pure-form .pure-form-label[data-error] input[type=number], 
-pure-form .pure-form-label[data-error] input[type=search], 
-pure-form .pure-form-label[data-error] input[type=text], 
-pure-form .pure-form-label[data-error] select, 
-pure-form .pure-form-label[data-error] textarea {
-    /*border-color: #a94442;*/
-}
-
 pure-form .pure-form-label[data-error]:after {
     content: attr(data-error);
     font-size: 12px;
