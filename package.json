@@ -12,8 +12,8 @@
   "author": "John Doherty <contact@johndoherty.info> (www.johndoherty.info)",
   "license": "MIT",
   "devDependencies": {
-    "express": "4.15.3",
     "del": "2.2.2",
+    "express": "4.15.3",
     "gulp": "3.9.1",
     "gulp-clean-css": "3.3.1",
     "gulp-minify": "1.0.0",

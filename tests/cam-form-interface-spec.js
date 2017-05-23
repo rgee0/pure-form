@@ -1,9 +1,7 @@
 "use strict";
 
 var jsdom = require('jsdom');
-var nock = require('nock');
 var path = require('path');
-var fs = require('fs');
 
 var document = null;
 var window = null;
