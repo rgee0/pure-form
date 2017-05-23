@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 var minifyJs = require('gulp-minify');
 var cleanCSS = require('gulp-clean-css');
+var gulpCssDataUri = require('gulp-css-base64');
 var rename = require('gulp-rename');
 var del = require('del');
 var runSequence = require('run-sequence');
@@ -27,6 +28,10 @@ gulp.task('build-js', function() {
 
 gulp.task('build-css', function () {
   return gulp.src('./pure-form.css')
+    .pipe(gulpCssDataUri({
+        baseDir: "img",
+        extensionsAllowed: ['.gif', '.png', '.svg']
+    }))
     .pipe(cleanCSS({
         inline: 'local',
         compatibility: 'ie9',
