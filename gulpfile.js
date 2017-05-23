@@ -28,14 +28,14 @@ gulp.task('build-js', function() {
 
 gulp.task('build-css', function () {
   return gulp.src('./pure-form.css')
-    .pipe(gulpCssDataUri({
-        baseDir: "img",
-        extensionsAllowed: ['.gif', '.png', '.svg']
-    }))
     .pipe(cleanCSS({
         inline: 'local',
         compatibility: 'ie9',
         specialComments: true
+    }))
+    .pipe(gulpCssDataUri({
+        baseDir: "img",
+        extensionsAllowed: ['.gif', '.png', '.svg']
     }))
     .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('dist'));
