@@ -440,8 +440,8 @@
                         // add input to form label
                         lbl.appendChild(inputEl);
 
-                        if (item.description) {
-                            // inject as text
+                        if (item.description && item.description.length > this.placeholderMaxLength) {
+                            // description is too long to render as placeholder, insert below input
                             createEl(lbl, 'span', { class: 'pure-form-item-description' }, item.description || '');
                         }
 
@@ -850,16 +850,18 @@
             if (item.maxLength) el.setAttribute('maxlength', item.maxLength);
             if (item.minItems) el.setAttribute('min-items', item.minItems);
             if (item.maxItems) el.setAttribute('max-items', item.maxItems);
-            if (item.description) el.setAttribute('placeholder', item.description || '');
+            if (item.description && item.description.length < this.placeholderMaxLength) {
+                el.setAttribute('placeholder', item.description || '');
+            }
         }
 
         return el;
     };
 
 
-    /*----------------*/
-    /* HELPER METHODS */
-    /*----------------*/
+    /*------------------------*/
+    /* PRIVATE HELPER METHODS */
+    /*------------------------*/
 
     /**
     * Creates, configures & optionally inserts DOM elements via one function call
