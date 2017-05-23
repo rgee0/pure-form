@@ -158,12 +158,3 @@ If you submit a PR, please ensure you include unit tests.
 ## License
 
 Licensed under [MIT License](LICENSE) &copy; [John Doherty](http://www.johndoherty.info)
-
-
-## TODO:
-
- * Added gulp build step to inline images as data uri's
- * Added list of methods to readme
- * Create typical web forms ideally convering all json schema types
- * Git add more render tests
- * 
