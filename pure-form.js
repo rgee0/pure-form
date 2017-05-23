@@ -169,20 +169,19 @@
     };
 
     /**
-     * Executes when the element is first created
+     * Executes when created, fires attributeChangedCallback for each attribute set
+     * @access Private
+     * @returns {void}
      */
     proto.createdCallback = function () {
 
         var self = this;
+        var attributes = Array.prototype.slice.call(self.attributes);
 
-        this.readonly = false;
-    };
-
-    proto.attachedCallback = function () {
-
-        if (this.src) {
-            this.loadSchema();
-        }
+        // ensure current attributes are set
+        attributes.forEach(function(item) {
+            self.attributeChangedCallback(item.name, null, item.value);
+        });
     };
 
     /**
