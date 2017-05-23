@@ -13,7 +13,7 @@ gulp.task('clean', function (callback) {
 });
 
 gulp.task('build-js', function() {
-  return gulp.src('./pure-form.js')
+  return gulp.src('./src/pure-form.js')
     .pipe(minifyJs({
         noSource: true,
         ext:{
@@ -27,14 +27,14 @@ gulp.task('build-js', function() {
 
 
 gulp.task('build-css', function () {
-  return gulp.src('./pure-form.css')
+  return gulp.src('./src/pure-form.css')
     .pipe(cleanCSS({
         inline: 'local',
         compatibility: 'ie9',
         specialComments: true
     }))
     .pipe(gulpCssDataUri({
-        baseDir: "img",
+        //baseDir: "src/img",
         extensionsAllowed: ['.gif', '.png', '.svg']
     }))
     .pipe(rename({suffix: '.min'}))

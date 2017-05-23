@@ -109,7 +109,7 @@ pure-form input[type=text][data-valid="true"],
 pure-form select[data-valid="true"], 
 pure-form textarea[data-valid="true"] {
     border-color: #3c763d;
-    background-image: url('../img/pure-form-icon-valid.svg');
+    background-image: url('img/pure-form-icon-valid.svg');
     background-repeat: no-repeat;
     background-position: calc(100% - 4px) center;
     background-size: 34px;
@@ -132,7 +132,7 @@ pure-form input[type=text][data-valid="false"],
 pure-form select[data-valid="false"], 
 pure-form textarea[data-valid="false"] {
     border-color: #a94442;
-    background-image: url('../img/pure-form-icon-invalid.svg');
+    background-image: url('img/pure-form-icon-invalid.svg');
     background-repeat: no-repeat;
     background-position: calc(100% - 4px) center;
     background-size: 34px;
