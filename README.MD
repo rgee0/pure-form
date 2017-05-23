@@ -2,6 +2,8 @@
 
 [![Linked In](https://img.shields.io/badge/Linked-In-blue.svg)](https://www.linkedin.com/in/john-i-doherty) [![Twitter Follow](https://img.shields.io/twitter/follow/CambridgeMVP.svg?style=social&label=Twitter&style=plastic)](https://twitter.com/CambridgeMVP)
 
+<!--JSON Schema driven Form written in pure JavaScript as a Web Component-->
+
 A pure JavaScript Web Component that creates and validates a web form using a JSON Schema.
 
 ## Usage
@@ -9,7 +11,7 @@ A pure JavaScript Web Component that creates and validates a web form using a JS
 Pure form can be created using `document.createElement('pure-form')`, or by include it in your page:
 
 ```html
-<pure-form src="contact-form.json" buttons="Send" />
+<pure-form src="schemas/contact-form.json" buttons="Cancel, Save"></pure-form>
 ```
 
 If the `contact-form.json` contained the following JSON Schema (v3)
