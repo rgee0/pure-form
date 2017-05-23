@@ -211,11 +211,11 @@
                 renderDescription.call(this);
             } break;
 
-            // can't add .schema or .value as they are properties not attributes
-
             case 'buttons': { 
                 renderButtons.call(this);
             } break;
+
+            // NOTE: .schema & .value are properties not attributes!
         }
     };
 
@@ -880,7 +880,6 @@
         if (attrs) {
             for (key in attrs) {
                 if (key === "class") { el.className = attrs[key]; }                 // assign className
-                else if (key === 'style') { el.setAttribute('style', attrs[key]); } // assign styles
                 else if (key === "id") { el.id = attrs[key]; }                      // assign id
                 else if (key === "name") { el.setAttribute(key, attrs[key]); }      // assign name attribute, even for customEl
                 else if (customEl || (key in el)) { el[key] = attrs[key]; }         // assign object properties
@@ -898,6 +897,12 @@
         return el;
     }
 
+    /**
+     * Converts a string containing HTML into a DOM element with childre
+     * @param {string} src - string containing HTML
+     * @param {HTMLElement} parent 
+     * @returns 
+     */
     function stringToDOM(src, parent) {
 
         parent = parent || document.createDocumentFragment();
@@ -1115,7 +1120,7 @@
         return ((pattern.constructor !== RegExp) ? new RegExp(pattern, "gm") : pattern).test(src);
     };
 
-    if (document.registerElement){
+    if (document.registerElement) {
         // register component with the dom
         document.registerElement(componentName, { prototype: proto });
     }
