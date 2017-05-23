@@ -229,26 +229,23 @@
         });
     };
 
-    proto.setError = function (fieldName, error) {
-        if (error !== '') {
-
-            var el = this.querySelector('[name="' + fieldName + '"]');
-
-            if (el) {
-                // mark field as invalid
-                el.setAttribute('data-invalid', 'true');
-                el.parentNode.setAttribute('data-error', error);
-                //el.focus();
-            }
-        }
-    };
-
-    proto.clearError = function (fieldName) {
+    proto.setInvalid = function (fieldName, error) {
 
         var el = this.querySelector('[name="' + fieldName + '"]');
 
         if (el) {
-            el.removeAttribute('data-invalid');
+            // mark field as invalid
+            el.setAttribute('data-valid', 'false');
+            el.parentNode.setAttribute('data-error', error);
+        }
+    };
+
+    proto.setValid = function (fieldName) {
+
+        var el = this.querySelector('[name="' + fieldName + '"]');
+
+        if (el) {
+            el.setAttribute('data-valid', 'true');
             el.parentNode.removeAttribute('data-error');
         }
     };
@@ -295,11 +292,11 @@
             var error = validateAgainstSchema(schema, key, value);
 
             if (error) {
-                self.setError(key, error);
+                self.setInvalid(key, error);
                 valid = false;
             }
             else {
-                self.clearError(key);
+                self.setValid(key);
             }
         });
 
@@ -428,7 +425,7 @@
                             inputEl.setAttribute('autofocus', 'true');
                         }
 
-                        // validate on blur
+                        // validate on blur (only for visible elements)
                         inputEl.onblur = function () {
                             self.validateField(this.id, this.value);
                         };
