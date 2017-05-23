@@ -10,6 +10,11 @@
 
     var componentName = 'pure-form';
 
+    // regex patterns
+    var patterns = {
+        email: "^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$",
+    }
+
     // Create a new instance of the base object with these additional items
     var proto = Object.create(base, {
         src: {
@@ -824,6 +829,10 @@
                             el = createEl(null, 'input', { name: id, id: id, type: 'date', value: '' });
                         } break;
 
+                        case 'email': {
+                            el = createEl(null, 'input', { name: id, id: id, type: 'email', pattern: patterns.email, value: '' });
+                        } break;
+
                         default: {
                             el = createEl(null, 'input', { name: id, id: id, type: 'text', value: '' });
                         }
@@ -943,10 +952,14 @@
         // TODO: Add support for the following
         // exclusiveMiimum, exclusiveMaximum (number)
 
-        var schemaItem = getPropertyByPath(schema, prop, true),
-            valLen = (value + '').length;
+        var schemaItem = getPropertyByPath(schema, prop, true);
+        var valLen = (value + '').length;
 
         if (schemaItem) {
+
+            if (value && schemaItem.type === 'string' && schemaItem.format === 'email' && !regExMatches(value.toString(), patterns.email)) {
+                return 'Invalid email address';
+            }
 
             // check required status
             if (schemaItem.required && (!value || (Array.isArray(value) && value.length <= 0))) {
@@ -1114,7 +1127,7 @@
      * @param {string|RegExp} pattern to match
      */
     function regExMatches(src, pattern) {
-        return ((pattern.constructor !== RegExp) ? new RegExp(pattern, "gm") : pattern).test(src);
+        return ((pattern.constructor !== RegExp) ? new RegExp(pattern, "g") : pattern).test(src);
     };
 
     if (document.registerElement) {

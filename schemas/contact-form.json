@@ -36,6 +36,13 @@
       "title": "Email",
       "id": "order:040",
       "type": "string",
+      "format": "email",
+      "required": true
+    },
+    "message": {
+      "title": "Message",
+      "id": "order:050",
+      "type": "string",
       "format": "textarea",
       "required": true
     }
