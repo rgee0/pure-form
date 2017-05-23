@@ -47,11 +47,30 @@ describe('pure-form interface', function () {
         expect(el.tagName).toEqual('PURE-FORM');
     });
 
+
+    it('should expose properties with correct types', function() {
+
+        var el = document.createElement('pure-form');
+
+        expect(typeof el.src).toEqual('string');
+        expect(typeof el.schema).toEqual('object');
+        expect(typeof el.value).toEqual('object');
+        expect(typeof el.createUrl).toEqual('string');
+        expect(typeof el.updateUrl).toEqual('string');
+        expect(typeof el.readonly).toEqual('boolean');
+        expect(typeof el.title).toEqual('string');
+        expect(typeof el.description).toEqual('string');
+        expect(Array.isArray(el.buttons)).toEqual(true);
+        expect(typeof el.persist).toEqual('boolean');
+        expect(typeof el.disableValidation).toEqual('boolean');
+        expect(typeof el.placeholderMaxLength).toEqual('number');
+    });
+
+
     it('should expose properties with defaults', function() {
 
         var el = document.createElement('pure-form');
 
-        // properties
         expect(el.src).toEqual('');
         expect(el.schema).toEqual(null);
         expect(JSON.stringify(el.value)).toEqual('{}');
