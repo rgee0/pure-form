@@ -32,16 +32,21 @@
       "required": true,
       "description": "Family name"
     },
-    "dateOfBirth": {
+    "email": {
       "title": "Email",
       "id": "order:040",
       "type": "string",
       "format": "email",
       "required": true
     },
+    "phone": {
+      "title": "Telephone",
+      "id": "order:050",
+      "type": "string"
+    },
     "message": {
       "title": "Message",
-      "id": "order:050",
+      "id": "order:060",
       "type": "string",
       "format": "textarea",
       "required": true
