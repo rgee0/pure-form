@@ -63,6 +63,7 @@ describe('pure-form interface', function () {
         expect(el.buttons.length).toEqual(0);
         expect(el.persist).toEqual(false);
         expect(el.disableValidation).toEqual(false);
+        expect(el.placeholderMaxLength).toEqual(75);
     });
 
     it('should expose public methods', function(){
