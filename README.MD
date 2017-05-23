@@ -109,6 +109,7 @@ The following HTML attributes are can be set directly on the pure-form tag withi
 | `buttons` | Comma separated list of button labels
 | `persist` | Partially completed forms survive refreshes _(until browser is closed)_
 | `disable-validation` | Disables all form validation
+| `placeholder-maxlength` | Max description length to be used as placeholder, values greater than are inlined
 
 ### Properties
 
@@ -127,6 +128,7 @@ The following JavaScript properties are available:
 | `.buttons` | _string_ | Comma separated list of button labels |
 | `.persist` | _boolean_ | Partially completed forms survive refreshes _(until browser is closed)_ |
 | `.disableValidation` | _boolean_ | Disables all form validation |
+| `.placeholderMaxLength` | _boolean_ | Max description length to be used as placeholder, values greater than are inlined
 
 
 ### Methods
