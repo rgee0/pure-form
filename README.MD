@@ -133,6 +133,14 @@ The following JavaScript properties are available:
 
 TODO: add methods
 
+### Events
+
+TODO: add events
+
+### Data Types
+
+TODO: add schema data type/format to html type
+
 ## Web Components & Browser Compatibility
 
 Although the Web Component standard includes support for HTML Imports and the Shadow DOM, these features are difficult to polyfill for older browsers such as Internet Explorer and have a negative impact on rendering performance. For these reasons I choose to use only the core concept of Web Components ```document.registerElement```. A method that can be [polyfilled](https://github.com/WebReflection/document-register-element) back to IE8.
