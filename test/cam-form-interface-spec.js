@@ -66,15 +66,15 @@ describe('pure-form interface', function () {
         expect(el.placeholderMaxLength).toEqual(75);
     });
 
-    it('should expose public methods', function(){
+
+    it('should expose public methods', function() {
 
         var el = document.createElement('pure-form');
 
-        // methods
         expect(typeof el.loadSchema).toEqual('function');
         expect(typeof el.clearValidationErrors).toEqual('function');
-        expect(typeof el.setError).toEqual('function');
-        expect(typeof el.clearError).toEqual('function');
+        expect(typeof el.setInvalid).toEqual('function');
+        expect(typeof el.setValid).toEqual('function');
         expect(typeof el.validateField).toEqual('function');
         expect(typeof el.isValid).toEqual('function');
     });
@@ -83,7 +83,6 @@ describe('pure-form interface', function () {
 
         var el = document.createElement('pure-form');
 
-        // methods
         expect(el.regExMatches).not.toBeDefined();
         expect(el.arrayWhere).not.toBeDefined();
         expect(el.newGuid).not.toBeDefined();
