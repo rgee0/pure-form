@@ -8,7 +8,7 @@ var fs = require('fs');
 var document = null;
 var window = null;
 
-describe('pure-form lifecycle', function () {
+describe('pure-form rendering', function () {
 
     // create a new browser instance before each test
     beforeEach(function (done) {
