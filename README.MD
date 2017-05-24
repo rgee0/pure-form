@@ -8,7 +8,7 @@ A pure JavaScript Web Component that creates and validates a web form using a JS
 
 ## Usage
 
-Pure form can be created using `document.createElement('pure-form')`, or by include it just like regular markup within your page:
+`pure-form` can be created using `document.createElement('pure-form')`, or by include it just like regular markup within your page:
 
 ```html
 <pure-form src="schemas/contact-form.json" buttons="Cancel, Save"></pure-form>
