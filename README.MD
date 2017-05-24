@@ -96,7 +96,7 @@ The component would generate the following:
 
 ### Attributes
 
-The following HTML attributes are can be set directly on the pure-form tag within your page or via `.setAttribute(key, value)`
+The attributes can be written directly onto the pure-form tag or set via JavaScript using `.setAttribute(key, value)`
 
 | Attribute | Description |
 | :--- |  :--- |
