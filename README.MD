@@ -73,7 +73,7 @@ A JSON Schema (v3) is used to define the forms input requirements and validation
 }
 ```
 
-The `pure-form` would construct and render the following content:
+The Pure Form component would construct and render the following content:
 
 ```html
 <pure-form src="schemas/contact-form.json" buttons="Send" title="Contact Us" description="Got a question? Get in touch!">
