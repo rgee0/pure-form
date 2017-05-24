@@ -88,7 +88,6 @@ describe('pure-form interface', function () {
 
         var el = document.createElement('pure-form');
 
-        expect(typeof el.loadSchema).toEqual('function');
         expect(typeof el.clearValidationErrors).toEqual('function');
         expect(typeof el.setInvalid).toEqual('function');
         expect(typeof el.setValid).toEqual('function');
