@@ -96,9 +96,9 @@ The component would generate the following:
 
 ### Attributes
 
-The following HTML attributes are can be set directly on the pure-form tag within your page:
+The following HTML attributes are can be set directly on the pure-form tag within your page or via `.setAttribute(key, value)`
 
-| Property | Description |
+| Attribute | Description |
 | :--- |  :--- |
 | `src`  | Path to the JSON Schema that defines the form |
 | `create-url` | Url to post the form to when the user clicks Create
@@ -133,7 +133,14 @@ The following JavaScript properties are available:
 
 ### Methods
 
-TODO: add methods
+| Method | Returns | Description |
+| :--- | :--- | :--- |
+| `.clearValidationErrors()` | - | Clear all form validation error messages |
+| `.setInvalid(fieldName, error)` | - | Sets a form field to invalid |
+| `.setValid(fieldName)` | - | Sets a form field to valid |
+| `.validateField((key, value)` | _Boolean_ | **Checks if a key/value is valid against the schema |
+| `.isValid()` | _boolean_ | **Checks if the entire form is valid |
+
 
 ### Events
 

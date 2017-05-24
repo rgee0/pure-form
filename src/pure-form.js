@@ -210,25 +210,25 @@
     };
 
     /**
-     * Sets a form field as invalid
+     * Sets a form field to invalid
      * @access public
      * @param {string} fieldName - name of the element to set error on
-     * @param {string} error - string containing error message to set
+     * @param {string} errorMessage - error message to set on the element
      * @returns {void}
      */
-    proto.setInvalid = function (fieldName, error) {
+    proto.setInvalid = function (fieldName, errorMessage) {
 
         var el = this.querySelector('[name="' + fieldName + '"]');
 
         if (el) {
             // mark field as invalid
             el.setAttribute('data-valid', 'false');
-            el.parentNode.setAttribute('data-error', error);
+            el.parentNode.setAttribute('data-error', errorMessage);
         }
     };
 
     /**
-     * Set's a form item as valid
+     * Sets a form field to valid
      * @access public
      * @param {string} fieldName - name of the element to set valid
      * @returns {void}
@@ -244,11 +244,11 @@
     };
 
     /**
-     * Executes validation for an individual field
+     * Checks if a key/value is valid against the schema
      * @access public
      * @param {string} key - id of field to validate
      * @param {object} value - value to test against schema
-     * @returns {void}
+     * @returns {boolean} true if valid, otherwise false
      */
     proto.validateField = function (key, value) {
 
@@ -259,7 +259,7 @@
         dataItem[key] = value;
 
         // execute regular form validation but passing a single property to test
-        this.isValid(dataItem);
+        return this.isValid(dataItem);
     };
 
     /**
