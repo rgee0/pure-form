@@ -1,10 +1,11 @@
 /*!
- * @summary JSON Schema driven Form written in pure JavaScript as a Web Component
+ * pure-form - v@version@
+ * JSON Schema driven Form written in pure JavaScript as a Web Component
+ * https://github.com/john-doherty/pure-form
  * @author John Doherty <www.johndoherty.info>
- * @copyright John Doherty 2017
  * @license MIT
  */
-function (base, window, document) {
+(function (base, window, document) {
 
     'use strict';
 
@@ -1149,4 +1150,4 @@ function (base, window, document) {
         throw new Error('document.registerElement does not exist. Are you missing the polyfill?');
     }
 
-}(HTMLElement.prototype, this, document);
+})(HTMLElement.prototype, this, document);
