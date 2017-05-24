@@ -382,7 +382,7 @@
 
                 // hook form submit event
                 this.form.onsubmit = function (e) {
-                    cancelEvent(e);
+                    e.preventDefault();
                     save.call(self);
                 };
             }
@@ -544,7 +544,7 @@
 
                 // bubble click event passing button display value to external handler
                 button.onclick = function (e) {
-                    cancelEvent(e);
+                    e.preventDefault();
                     self.onbuttonclick.call(self, this.value);
                 };
             }
@@ -943,21 +943,6 @@
     }
 
     /**
-    * Cancels the current event
-    * @access private
-    * @param {object} e - browser event object
-    * @returns {void}
-    */
-    function cancelEvent(e) {
-        e = e || window.event;
-
-        if (e) {
-            e.returnValue = false;
-            e.cancelBubble = true;
-            if (typeof (e.preventDefault) === "function") { e.preventDefault(); }
-            if (typeof (e.stopPropagation) === "function") { e.stopPropagation(); }
-        }
-    }
 
     function validateAgainstSchema(schema, prop, value) {
 
