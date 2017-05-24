@@ -4,9 +4,9 @@
  * @copyright John Doherty 2017
  * @license MIT
  */
-(function (base, window, document) {
+function (base, window, document) {
 
-    "use strict";
+    'use strict';
 
     var componentName = 'pure-form';
 
@@ -259,6 +259,7 @@
      * Executes validation for an individual field
      * @param {string} key - id of field to validate
      * @param {object} value - value to test against schema
+     * @returns {void}
      */
     proto.validateField = function (key, value) {
 
@@ -273,8 +274,9 @@
     };
 
     /**
-     * Returns true if form data is valid, otherwise false
-     * Also updates the UI with any validation errors
+     * Validates either the passed in object or current form data against the schema
+     * @param {object} [data] - key/value data object to check against schema
+     * @returns {boolean} true if valid otherwise false
      */
     proto.isValid = function (data) {
 
@@ -314,9 +316,10 @@
     };
 
     /**
-     * Event handler fired when a record is created (return true to continue with next step)
+     * Event handler fired when a record is created (override and return true to continue with next step)
      * @param {object} data - json data that was sent to the server
      * @param {object} next - next hateoas link returned from creation (if present)
+     * @returns {boolean} return true to load the next link if returned, otherwise false
      */
     proto.oncreate = function (data, next) {
         return true;
@@ -326,6 +329,7 @@
      * Event handler fired when a record is update (return true to continue with next step)
      * @param {object} data - json data that was sent to the server
      * @param {object} next - next hateoas link returned from update (if present)
+     * @returns {boolean}
      */
     proto.onupdate = function (data, next) {
         return true;
@@ -343,6 +347,7 @@
      * Event handler fired when a schema loads
      * @param {string} schemaTitle - .title from loaded schema
      * @param {object} schema - actual loaded schema
+     * @returns {void}
      */
     proto.onschemaloaded = function (schemaTitle, schema) {
 
@@ -354,6 +359,7 @@
 
     /**
      * Builds the HTML form based on the value of the assigned JSON .schema object
+     * @returns {void}
      */
     function renderForm() {
 
@@ -477,7 +483,7 @@
 
     /**
      * Adds .title value to the component
-     * @access Private
+     * @access private
      * @returns {void}
      */
     function renderTitle() {
@@ -495,7 +501,7 @@
 
     /**
      * Adds .description value to the component
-     * @access Private
+     * @access private
      * @returns {void}
      */
     function renderDescription() {
@@ -513,7 +519,7 @@
 
     /**
      * Adds a button to the form for each item in .buttons property
-     * @access Private
+     * @access private
      * @returns {void}
      */
     function renderButtons() {
@@ -674,7 +680,7 @@
 
     /**
      * Saves the form data back to the server
-     * @access Private
+     * @access private
      * @returns {void}
      */
     function save() {
@@ -739,11 +745,11 @@
         else {
             self.onsave.call(self, formData);
         }
-    };
+    }
 
     /**
      * Go through the data, for each key get the element and set it's value based on element type
-     * @access Private
+     * @access private
      * @param {object} data - data to bind to the form (defaults to internal data value)
      * @returns {void}
      */
@@ -766,11 +772,11 @@
         if (this.onpopulatecomplete) {
             this.onpopulatecomplete.call(this);
         }
-    };
+    }
 
     /**
      * Converts a JSON schema property into a HTML input element
-     * @access Private
+     * @access private
      * @param {string} id - key from schema item to be used as HTML id
      * @param {object} item - individual schema property item
      * @returns {HTMLElement} - the newly created HTML element
@@ -787,7 +793,7 @@
             case 'integer': {
 
                 if (Number.isInteger(item.minimum) && Number.isInteger(item.maximum)) {
-                
+
                     el = createEl(null, 'select', { name: id, id: id });
                     createEl(el, 'option', { 'value': '' });
 
@@ -861,7 +867,7 @@
         }
 
         return el;
-    };
+    }
 
 
     /*------------------------*/
@@ -870,6 +876,7 @@
 
     /**
     * Creates, configures & optionally inserts DOM elements via one function call
+    * @access private
     * @param {object} parentEl HTML element to insert into, null if no insert is required
     * @param {string} tagName of the element to create
     * @param {object} attrs key : value collection of element attributes to create (if key is not a string, value is set as expando property)
@@ -904,17 +911,18 @@
     }
 
     /**
-     * Converts a string containing HTML into a DOM element with childre
+     * Converts string containing HTML into a DOM elements - whilst removing script tags
+     * @access private
      * @param {string} src - string containing HTML
-     * @param {HTMLElement} parent 
-     * @returns 
+     * @param {HTMLElement} [parent] - optional parent to append children into
+     * @returns {DocumentFragment} fragment containing newly created elements (less script tags)
      */
     function stringToDOM(src, parent) {
 
         parent = parent || document.createDocumentFragment();
 
-        var el = null,
-            tmp = document.createElement("div");
+        var el = null;
+        var tmp = document.createElement('div');
 
         // inject content into none live element
         tmp.innerHTML = src;
@@ -929,12 +937,15 @@
         while (el = tmp.firstChild) {
             parent.appendChild(el);
         }
+
         return parent;
-    };
+    }
 
     /**
     * Cancels the current event
+    * @access private
     * @param {object} e - browser event object
+    * @returns {void}
     */
     function cancelEvent(e) {
         e = e || window.event;
@@ -945,7 +956,7 @@
             if (typeof (e.preventDefault) === "function") { e.preventDefault(); }
             if (typeof (e.stopPropagation) === "function") { e.stopPropagation(); }
         }
-    };
+    }
 
     function validateAgainstSchema(schema, prop, value) {
 
@@ -992,7 +1003,7 @@
         }
 
         return null;
-    };
+    }
 
     /**
     * Gets a property of an object from a path string (auto resolves json schema paths)
@@ -1034,7 +1045,7 @@
         }
 
         return obj[prop];
-    };
+    }
 
     /**
     * Returns JSON Schema property keys in order based on value of .id property value
@@ -1052,10 +1063,10 @@
                 bId = (schema[b].id) ? parseInt(schema[b].id.replace(/[^0-9]+/gi, '') || "0") : 0;
 
             return (aId - bId);
-        })
+        });
 
         return keys;
-    };
+    }
 
     function setElementValue(el, value) {
 
@@ -1088,7 +1099,7 @@
                 el.value = value;
             }
         }
-    };
+    }
 
     /**
      * Returns a new GUID
@@ -1101,7 +1112,7 @@
 
             return v.toString(16);
         });
-    };
+    }
 
     /**
      * Returns an object/array from an array where its property equals value.
@@ -1120,7 +1131,7 @@
             }
         }
         return (firstOnly) ? null : res;
-    };
+    }
 
     /**
      * Returns true if the string matches the regular expression pattern
@@ -1128,7 +1139,7 @@
      */
     function regExMatches(src, pattern) {
         return ((pattern.constructor !== RegExp) ? new RegExp(pattern, "g") : pattern).test(src);
-    };
+    }
 
     if (document.registerElement) {
         // register component with the dom
@@ -1138,4 +1149,4 @@
         throw new Error('document.registerElement does not exist. Are you missing the polyfill?');
     }
 
-})(HTMLElement.prototype, this, document);
+}(HTMLElement.prototype, this, document);
