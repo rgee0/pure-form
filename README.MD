@@ -8,7 +8,7 @@ A pure JavaScript Web Component that creates and validates a web form using a JS
 
 ## Usage
 
-`pure-form` can be created just like a regular HTML tag:
+Pure form can be created just like a regular HTML tag:
 
 ```html
 <pure-form src="schemas/contact-form.json" buttons="Cancel, Save"></pure-form>
