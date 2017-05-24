@@ -110,6 +110,8 @@ The Pure Form component would construct and render the following content:
 
 ### HTML Attributes
 
+HTML attributes can be set directly on the element within your page or via JavaScript using `element.setAttribute(key, value)`
+
 | Attribute | Description |
 | :--- |  :--- |
 | `src`  | Path to the JSON Schema that defines the form |
