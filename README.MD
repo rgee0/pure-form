@@ -22,10 +22,6 @@ contactForm.src = 'schemas/contact-form.json';
 document.body.appendChild(contactForm);
 ```
 
-```html
-<pure-form src="schemas/contact-form.json" buttons="Cancel, Save"></pure-form>
-```
-
 ## JSON Schema
 
 A JSON Schema (v3) is used to define the forms input requirements and validation. If the `contact-form.json` above, contained the following JSON Schema (v3):
