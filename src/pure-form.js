@@ -186,7 +186,7 @@
                 renderDescription.call(this);
             } break;
 
-            case 'buttons': { 
+            case 'buttons': {
                 renderButtons.call(this);
             } break;
 
@@ -319,7 +319,7 @@
      * Event handler fired when a record is update (return true to continue with next step)
      * @param {object} data - json data that was sent to the server
      * @param {object} next - next hateoas link returned from update (if present)
-     * @returns {boolean}
+     * @returns {boolean} returns true to allow navigation to .next is present
      */
     proto.onupdate = function (data, next) {
         return true;

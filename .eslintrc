@@ -33,6 +33,8 @@
     "padded-blocks": 0,
     "prefer-template": ["off"],
     "prefer-arrow-callback": ["off"],
+    "default-case": ["off"],
+    "wrap-iife": [2, "inside"],
     "require-jsdoc": ["warn", {
       "require": {
         "FunctionDeclaration": true,
