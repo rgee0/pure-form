@@ -29,6 +29,7 @@
     "one-var": ["off"],
     "vars-on-top": ["off"],
     "no-param-reassign": ["off"],
+    "no-lone-blocks": ["off"],
     "padded-blocks": 0,
     "prefer-template": ["off"],
     "prefer-arrow-callback": ["off"],

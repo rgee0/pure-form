@@ -11,10 +11,10 @@
 
     var componentName = 'pure-form';
 
-    // regex patterns
+    // regex validation patterns
     var patterns = {
-        email: "^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$",
-    }
+        email: '^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$'
+    };
 
     // Create a new instance of the base object with these additional items
     var proto = Object.create(base, {
@@ -131,7 +131,7 @@
         },
         placeholderMaxLength: {
             get: function () {
-                return parseInt(this.getAttribute('placeholder-maxlength') || '75');
+                return parseInt(this.getAttribute('placeholder-maxlength') || '75', 10);
             },
             set: function (value) {
                 this.setAttribute('placeholder-maxlength', value);
@@ -143,40 +143,9 @@
     /* PUBLIC METHODS */
     /*----------------*/
 
-    proto.loadSchema = function () {
-
-        var self = this;
-        var schemaUrl = this.src;
-
-        return fetch(schemaUrl).then(function(res) {
-                return res.json();
-            })
-            .then(function (data) {
-
-                self.schema = data;
-
-                // fire on schema loaded event
-                self.onschemaloaded.call(self, data.title || '', data);
-
-                // apply session stored form data if it exists
-                if (self.persist && sessionStorage[self.src]) {
-
-                    var formData = sessionStorage[self.src] || '';
-
-                    if (formData !== '') {
-                        populateForm.call(JSON.parse(formData));
-                    }
-                }
-            })
-            .catch(function (err) {
-                throw err;
-                //throw new Error('Schema not found!');
-            });
-    };
-
     /**
      * Executes when created, fires attributeChangedCallback for each attribute set
-     * @access Private
+     * @access private
      * @returns {void}
      */
     proto.createdCallback = function () {
@@ -194,10 +163,10 @@
      * Executes when any pure-form attribute is changed
      * @access private
      * @type {Event}
-     * @this {pure-form} - current instance of pure-form
      * @param {string} attrName - the name of the attribute to have changed
      * @param {string} oldVal - the old value of the attribute
      * @param {string} newVal - the new value of the attribute
+     * @returns {void}
      */
     proto.attributeChangedCallback = function (attrName, oldVal, newVal) {
 
@@ -206,7 +175,7 @@
         switch (attrName) {
 
             case 'src': {
-                this.loadSchema();
+                loadSchema.call(this);
             } break;
 
             case 'title': {
@@ -225,6 +194,11 @@
         }
     };
 
+    /**
+     * Public method to clear all form validation error messages
+     * @access public
+     * @returns {void}
+     */
     proto.clearValidationErrors = function () {
 
         // clear previous validation errors
@@ -235,6 +209,13 @@
         });
     };
 
+    /**
+     * Sets a form field as invalid
+     * @access public
+     * @param {string} fieldName - name of the element to set error on
+     * @param {string} error - string containing error message to set
+     * @returns {void}
+     */
     proto.setInvalid = function (fieldName, error) {
 
         var el = this.querySelector('[name="' + fieldName + '"]');
@@ -246,6 +227,12 @@
         }
     };
 
+    /**
+     * Set's a form item as valid
+     * @access public
+     * @param {string} fieldName - name of the element to set valid
+     * @returns {void}
+     */
     proto.setValid = function (fieldName) {
 
         var el = this.querySelector('[name="' + fieldName + '"]');
@@ -258,6 +245,7 @@
 
     /**
      * Executes validation for an individual field
+     * @access public
      * @param {string} key - id of field to validate
      * @param {object} value - value to test against schema
      * @returns {void}
@@ -276,6 +264,7 @@
 
     /**
      * Validates either the passed in object or current form data against the schema
+     * @access public
      * @param {object} [data] - key/value data object to check against schema
      * @returns {boolean} true if valid otherwise false
      */
@@ -359,7 +348,43 @@
     /*-----------------*/
 
     /**
+     * Loads the JSON schema from .src property
+     * @access private
+     * @returns {void}
+     */
+    function loadSchema() {
+
+        var self = this;
+        var schemaUrl = this.src;
+
+        return fetch(schemaUrl).then(function(res) {
+                return res.json();
+            })
+            .then(function (data) {
+
+                self.schema = data;
+
+                // fire on schema loaded event
+                self.onschemaloaded.call(self, data.title || '', data);
+
+                // apply session stored form data if it exists
+                if (self.persist && sessionStorage[self.src]) {
+
+                    var formData = sessionStorage[self.src] || '';
+
+                    if (formData !== '') {
+                        populateForm.call(JSON.parse(formData));
+                    }
+                }
+            })
+            .catch(function (err) {
+                throw err;
+            });
+    };
+
+    /**
      * Builds the HTML form based on the value of the assigned JSON .schema object
+     * @access private
      * @returns {void}
      */
     function renderForm() {
@@ -417,7 +442,7 @@
                 }
 
                 // create form field name
-                createEl(lbl, 'span', {'class': 'pure-form-label-text'}, item.title || key);
+                createEl(lbl, 'span', { class: 'pure-form-label-text' }, item.title || key);
 
                 // convert schema item to html input item
                 var inputEl = schemaItemToHtmlElement.call(this, key, item);
@@ -549,14 +574,14 @@
                 };
             }
         }
-    };
+    }
 
     /**
      * Gets data from the current form based on schema keys
      * @access private
      * @returns {object} JSON containing form data matching schema
      */
-     function getData() {
+    function getData() {
 
         var schema = (this.schema || {}).properties;
         var formData = {};
@@ -628,7 +653,7 @@
         }
 
         return formData;
-    };
+    }
 
     /**
      * Gets form data regardless of validation rules
@@ -677,7 +702,7 @@
         }
 
         return formData;
-    };
+    }
 
     /**
      * Saves the form data back to the server
@@ -694,7 +719,7 @@
         self.clearValidationErrors();
 
         // exit if not valid
-        if (!self.isValid(formData)) return false;
+        if (!self.isValid(formData)) return;
 
         // execute update or create request
         if (updateUrl !== '') {
@@ -812,10 +837,10 @@
                 if (Array.isArray(item.enum)) {
 
                     el = createEl(null, 'select', { name: id, id: id });
-                    createEl(el, 'option', { 'value': '' });
+                    createEl(el, 'option', { value: '' });
 
                     item.enum.forEach(function(value) {
-                        createEl(el, 'option', { 'value': value }, value);
+                        createEl(el, 'option', { value: value }, value);
                     });
                 }
                 else {
@@ -823,12 +848,12 @@
                     // switch types for special formats or fallback to type text
                     switch (format.toLowerCase()) {
 
-                        case "url":
-                        case "uri": {
+                        case 'url':
+                        case 'uri': {
                             el = createEl(null, 'input', { name: id, id: id, type: 'url', value: '' });
                         } break;
 
-                        case "textarea": {
+                        case 'textarea': {
                             el = createEl(null, 'textarea', { name: id, id: id, value: '', rows: 3 });
                         } break;
 
@@ -849,7 +874,7 @@
         }
 
         if (el) {
-            //disable autocomplete for all input items
+            // disable autocomplete for all input items
             el.setAttribute('autocomplete', 'off');
 
             // assign validation if present
@@ -888,25 +913,46 @@
     function createEl(parentEl, tagName, attrs, text, html) {
 
         var el = document.createElement(tagName);
-        var key = '';
         var customEl = tagName.indexOf('-') > 0;
 
         if (attrs) {
-            for (key in attrs) {
-                if (key === "class") { el.className = attrs[key]; }                 // assign className
-                else if (key === "id") { el.id = attrs[key]; }                      // assign id
-                else if (key === "name") { el.setAttribute(key, attrs[key]); }      // assign name attribute, even for customEl
-                else if (customEl || (key in el)) { el[key] = attrs[key]; }         // assign object properties
-                else { el.setAttribute(key, attrs[key]); }                          // assign regular attribute
+
+            for (var key in attrs) {
+                // assign className
+                if (key === 'class') {
+                    el.className = attrs[key];
+                }
+                // assign id
+                else if (key === 'id') {
+                    el.id = attrs[key];
+                }
+                // assign name attribute, even for customEl
+                else if (key === 'name') {
+                    el.setAttribute(key, attrs[key]);
+                }
+                // assign object properties
+                else if (customEl || (key in el)) {
+                    el[key] = attrs[key];
+                }
+                // assign regular attribute
+                else {
+                    el.setAttribute(key, attrs[key]);
+                }
             }
         }
 
-        if (typeof text !== 'undefined') { el.appendChild(document.createTextNode(text)); }
+        if (typeof text !== 'undefined') {
+            el.appendChild(document.createTextNode(text));
+        }
+
         if (typeof html !== 'undefined') {
             el.innerHTML = '';
             stringToDOM(html, el);
         }
-        if (parentEl) { parentEl.appendChild(el); }
+
+        if (parentEl) {
+            parentEl.appendChild(el);
+        }
 
         return el;
     }
@@ -943,7 +989,13 @@
     }
 
     /**
-
+     * Validates a value against a schema item matches by key
+     * @access private
+     * @param {object} schema - complete form schema
+     * @param {string} prop - the name of the property to validate
+     * @param {any} value - the value to test
+     * @returns {string} string containing error message or null
+     */
     function validateAgainstSchema(schema, prop, value) {
 
         // TODO: Add support for the following
@@ -992,10 +1044,12 @@
     }
 
     /**
-    * Gets a property of an object from a path string (auto resolves json schema paths)
+    * Recursively searches an object for a matching property name and returns it's value if found
+    * @access private
     * @param {object} obj - object to inspect
     * @param {string} prop - property path e.g. 'basics.name'
-    * @returns {object}
+    * @param {boolean} isSchema - set to true if the object is a JSON schema, otherwise false
+    * @returns {object} returns property value or null
     */
     function getPropertyByPath(obj, prop, isSchema) {
 
@@ -1035,6 +1089,9 @@
 
     /**
     * Returns JSON Schema property keys in order based on value of .id property value
+    * @access private
+    * @param {object} schema - JSON schema object
+    * @returns {array} returns a string array of schema keys ordered by .id int value
     */
     function getSortedSchemaKeys(schema) {
 
@@ -1045,8 +1102,8 @@
 
         keys.sort(function (a, b) {
 
-            var aId = (schema[a].id) ? parseInt(schema[a].id.replace(/[^0-9]+/gi, '') || "0") : 0,
-                bId = (schema[b].id) ? parseInt(schema[b].id.replace(/[^0-9]+/gi, '') || "0") : 0;
+            var aId = (schema[a].id) ? parseInt(schema[a].id.replace(/[^0-9]+/gi, '') || '0', 10) : 0;
+            var bId = (schema[b].id) ? parseInt(schema[b].id.replace(/[^0-9]+/gi, '') || '0', 10) : 0;
 
             return (aId - bId);
         });
@@ -1054,6 +1111,13 @@
         return keys;
     }
 
+    /**
+     * Set the value of a HTML input/select element
+     * @access private
+     * @param {HTMLElement} el - html element to set value on
+     * @param {any} value - value to set
+     * @returns {void}
+     */
     function setElementValue(el, value) {
 
         var tag = (el) ? el.tagName.toLowerCase() : '';
@@ -1088,31 +1152,22 @@
     }
 
     /**
-     * Returns a new GUID
-     */
-    function newGuid() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-
-            var r = Math.random() * 16 | 0,
-                v = c == 'x' ? r : (r & 0x3 | 0x8);
-
-            return v.toString(16);
-        });
-    }
-
-    /**
      * Returns an object/array from an array where its property equals value.
+     * @access private
      * @param {Array} src - array to search
      * @param {string} property - property to check
      * @param {object} value - value to test
      * @param {bool} firstOnly - only returns first value if true
+     * @returns {array|object} returns an array of matches, or single item if @firstOnly param set
      */
     function arrayWhere(src, property, value, firstOnly) {
         var res = [];
         src = src || [];
-        for (var i=0, l=src.length; i<l; i++) {
-            if (src[i][property] == value) {
-                if (firstOnly) { return src[i]; }
+        for (var i = 0, l = src.length; i < l; i++) {
+            if (src[i][property] === value) {
+                if (firstOnly) {
+                    return src[i];
+                }
                 res.push(src[i]);
             }
         }
@@ -1121,10 +1176,13 @@
 
     /**
      * Returns true if the string matches the regular expression pattern
-     * @param {string|RegExp} pattern to match
+     * @access private
+     * @param {string} src - value to compare
+     * @param {string|RegExp} pattern - pattern to match
+     * @returns {boolean} returns true if pattern matches src, otherwise false
      */
     function regExMatches(src, pattern) {
-        return ((pattern.constructor !== RegExp) ? new RegExp(pattern, "g") : pattern).test(src);
+        return ((pattern.constructor !== RegExp) ? new RegExp(pattern, 'g') : pattern).test(src);
     }
 
     if (document.registerElement) {
