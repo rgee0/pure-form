@@ -8,13 +8,27 @@ A pure JavaScript Web Component that creates and validates a web form using a JS
 
 ## Usage
 
-`pure-form` can be created using `document.createElement('pure-form')`, or by include it just like regular markup within your page:
+`pure-form` can be created just like a regular HTML tag:
 
 ```html
 <pure-form src="schemas/contact-form.json" buttons="Cancel, Save"></pure-form>
 ```
 
-If the `contact-form.json` contained the following JSON Schema (v3)
+Or by creating and appending the element using JavaScript:
+
+```js
+var contactForm = document.createElement('pure-form');
+contactForm.src = 'schemas/contact-form.json';
+document.body.appendChild(contactForm);
+```
+
+```html
+<pure-form src="schemas/contact-form.json" buttons="Cancel, Save"></pure-form>
+```
+
+## JSON Schema
+
+A JSON Schema (v3) is used to define the forms input requirements and validation. If the `contact-form.json` above, contained the following JSON Schema (v3):
 
 ```json
 {
@@ -59,7 +73,7 @@ If the `contact-form.json` contained the following JSON Schema (v3)
 }
 ```
 
-The component would generate the following:
+The `pure-form` would construct and render the following content:
 
 ```html
 <pure-form src="schemas/contact-form.json" buttons="Send" title="Contact Us" description="Got a question? Get in touch!">
