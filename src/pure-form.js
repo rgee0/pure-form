@@ -364,8 +364,11 @@
 
                 self.schema = data;
 
+                // fire onload event
+                self.dispatchEvent(new CustomEvent('loaded', { detail: self, bubbles: false }));
+
                 // fire on schema loaded event
-                self.onschemaloaded.call(self, data.title || '', data);
+                //self.onload.call(self, data.title || '', data);
 
                 // apply session stored form data if it exists
                 if (self.persist && sessionStorage[self.src]) {
@@ -378,7 +381,8 @@
                 }
             })
             .catch(function (err) {
-                throw err;
+                // fire error event
+                self.dispatchEvent(new CustomEvent('loaderror', { detail: err, bubbles: false }));
             });
     };
 
@@ -1172,6 +1176,27 @@
             }
         }
         return (firstOnly) ? null : res;
+    }
+
+    // Add Custom Event support (IE9)
+    if (!window.CustomEvent) {
+
+        var CustomEvent = function(event, params) {
+
+            params = params || {
+                bubbles: false,
+                cancelable: false,
+                detail: undefined
+            };
+
+            var evt = document.createEvent('CustomEvent');
+            evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+            return evt;
+        };
+
+        CustomEvent.prototype = window.Event.prototype;
+
+        window.CustomEvent = CustomEvent; // expose definition to window
     }
 
     /**
