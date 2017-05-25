@@ -2,9 +2,7 @@
 
 [![Linked In](https://img.shields.io/badge/Linked-In-blue.svg)](https://www.linkedin.com/in/john-i-doherty) [![Twitter Follow](https://img.shields.io/twitter/follow/CambridgeMVP.svg?style=social&label=Twitter&style=plastic)](https://twitter.com/CambridgeMVP)
 
-<!--JSON Schema driven Form written in pure JavaScript as a Web Component-->
-
-A pure JavaScript Web Component that creates and validates a web form using a JSON Schema.
+Pure form is a pure (ES5) JavaScript Web Component that creates and validates a web form using a JSON Schema.
 
 ## Usage
 
@@ -151,7 +149,11 @@ The following HTML attributes can be set directly on the element within your pag
 
 ### Events
 
-TODO: add events
+| Event | Returns | Description |
+| :--- | :--- | :--- |
+| `loaded` | | |
+| `loaderror` | | |
+
 
 ### Data Types
 
