@@ -343,21 +343,6 @@
 
     };
 
-    /*---------------*/
-    /* PUBLIC EVENTS */
-    /*---------------*/
-
-    /**
-     * This event handler is called when the schema has finished loading. This applies whether the schema is applied via the src attribute or property.
-     * If you change the src, the event will fire again when the new schema loads.
-     * @this PURE-FORM this is the instance of the pure-form element
-     * @param {object} data - the JSON schema loaded
-     * @returns {void}
-     */
-    // proto.onload = function(data) {
-    // };
-
-
     /*-----------------*/
     /* PRIVATE METHODS */
     /*-----------------*/
