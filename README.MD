@@ -13,13 +13,13 @@ Copy [pure-form.min.js](dist/pure-form.min.js) and [pure-form.min.css](dist/pure
 <script src="js/pure-form.min.js"></script>
 ```
 
-You can then create the pure form component either as a regular HTML element:
+You can then create a pure form component using HTML:
 
 ```html
 <pure-form src="schemas/contact-form.json" buttons="Cancel, Save"></pure-form>
 ```
 
-Or using JavaScript:
+Or JavaScript:
 
 ```js
 var contactForm = document.createElement('pure-form');
