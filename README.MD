@@ -70,11 +70,11 @@ Pure form uses JSON Schema (v3) to define the forms input requirements and valid
 }
 ```
 
-It would produce the following form:
+It would produce the following form, including all validation. The markup created within the `pure-form` tag is just regular HTML and can be [styled accordingly](docs/STYLING.MD).
+
 
 ![Cucumber HTML report](docs/img/pure-form-example.png)
 
-The HTML it creates within the `pure-form` tag is just regular HTML and can be [styled accordingly](docs/STYLING.MD).
 
 ### HTML Attributes
 
@@ -94,6 +94,8 @@ The following HTML attributes can be set directly on the element within your pag
 | `placeholder-maxlength` | Max description length to be used as placeholder, values greater than are inlined
 
 ### JavaScript Properties
+
+The following JavaScript property allows you to interact with the component:
 
 | Property | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
@@ -115,10 +117,10 @@ The following HTML attributes can be set directly on the element within your pag
 | Method | Returns | Description |
 | :--- | :--- | :--- |
 | `.clearValidationErrors()` | - | Clear all form validation error messages |
-| `.setInvalid(fieldNameAsString, errorAsString)` | - | Sets a form field to invalid |
-| `.setValid(fieldNameAsString)` | - | Sets a form field to valid |
-| `.validateField(keyAsString, valueAsAny)` | _Boolean_ | **Checks if a key/value is valid against the schema |
-| `.isValid()` | _boolean_ | **Checks if the entire form is valid |
+| `.setInvalid(fieldNameAsString, errorAsString)` | - | Sets a form field to invalid with a custom error message |
+| `.setValid(fieldNameAsString)` | - | Sets a form field to valid, clearing an error message |
+| `.validateField(keyAsString, valueAsAny)` | _Boolean_ | Checks if a key/value is valid against the schema |
+| `.isValid()` | _boolean_ | Checks if the entire form is valid |
 
 ### Events
 
@@ -130,15 +132,34 @@ The following HTML attributes can be set directly on the element within your pag
 
 ### Data Types
 
-TODO: add schema data type/format to html type
+TODO: Add JSON Schema data type/format to html type documentation
+
+## Further Development
+
+This project includes everything you need to fork and continue development, including an embedded node webserver using express. To run the server, git clone the project and run:
+
+```bash
+npm start
+```
+
+Then visit [http://localhost:8080](http://localhost:8080) in your browser.
+
+## Unit Test
+
+The component is tested using [JSDom](), [Nock]() and [Jasmine-Node](). You can run the tests by git cloning the project and then execute:
+
+```bash
+npm test
+```
+
 
 ## Reporting Bugs
 
-If you find a bug, please create a [jsfiddle](https://jsfiddle.net) to replicate the error before raising an issue. Attach the jsfiddle as a link to the issue so I can replicate the error and work out a solution.
+If you find a bug, please create a [jsfiddle](https://jsfiddle.net) to replicate the bug before raising an issue and attach it to the post.
 
 ## Pull Requests
 
-If you submit a PR, please ensure you include unit tests.
+Feel free to submit a PR requests, but please ensure your work is covered by unit tests and follows the current ESLint coding style defined in the [package.json](package.json) file.
 
 ## License
 
