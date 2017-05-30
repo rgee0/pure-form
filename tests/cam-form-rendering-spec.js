@@ -72,7 +72,9 @@ describe('pure-form rendering', function () {
         var testString = 'Hello World';
         el.title = testString;
 
-        expect(el.textContent.indexOf(testString)).toBeGreaterThan(-1);
+        expect(el.querySelector('.pure-form-title')).toBeDefined();
+        expect(el.querySelectorAll('.pure-form-title').length).toEqual(1);
+        expect(el.querySelector('.pure-form-title').textContent).toEqual(testString);
     });
 
     it('should render description when set', function () {
@@ -81,7 +83,9 @@ describe('pure-form rendering', function () {
         var testString = 'A quick form description';
         el.description = testString;
 
-        expect(el.textContent.indexOf(testString)).toBeGreaterThan(-1);
+        expect(el.querySelector('pure-form-description')).toBeDefined();
+        expect(el.querySelectorAll('.pure-form-description').length).toEqual(1);
+        expect(el.querySelector('.pure-form-description').textContent).toEqual(testString);
     });
 
     it('should reflect properties as attributes', function () {
@@ -128,7 +132,8 @@ describe('pure-form rendering', function () {
         var el = document.createElement('pure-form');
 
         el.addEventListener('loaded', function() {
-            console.dir(this);
+            expect(el.schema).toBeDefined();
+            expect(el.schema.id).toEqual('contact-form');
             done();
         });
 
