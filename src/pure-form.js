@@ -563,18 +563,21 @@
             // ensure it's empty (this could be a re-render)
             buttonContainer.innerHTML = '';
 
-            // add a button for each item in the array
-            for (var i = 0, l = this.buttons.length; i < l; i++) {
-
+            // insert buttons
+            this.buttons.forEach(function(item) {
                 // insert button
-                var button = createEl(buttonContainer, 'input', { type: 'submit', value: this.buttons[i].trim(), class: 'pure-form-button' });
+                createEl(buttonContainer, 'input', { type: 'submit', value: item.trim(), class: 'pure-form-button' });
+            });
 
-                // bubble click event passing button display value to external handler
-                button.onclick = function (e) {
-                    e.preventDefault();
-                    self.onbuttonclick.call(self, this.value);
-                };
-            }
+            // listen for button click events
+            buttonContainer.onclick = function(e) {
+
+                var el = e.target;
+
+                if (el.tagName === 'INPUT' && el.type === 'submit') {
+                    self.dispatchEvent(new CustomEvent('button-clicked', { detail: el, bubbles: false }));
+                }
+            };
         }
     }
 
