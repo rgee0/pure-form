@@ -117,6 +117,7 @@
         2,
         "inside"
       ],
+      "no-plusplus": ["off"],
       "require-jsdoc": [
         "warn",
         {
