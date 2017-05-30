@@ -2,17 +2,26 @@
 
 [![Linked In](https://img.shields.io/badge/Linked-In-blue.svg)](https://www.linkedin.com/in/john-i-doherty) [![Twitter Follow](https://img.shields.io/twitter/follow/CambridgeMVP.svg?style=social&label=Twitter&style=plastic)](https://twitter.com/CambridgeMVP)
 
-Pure form is a pure (ES5) JavaScript Web Component that creates and validates a web form using a JSON Schema.
+Pure Form is a w3c Web Component that uses JSON Schema (v3) to create a typical web form. Removing the need to worry about form markup, validation, layout and UX.
+
+The component is written in pure JavaScript (ES5) so does not have any dependency on 3rd party frameworks or transpilers.
 
 ## Usage
 
-Pure form can be created just like a regular HTML tag:
+Copy [pure-form.min.js]() and [pure-form.min.css]() into your project folder, and add the references to your page:
+
+```html
+<link rel="stylesheet" href="css/pure-form.min.css" />
+<script src="js/pure-form.min.js"></script>
+```
+
+You can then create the pure form component either as a regular HTML element:
 
 ```html
 <pure-form src="schemas/contact-form.json" buttons="Cancel, Save"></pure-form>
 ```
 
-Or by creating and appending the element using JavaScript:
+Or using JavaScript:
 
 ```js
 var contactForm = document.createElement('pure-form');
@@ -22,7 +31,7 @@ document.body.appendChild(contactForm);
 
 ## JSON Schema
 
-JSON Schema (v3) is used to define the forms input requirements and validation. If the `contact-form.json` above, contained the following JSON Schema (v3):
+Pure form uses JSON Schema (v3) is used to define the forms input requirements and validation. If the `contact-form.json` above, contained the following JSON Schema (v3):
 
 ```json
 {

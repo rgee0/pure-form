@@ -16,23 +16,6 @@
         email: '^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$'
     };
 
-    // Add Custom Event support (IE9)
-    if (!CustomEvent) {
-
-        var CustomEvent = function(event, params) {
-
-            params = params || { bubbles: false, cancelable: false, detail: undefined };
-
-            var evt = document.createEvent('CustomEvent');
-            evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-            return evt;
-        };
-
-        CustomEvent.prototype = window.Event.prototype;
-
-        window.CustomEvent = CustomEvent; // expose definition to window
-    }
-
     // Create a new instance of the base object with these additional items
     var proto = Object.create(base, {
         src: {
@@ -409,35 +392,7 @@
             // fire error event
             self.dispatchEvent(new CustomEvent('loaderror', { detail: 'Unable to load schema, response ' + error, bubbles: false }));
         });
-
-        // return fetch(schemaUrl).then(function(res) {
-        //         return res.json();
-        //     })
-        //     .then(function (data) {
-
-        //         self.schema = data;
-
-        //         // fire onload event
-        //         self.dispatchEvent(new CustomEvent('loaded', { detail: self, bubbles: false }));
-
-        //         // fire on schema loaded event
-        //         //self.onload.call(self, data.title || '', data);
-
-        //         // apply session stored form data if it exists
-        //         if (self.persist && sessionStorage[self.src]) {
-
-        //             var formData = sessionStorage[self.src] || '';
-
-        //             if (formData !== '') {
-        //                 populateForm.call(JSON.parse(formData));
-        //             }
-        //         }
-        //     })
-        //     .catch(function (err) {
-        //         // fire error event
-        //         self.dispatchEvent(new CustomEvent('loaderror', { detail: err, bubbles: false }));
-        //     });
-    };
+    }
 
     /**
      * Builds the HTML form based on the value of the assigned JSON .schema object
@@ -1232,7 +1187,36 @@
     }
 
     /**
-     * Little helper open to handle AJAX requests
+     * Returns true if the string matches the regular expression pattern
+     * @access private
+     * @param {string} src - value to compare
+     * @param {string|RegExp} pattern - pattern to match
+     * @returns {boolean} returns true if pattern matches src, otherwise false
+     */
+    function regExMatches(src, pattern) {
+        return ((pattern.constructor !== RegExp) ? new RegExp(pattern, 'g') : pattern).test(src);
+    }
+
+
+    // Add Custom Event support (IE9)
+    if (!CustomEvent) {
+
+        var CustomEvent = function(event, params) {
+
+            params = params || { bubbles: false, cancelable: false, detail: undefined };
+
+            var evt = document.createEvent('CustomEvent');
+            evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+            return evt;
+        };
+
+        CustomEvent.prototype = window.Event.prototype;
+
+        window.CustomEvent = CustomEvent; // expose definition to window
+    }
+
+    /**
+     * AJAX request(s) helper
      */
     var http = (function() {
 
@@ -1288,24 +1272,13 @@
                 xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                 xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.onreadystatechange = function() {
-                    //debugger;
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         callback(xhr.responseText);
                     }
                     else {
                         error(xhr.status);
                     }
-                }
-                //invocation.onreadystatechange = handler;
-                //xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                // xhr.onload = function() {
-                //     if (xhr.status === 200) {
-                //         callback(xhr.responseText);
-                //     }
-                //     else {
-                //         error(xhr.status);
-                //     }
-                // };
+                };
                 xhr.send();
             }
         }
@@ -1314,17 +1287,6 @@
             get: get
         };
     })();
-
-    /**
-     * Returns true if the string matches the regular expression pattern
-     * @access private
-     * @param {string} src - value to compare
-     * @param {string|RegExp} pattern - pattern to match
-     * @returns {boolean} returns true if pattern matches src, otherwise false
-     */
-    function regExMatches(src, pattern) {
-        return ((pattern.constructor !== RegExp) ? new RegExp(pattern, 'g') : pattern).test(src);
-    }
 
     if (document.registerElement) {
         // register component with the dom
