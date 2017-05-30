@@ -505,16 +505,6 @@
                 itemIndex++;
             }
 
-            // disable all child controls if the form is readonly
-            if (this.readonly) {
-
-                var inputs = Array.prototype.slice.call(this.form.querySelectorAll('input,select,textarea'));
-
-                inputs.forEach(function (item) {
-                    item.setAttribute('disabled', 'true');
-                });
-            }
-
             renderButtons.call(this);
         }
     }
