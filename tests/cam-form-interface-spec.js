@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var jsdom = require('jsdom');
 var path = require('path');
@@ -13,10 +13,11 @@ describe('pure-form interface', function () {
 
         var virtualConsole = new jsdom.VirtualConsole();
 
-        var options = { 
-            contentType: "text/html",
-            runScripts: "dangerously",
-            resources: "usable",
+        var options = {
+            url: 'http://localhost:8080',
+            contentType: 'text/html',
+            runScripts: 'dangerously',
+            resources: 'usable',
             virtualConsole: virtualConsole.sendTo(console) // redirect browser output to terminal
         };
 

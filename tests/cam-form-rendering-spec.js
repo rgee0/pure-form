@@ -1,11 +1,31 @@
-"use strict";
+'use strict';
 
 var jsdom = require('jsdom');
-var nock = require('nock');
+//var nock = require('nock');
 var path = require('path');
+var contactFormSchema = require('../schemas/contact-form.json');
 
 var document = null;
 var window = null;
+
+var tempSchemaUrl = 'http://localhost:8080/schemas/contact-form.json';
+
+var corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': '*',
+    'Access-Control-Allow-Headers': '*'
+};
+
+// intercept request for schema
+//nock.disableNetConnect();
+//nock.enableNetConnect('http://localhost:8080');
+
+//nock('http://localhost:8080').get('/schemas/contact-form.json').reply(200, contactFormSchema, corsHeaders);
+// nock('https://github.com').intercept('', 'OPTIONS').reply(200, '', {
+//     'Access-Control-Allow-Origin': '*',
+//     'Access-Control-Allow-Methods': '*',
+//     'Access-Control-Allow-Headers': '*'
+// });
 
 describe('pure-form rendering', function () {
 
@@ -14,10 +34,11 @@ describe('pure-form rendering', function () {
 
         var virtualConsole = new jsdom.VirtualConsole();
 
-        var options = { 
-            contentType: "text/html",
-            runScripts: "dangerously",
-            resources: "usable",
+        var options = {
+            url: 'http://localhost:8080',
+            contentType: 'text/html',
+            runScripts: 'dangerously',
+            resources: 'usable',
             virtualConsole: virtualConsole.sendTo(console) // redirect browser output to terminal
         };
 
@@ -49,7 +70,7 @@ describe('pure-form rendering', function () {
 
         var el = document.createElement('pure-form');
         var testString = 'Hello World';
-        el.title = testString
+        el.title = testString;
 
         expect(el.textContent.indexOf(testString)).toBeGreaterThan(-1);
     });
@@ -58,16 +79,16 @@ describe('pure-form rendering', function () {
 
         var el = document.createElement('pure-form');
         var testString = 'A quick form description';
-        el.description = testString
+        el.description = testString;
 
         expect(el.textContent.indexOf(testString)).toBeGreaterThan(-1);
     });
 
     it('should reflect properties as attributes', function () {
 
-        var src = 'http://www.johndoherty.info?dt=' + (new Date()).getTime();
-        var createUrl = 'http://www.google.co.uk?dt=' + (new Date()).getTime();
-        var updateUrl = 'http://www.google.co.uk?dt=' + (new Date()).getTime();
+        var src = tempSchemaUrl;// + '?dt=' + (new Date()).getTime();
+        var createUrl = tempSchemaUrl;// + '?dt=' + (new Date()).getTime();
+        var updateUrl = tempSchemaUrl;// + '?dt=' + (new Date()).getTime();
         var title = 'Hello World ' + (new Date()).getTime();
         var description = 'Test description ' + (new Date()).getTime();
         var buttons = 'One, Two, ' + (new Date()).getTime();
@@ -79,7 +100,7 @@ describe('pure-form rendering', function () {
 
         el.createUrl = createUrl;
         expect(el.getAttribute('create-url')).toEqual(createUrl);
-        
+
         el.updateUrl = updateUrl;
         expect(el.getAttribute('update-url')).toEqual(updateUrl);
 
@@ -100,6 +121,18 @@ describe('pure-form rendering', function () {
 
         el.disableValidation = true;
         expect(el.getAttribute('disable-validation')).toEqual('true');
+    });
+
+    it('should load JSON schema set via .src attribute', function(done) {
+
+        var el = document.createElement('pure-form');
+
+        el.addEventListener('loaded', function() {
+            console.dir(this);
+            done();
+        });
+
+        el.src = tempSchemaUrl;
     });
 
 });

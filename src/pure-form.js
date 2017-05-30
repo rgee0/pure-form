@@ -16,6 +16,23 @@
         email: '^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$'
     };
 
+    // Add Custom Event support (IE9)
+    if (!CustomEvent) {
+
+        var CustomEvent = function(event, params) {
+
+            params = params || { bubbles: false, cancelable: false, detail: undefined };
+
+            var evt = document.createEvent('CustomEvent');
+            evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+            return evt;
+        };
+
+        CustomEvent.prototype = window.Event.prototype;
+
+        window.CustomEvent = CustomEvent; // expose definition to window
+    }
+
     // Create a new instance of the base object with these additional items
     var proto = Object.create(base, {
         src: {
@@ -299,7 +316,7 @@
 
         // update session stored form data
         if (this.persist && window.sessionStorage) {
-            sessionStorage[this.src] = JSON.stringify(getRawData.call(this));
+            window.sessionStorage[this.src] = JSON.stringify(getRawData.call(this));
         }
 
         return valid;
@@ -343,6 +360,21 @@
 
     };
 
+    /*---------------*/
+    /* PUBLIC EVENTS */
+    /*---------------*/
+
+    /**
+     * This event handler is called when the schema has finished loading. This applies whether the schema is applied via the src attribute or property.
+     * If you change the src, the event will fire again when the new schema loads.
+     * @this PURE-FORM this is the instance of the pure-form element
+     * @param {object} data - the JSON schema loaded
+     * @returns {void}
+     */
+    // proto.onload = function(data) {
+    // };
+
+
     /*-----------------*/
     /* PRIVATE METHODS */
     /*-----------------*/
@@ -357,33 +389,54 @@
         var self = this;
         var schemaUrl = this.src;
 
-        return fetch(schemaUrl).then(function(res) {
-                return res.json();
-            })
-            .then(function (data) {
+        http.get(this.src, function(data) {
+            self.schema = JSON.parse(data);
 
-                self.schema = data;
+            // fire onload event
+            self.dispatchEvent(new CustomEvent('loaded', { detail: self, bubbles: false }));
 
-                // fire onload event
-                self.dispatchEvent(new CustomEvent('loaded', { detail: self, bubbles: false }));
+            // apply session stored form data if it exists
+            if (self.persist && window.sessionStorage && window.sessionStorage[self.src]) {
 
-                // fire on schema loaded event
-                //self.onload.call(self, data.title || '', data);
+                var formData = window.sessionStorage[self.src] || '';
 
-                // apply session stored form data if it exists
-                if (self.persist && sessionStorage[self.src]) {
-
-                    var formData = sessionStorage[self.src] || '';
-
-                    if (formData !== '') {
-                        populateForm.call(JSON.parse(formData));
-                    }
+                if (formData !== '') {
+                    populateForm.call(JSON.parse(formData));
                 }
-            })
-            .catch(function (err) {
-                // fire error event
-                self.dispatchEvent(new CustomEvent('loaderror', { detail: err, bubbles: false }));
-            });
+            }
+        },
+        function(error) {
+            // fire error event
+            self.dispatchEvent(new CustomEvent('loaderror', { detail: 'Unable to load schema, response ' + error, bubbles: false }));
+        });
+
+        // return fetch(schemaUrl).then(function(res) {
+        //         return res.json();
+        //     })
+        //     .then(function (data) {
+
+        //         self.schema = data;
+
+        //         // fire onload event
+        //         self.dispatchEvent(new CustomEvent('loaded', { detail: self, bubbles: false }));
+
+        //         // fire on schema loaded event
+        //         //self.onload.call(self, data.title || '', data);
+
+        //         // apply session stored form data if it exists
+        //         if (self.persist && sessionStorage[self.src]) {
+
+        //             var formData = sessionStorage[self.src] || '';
+
+        //             if (formData !== '') {
+        //                 populateForm.call(JSON.parse(formData));
+        //             }
+        //         }
+        //     })
+        //     .catch(function (err) {
+        //         // fire error event
+        //         self.dispatchEvent(new CustomEvent('loaderror', { detail: err, bubbles: false }));
+        //     });
     };
 
     /**
@@ -509,7 +562,7 @@
 
             renderButtons.call(this);
         }
-    };
+    }
 
     /**
      * Adds .title value to the component
@@ -524,10 +577,10 @@
             titleEl.innerHTML = this.title;
         }
         else {
-            titleEl = createEl(null, 'div', { 'class': 'pure-form-title' }, this.title);
+            titleEl = createEl(null, 'div', { class: 'pure-form-title' }, this.title);
             this.insertBefore(titleEl, this.form);
         }
-    };
+    }
 
     /**
      * Adds .description value to the component
@@ -542,10 +595,10 @@
             descEl.innerHTML = this.description;
         }
         else {
-            descEl = createEl(null, 'div', { 'class': 'pure-form-description' }, this.description);
+            descEl = createEl(null, 'div', { class: 'pure-form-description' }, this.description);
             this.insertBefore(descEl, this.form);
         }
-    };
+    }
 
     /**
      * Adds a button to the form for each item in .buttons property
@@ -569,7 +622,7 @@
             for (var i = 0, l = this.buttons.length; i < l; i++) {
 
                 // insert button
-                var button = createEl(buttonContainer, 'input', { 'type': 'submit', 'value': this.buttons[i].trim(), 'class': 'pure-form-button' });
+                var button = createEl(buttonContainer, 'input', { type: 'submit', value: this.buttons[i].trim(), class: 'pure-form-button' });
 
                 // bubble click event passing button display value to external handler
                 button.onclick = function (e) {
@@ -1178,26 +1231,89 @@
         return (firstOnly) ? null : res;
     }
 
-    // Add Custom Event support (IE9)
-    if (!window.CustomEvent) {
+    /**
+     * Little helper open to handle AJAX requests
+     */
+    var http = (function() {
 
-        var CustomEvent = function(event, params) {
+        /**
+         * Cross browser method to create a AJAX object
+         * @returns {XMLHttpRequest} returns an ajax request object
+         */
+        function createXMLHttpRequest() {
 
-            params = params || {
-                bubbles: false,
-                cancelable: false,
-                detail: undefined
-            };
+            try {
+                return new XMLHttpRequest();
+            }
+            catch (e1) {
+                try {
+                    return new ActiveXObject('Msxml2.XMLHTTP');
+                }
+                catch (e2) {
+                    if (console) {
+                        console.log('pure-form: XMLHttpRequest not supported');
+                    }
+                    return null;
+                }
+            }
+        }
 
-            var evt = document.createEvent('CustomEvent');
-            evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-            return evt;
+        /**
+         * Converts a JSON object into HTTP encoded data
+         * @param {object} data - key/value object containing data
+         * @returns {string} containing object flattened and concat with '&'
+         */
+        function encodeData(data) {
+            return Object.keys(data || {}).map(function(key) {
+                return encodeURI(key + '=' + data[key]);
+            }).join('&');
+        }
+
+        /**
+         * Executes an AJAX GET request
+         * @param {string} url - url to request
+         * @param {any} callback - method to handle success response
+         * @param {any} error - method to handle an error
+         * @returns {void}
+         */
+        function get(url, callback, error) {
+
+            var xhr = createXMLHttpRequest();
+
+            xhr = (!('withCredentials' in xhr)) ? new XDomainRequest() : xhr;  // fix IE9
+
+            if (xhr) {
+                xhr.open('GET', url);
+                xhr.withCredentials = true;
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onreadystatechange = function() {
+                    //debugger;
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        callback(xhr.responseText);
+                    }
+                    else {
+                        error(xhr.status);
+                    }
+                }
+                //invocation.onreadystatechange = handler;
+                //xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                // xhr.onload = function() {
+                //     if (xhr.status === 200) {
+                //         callback(xhr.responseText);
+                //     }
+                //     else {
+                //         error(xhr.status);
+                //     }
+                // };
+                xhr.send();
+            }
+        }
+
+        return {
+            get: get
         };
-
-        CustomEvent.prototype = window.Event.prototype;
-
-        window.CustomEvent = CustomEvent; // expose definition to window
-    }
+    })();
 
     /**
      * Returns true if the string matches the regular expression pattern

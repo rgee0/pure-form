@@ -141,18 +141,18 @@ The following HTML attributes can be set directly on the element within your pag
 | Method | Returns | Description |
 | :--- | :--- | :--- |
 | `.clearValidationErrors()` | - | Clear all form validation error messages |
-| `.setInvalid(fieldName, error)` | - | Sets a form field to invalid |
-| `.setValid(fieldName)` | - | Sets a form field to valid |
-| `.validateField((key, value)` | _Boolean_ | **Checks if a key/value is valid against the schema |
+| `.setInvalid(fieldName /* string */, error /* string */)` | - | Sets a form field to invalid |
+| `.setValid(fieldName /* string */)` | - | Sets a form field to valid |
+| `.validateField(key /* string */, value /* any */ )` | _Boolean_ | **Checks if a key/value is valid against the schema |
 | `.isValid()` | _boolean_ | **Checks if the entire form is valid |
 
 
 ### Events
 
-| Event | Returns | Description |
-| :--- | :--- | :--- |
-| `loaded` | | |
-| `loaderror` | | |
+| Event | Description |
+| :--- | :--- |
+| `loaded` | This event is fired when the JSON schema set via `.src` property is successfully loaded. `.schema` property exposes the newly loaded JSON schema object | |
+| `loaderror` | This event is fired when the component fails to load the JSON schema from the `.src` property |
 
 
 ### Data Types
