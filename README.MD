@@ -140,12 +140,11 @@ The following HTML attributes can be set directly on the element within your pag
 
 | Method | Returns | Description |
 | :--- | :--- | :--- |
-| **clearValidationErrors()** | - | Clear all form validation error messages |
-| __.setInvalid(_string_ fieldName, _string_ error)__ | - | Sets a form field to invalid |
-| __.setValid(_string_ fieldName)__ | - | Sets a form field to valid |
-| __.validateField(_string_ key, _any_ value)__ | _Boolean_ | **Checks if a key/value is valid against the schema |
-| __.isValid()__ | _boolean_ | **Checks if the entire form is valid |
-
+| `.clearValidationErrors()` | - | Clear all form validation error messages |
+| `.setInvalid(fieldNameAsString, errorAsString)` | - | Sets a form field to invalid |
+| `.setValid(fieldNameAsString)` | - | Sets a form field to valid |
+| `.validateField(keyAsString, valueAsAny)` | _Boolean_ | **Checks if a key/value is valid against the schema |
+| `.isValid()` | _boolean_ | **Checks if the entire form is valid |
 
 ### Events
 
