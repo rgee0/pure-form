@@ -4,6 +4,8 @@
 
 Pure Form is a w3c Web Component that uses JSON Schema (v3) to create a typical web form. Removing the need to worry about form markup, validation, layout and UX. The component is written in pure JavaScript (ES5) adhering to web standards, and does not have any dependency on 3rd party frameworks or transpilers.
 
+I would really like to see this component become a 
+
 ## Usage
 
 ```html
@@ -126,8 +128,8 @@ The following JavaScript property allows you to interact with the component:
 
 | Event | Description |
 | :--- | :--- |
-| `loaded` | Fired when the JSON schema set via `.src` property is successfully loaded. `.schema` property exposes the newly loaded JSON schema object | |
-| `loaderror` | Fired when the component fails to load the JSON schema from the `.src` property |
+| `schema-loaded` | Fired when the JSON schema set via `.src` property is successfully loaded. `.schema` property exposes the newly loaded JSON schema object | |
+| `schema-errored` | Fired when the component fails to load the JSON schema from the `.src` property |
 | `button-clicked` | Fired when a pure-form button is clicked |
 
 
