@@ -6,7 +6,7 @@ Pure Form is a w3c Web Component that uses JSON Schema (v3) to create a typical 
 
 ## Usage
 
-Copy [pure-form.min.js]() and [pure-form.min.css]() into your project folder, and add the references to your page:
+Copy [pure-form.min.js](dist/pure-form.min.js) and [pure-form.min.css](dist/pure-form.min.css) into your project folder, and add the references to your page:
 
 ```html
 <link rel="stylesheet" href="css/pure-form.min.css" />
