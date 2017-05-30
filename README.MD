@@ -10,15 +10,15 @@ Pure Form is a w3c Web Component that uses JSON Schema (v3) to create a typical 
 <html>
   <head>
     <!-- add document.registerElement polyfill if you need IE & Safari support -->
-    <script src="polyfills/document-register-element.js"></script>
+    <script src="document-register-element.js"></script>
 
     <!-- add pure-form script & css -->
-    <link href="src/pure-form.css" rel="stylesheet" />
-    <script src="src/pure-form.js"></script>
+    <link href="pure-form.css" rel="stylesheet" />
+    <script src="pure-form.js"></script>
   </head>
   <body>
     <!-- create just like a regular HTML tag (can also be created using document.createElement) -->
-    <pure-form src="schemas/contact-form.json" buttons="Cancel, Save"></pure-form>
+    <pure-form src="contact-form.json" buttons="Cancel, Save"></pure-form>
   </body>
 </html>
 ```
@@ -126,8 +126,9 @@ The following JavaScript property allows you to interact with the component:
 
 | Event | Description |
 | :--- | :--- |
-| `loaded` | This event is fired when the JSON schema set via `.src` property is successfully loaded. `.schema` property exposes the newly loaded JSON schema object | |
-| `loaderror` | This event is fired when the component fails to load the JSON schema from the `.src` property |
+| `loaded` | Fired when the JSON schema set via `.src` property is successfully loaded. `.schema` property exposes the newly loaded JSON schema object | |
+| `loaderror` | Fired when the component fails to load the JSON schema from the `.src` property |
+| `button-clicked` | Fired when a pure-form button is clicked |
 
 
 ### Data Types
