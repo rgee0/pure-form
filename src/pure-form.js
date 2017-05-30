@@ -453,6 +453,7 @@
                     // if pure-form is readonly, apply same to elements and dont enable validation
                     if (this.readonly) {
                         inputEl.setAttribute('readonly', 'true');
+                        if (inputEl.tagName === 'SELECT') inputEl.setAttribute('disabled', 'true');
                     }
                     else if (!isHidden) {
 
@@ -870,7 +871,8 @@
             el.setAttribute('autocomplete', 'off');
 
             // assign validation if present
-            if (item.readonly) el.setAttribute('readonly', 'readonly');
+            if (item.readonly) el.setAttribute('readonly', 'true');
+            if (item.readonly && el.tagName === 'SELECT') el.setAttribute('disabled', 'true');
             if (item.required) el.setAttribute('required', 'required');
             if (item.pattern) el.setAttribute('pattern', item.pattern);
             if (item.min) el.setAttribute('min', item.min);
