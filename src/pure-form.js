@@ -358,10 +358,12 @@
         var schemaUrl = this.src;
 
         http.get(this.src, function(data) {
+
+            // store the schema
             self.schema = JSON.parse(data);
 
             // fire onload event
-            self.dispatchEvent(new CustomEvent('loaded', { detail: self, bubbles: false }));
+            self.dispatchEvent(new CustomEvent('schema-loaded', { detail: self, bubbles: false }));
 
             // apply session stored form data if it exists
             if (self.persist && window.sessionStorage && window.sessionStorage[self.src]) {
@@ -375,7 +377,7 @@
         },
         function(error) {
             // fire error event
-            self.dispatchEvent(new CustomEvent('loaderror', { detail: 'Unable to load schema, response ' + error, bubbles: false }));
+            self.dispatchEvent(new CustomEvent('schema-errored', { detail: 'Unable to load schema, response ' + error, bubbles: false }));
         });
     }
 

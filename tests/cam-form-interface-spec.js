@@ -96,7 +96,7 @@ describe('pure-form interface', function () {
         expect(typeof el.isValid).toEqual('function');
     });
 
-    it('should not expose private methods', function(){
+    it('should not expose private methods', function() {
 
         var el = document.createElement('pure-form');
 

@@ -131,7 +131,7 @@ describe('pure-form rendering', function () {
 
         var el = document.createElement('pure-form');
 
-        el.addEventListener('loaded', function() {
+        el.addEventListener('schema-loaded', function() {
             expect(el.schema).toBeDefined();
             expect(el.schema.id).toEqual('contact-form');
             done();
