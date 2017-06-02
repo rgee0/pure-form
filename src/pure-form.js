@@ -357,13 +357,13 @@
         var self = this;
         var schemaUrl = this.src;
 
-        http.get(this.src, function(data) {
+        http.get(schemaUrl, function(data) {
 
             // store the schema
             self.schema = JSON.parse(data);
 
             // fire onload event
-            self.dispatchEvent(new CustomEvent('schema-loaded', { detail: self, bubbles: false }));
+            self.dispatchEvent(new CustomEvent('schema-loaded', { detail: schemaUrl, bubbles: false }));
 
             // apply session stored form data if it exists
             if (self.persist && window.sessionStorage && window.sessionStorage[self.src]) {
@@ -377,7 +377,7 @@
         },
         function(error) {
             // fire error event
-            self.dispatchEvent(new CustomEvent('schema-errored', { detail: 'Unable to load schema, response ' + error, bubbles: false }));
+            self.dispatchEvent(new CustomEvent('schema-errored', { detail: schemaUrl, bubbles: false }));
         });
     }
 
@@ -402,7 +402,7 @@
             if (!this.form) {
 
                 // keep a handle to the form element
-                this.form = createEl(this, 'form', { action: '', method: 'post', novalidate: 'novalidate' });
+                this.form = createEl(this, 'form', { action: '', method: 'post', 'class': 'pure-form-form', novalidate: 'novalidate' });
 
                 // if we have a create/update url, dont submit the form
                 if (this.getAttribute('create-url') !== '' || this.getAttribute('update-url') !== '') {
@@ -505,6 +505,9 @@
             }
 
             renderButtons.call(this);
+
+            // fire onload event
+            self.dispatchEvent(new CustomEvent('render-complete', { bubbles: false }));
         }
     }
 
@@ -574,7 +577,7 @@
                 var el = e.target;
 
                 if (el.tagName === 'INPUT' && el.type === 'submit') {
-                    self.dispatchEvent(new CustomEvent('button-clicked', { detail: el, bubbles: false }));
+                    self.dispatchEvent(new CustomEvent('button-clicked', { detail: el.value, bubbles: false }));
                 }
             };
         }

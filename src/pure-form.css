@@ -28,18 +28,18 @@ pure-form .pure-form-description {
     margin: 0 0 10px 0;
 }
 
-pure-form form {
+pure-form .pure-form-form {
     padding: 0;
     display: block;
     margin: 0;
     /*overflow: auto;*/
 }
 
-pure-form form:empty {
+pure-form .pure-form-form:empty {
     text-align: center;
 }
 
-pure-form form:empty:before {
+pure-form .pure-form-form:empty:before {
     content: "";
     position: absolute;
     top: 0;
@@ -49,7 +49,7 @@ pure-form form:empty:before {
     background: rgba(200,200,200,0.2);
 }
 
-pure-form form:empty:after {
+pure-form .pure-form-form:empty:after {
     content: "Loading, please wait...";
     color: #666;
 }

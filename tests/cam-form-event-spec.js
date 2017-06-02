@@ -8,11 +8,12 @@ var document = null;
 var window = null;
 
 var tempSchemaUrl = 'http://localhost:8080/schemas/contact-form.json';
+var schema404Url = 'http://localhost:8080/404';
 
 // intercept request for schema
 nock.disableNetConnect();
 
-describe('pure-form rendering', function () {
+describe('pure-form events', function () {
 
     // create a new browser instance before each test
     beforeEach(function (done) {
@@ -59,7 +60,11 @@ describe('pure-form rendering', function () {
 
         var el = document.createElement('pure-form');
 
-        el.addEventListener('schema-loaded', function() {
+        el.addEventListener('schema-loaded', function(e) {
+            expect(e).toBeDefined();
+            expect(e.target).toEqual(el);
+            expect(e.detail).toEqual(tempSchemaUrl);
+            expect(this).toEqual(el);
             expect(el.schema).toBeDefined();
             expect(el.schema.id).toEqual('contact-form');
             done();
@@ -72,12 +77,69 @@ describe('pure-form rendering', function () {
 
         var el = document.createElement('pure-form');
 
-        el.addEventListener('schema-errored', function() {
+        el.addEventListener('schema-errored', function(e) {
+            expect(e).toBeDefined();
+            expect(e.target).toEqual(el);
+            expect(e.detail).toEqual(schema404Url);
             expect(el.schema).toBe(null);
             done();
         });
 
-        el.src = 'http://localhost:8080/404';
+        el.src = schema404Url;
+    });
+
+    it('should fire render-complete once rendering has complete', function(done) {
+
+        var el = document.createElement('pure-form');
+
+        el.addEventListener('render-complete', function(e) {
+
+            var form = el.querySelector('.pure-form-form');
+            var labels = el.querySelectorAll('.pure-form-label');
+
+            expect(e).toBeDefined();
+            expect(e.target).toEqual(el);
+            expect(e.detail).toBeUndefined();
+            expect(this).toEqual(el);
+            expect(form).toBeDefined();
+            expect(form.tagName).toEqual('FORM');
+            expect(labels.length).toBeGreaterThan(0);
+            done();
+        });
+
+        el.src = tempSchemaUrl;
+    });
+
+    it('should fire button-clicked event when button clicked', function(done) {
+
+        var el = document.createElement('pure-form');
+        var buttonLabel = 'Random' + (new Date()).getTime();
+
+        el.buttons = buttonLabel;
+
+        el.addEventListener('button-clicked', function(e) {
+            expect(e).toBeDefined();
+            expect(e.target).toEqual(el);
+            expect(e.detail).toEqual(buttonLabel);
+            expect(this).toEqual(el);
+            expect(e).toBeDefined();
+            done();
+        });
+
+        el.addEventListener('render-complete', function() {
+
+            // grab a button
+            var button = el.querySelector('input[type="submit"]');
+
+            expect(button).toBeDefined();
+
+            // fire click event
+            var clickEvent = document.createEvent('MouseEvents');
+            clickEvent.initEvent('click', true, true);
+            button.dispatchEvent(clickEvent);
+        });
+
+        el.src = tempSchemaUrl;
     });
 
 });
