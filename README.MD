@@ -91,7 +91,7 @@ It would produce the following form, including all validation. The markup create
 
 ### Get Form Value
 
-Pure Form returns as a JSON object containing all populated fields from the `.value` property _(empty fields are omitted)_:
+Pure Form `.value` returns as a JSON object containing all populated fields _(empty fields are omitted)_:
 
 ```js
 var data = document.getElementById('example').value;
