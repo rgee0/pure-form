@@ -126,7 +126,7 @@ The following JavaScript property allows you to interact with the component:
 
 ### Events
 
-Pure Form fires events using w3c CustomEvent method, additional information is stored within the .detail property of the event object.
+Pure Form fires events using w3c [CustomEvent](https://developer.mozilla.org/en/docs/Web/API/CustomEvent) method, additional information is stored within the .detail property of the event object.
 
 | Event | .detail contains | Description |
 | :--- | :--- | :--- |
