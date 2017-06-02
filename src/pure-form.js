@@ -320,20 +320,6 @@
         return valid;
     };
 
-    proto.onbuttonclick = function (label) {
-        return true;
-    };
-
-    /**
-     * Event handler fired when a schema loads
-     * @param {string} schemaTitle - .title from loaded schema
-     * @param {object} schema - actual loaded schema
-     * @returns {void}
-     */
-    proto.onschemaloaded = function (schemaTitle, schema) {
-
-    };
-
     /*-----------------*/
     /* PRIVATE METHODS */
     /*-----------------*/
