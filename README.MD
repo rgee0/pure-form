@@ -91,19 +91,18 @@ It would produce the following form, including all validation. The markup create
 
 ### Get Form Value
 
-You can get the value of all form fields by calling `.value`:
+Pure Form returns as a JSON object containing all populated fields from the `.value` property _(empty fields are omitted)_:
 
 ```js
 var data = document.getElementById('example').value;
 
-// Based on the above example, data contains the following (empty fields are omitted):
-/*
+// returns:
+
 {
   title: "Mr",
   firstName: "John",
   surname: "Doherty"
 }
-*/
 ```
 
 
