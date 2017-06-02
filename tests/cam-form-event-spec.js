@@ -10,7 +10,7 @@ var window = null;
 var tempSchemaUrl = 'http://localhost:8080/schemas/contact-form.json';
 
 // intercept request for schema
-//nock.disableNetConnect();
+nock.disableNetConnect();
 
 describe('pure-form rendering', function () {
 
@@ -23,6 +23,7 @@ describe('pure-form rendering', function () {
             .get('/src/pure-form.js')
             .replyWithFile(200, path.resolve('./src/pure-form.js'))
             .get('/schemas/contact-form.json')
+            .query(true)
             .replyWithFile(200, path.resolve('./schemas/contact-form.json'))
             .get('/404')
             .reply(404);

@@ -23,6 +23,7 @@ describe('pure-form rendering', function () {
             .get('/src/pure-form.js')
             .replyWithFile(200, path.resolve('./src/pure-form.js'))
             .get('/schemas/contact-form.json')
+            .query(true)
             .replyWithFile(200, path.resolve('./schemas/contact-form.json'));
 
         var virtualConsole = new jsdom.VirtualConsole();
