@@ -36,16 +36,15 @@
                 this.title = this._schema.title;
                 this.description = this._schema.description;
 
+                // TODO: add link url for each option, but dont have set attributes!??!
                 var updateInfo = arrayWhere(this._schema.links, 'rel', 'self', true);
                 if (updateInfo) {
                     this.updateUrl = updateInfo.href;
-                    this.buttons = (this.buttons + ',' + (updateInfo.title || 'Update')).trim();
                 }
 
                 var createInfo = arrayWhere(this._schema.links, 'rel', 'create', true);
                 if (createInfo) {
                     this.createUrl = createInfo.href;
-                    this.buttons = (this.buttons + ',' + (createInfo.title || 'Save')).trim();
                 }
 
                 renderForm.call(this);
@@ -572,6 +571,13 @@
                 // insert button
                 createEl(buttonContainer, 'input', { type: 'submit', value: item.trim(), class: 'pure-form-button' });
             });
+
+            // add a button for each item in the schema links array
+            if (this.schema && Array.isArray(this.schema.links)) {
+                this.schema.links.forEach(function(link) {
+                    createEl(buttonContainer, 'input', { type: 'submit', value: (link.title || link.rel).trim(), class: 'pure-form-button' });
+                });
+            }
 
             // listen for button click events
             buttonContainer.onclick = function(e) {
