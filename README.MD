@@ -153,32 +153,11 @@ Then visit [http://localhost:8080](http://localhost:8080) in your browser.
 
 ## Unit Test
 
-The component is tested using [JSDom](), [Nock]() and [Jasmine-Node](). You can run the tests by git cloning the project and then execute:
+Pure Form is tested using [JSDom](https://github.com/tmpvar/jsdom), [Nock](https://github.com/node-nock/nock) and [Jasmine-Node](https://github.com/mhevery/jasmine-node). Tests can be run by git cloning the project and executing:
 
 ```bash
 npm install
 npm test
-```
-
-You should see something like:
-
-```
-pure-form interface - 1400 ms
-    should be creatable - 325 ms
-    should expose properties with correct types - 272 ms
-    should expose properties with defaults - 268 ms
-    should expose public methods - 268 ms
-    should not expose private methods - 266 ms
-
-pure-form rendering - 1377 ms
-    should not contain children on creation - 279 ms
-    should render title when set - 267 ms
-    should render description when set - 266 ms
-    should reflect properties as attributes - 279 ms
-    should load JSON schema set via .src attribute - 285 ms
-
-Finished in 2.783 seconds
-10 tests, 92 assertions, 0 failures, 0 skipped
 ```
 
 ## Reporting Bugs
