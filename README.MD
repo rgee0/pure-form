@@ -4,6 +4,15 @@
 
 Pure Form is a w3c Web Component that uses JSON Schema (v3) to create a typical web form. Removing the need to worry about form markup, validation, layout and UX. The component is written in pure JavaScript (ES5) adhering to web standards, and does not have any dependency on 3rd party frameworks or transpilers.
 
+Key features:
+
+ * Schematic HTML
+ * Client side validation
+ * Inline error messages
+ * Get/Set value using a JSON object
+ * Ability to retrieve schema from server
+ * Ability to post to server
+
 ## Usage
 
 ```html
