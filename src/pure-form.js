@@ -410,8 +410,10 @@
                 // add validate on blur handler
                 this.form.addEventListener('focusout', function(e) {
 
-                    if (self.validateOnBlur) {
-                        self.validateField(e.target.id, e.target.value);
+                    var el = e.target;
+
+                    if (el.type !== 'submit' && self.validateOnBlur) {
+                        self.validateField(el.id, el.value);
                     }
                 }, true);
             }
