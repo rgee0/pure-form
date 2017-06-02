@@ -3,7 +3,6 @@
 var nock = require('nock');
 var jsdom = require('jsdom');
 var path = require('path');
-//var contactFormSchema = require('../schemas/contact-form.json');
 
 var document = null;
 var window = null;
@@ -84,9 +83,9 @@ describe('pure-form rendering', function () {
 
     it('should reflect properties as attributes', function () {
 
-        var src = tempSchemaUrl;// + '?dt=' + (new Date()).getTime();
-        var createUrl = tempSchemaUrl;// + '?dt=' + (new Date()).getTime();
-        var updateUrl = tempSchemaUrl;// + '?dt=' + (new Date()).getTime();
+        var src = tempSchemaUrl + '?dt=' + (new Date()).getTime();
+        var createUrl = tempSchemaUrl + '?dt=' + (new Date()).getTime();
+        var updateUrl = tempSchemaUrl + '?dt=' + (new Date()).getTime();
         var title = 'Hello World ' + (new Date()).getTime();
         var description = 'Test description ' + (new Date()).getTime();
         var buttons = 'One, Two, ' + (new Date()).getTime();
