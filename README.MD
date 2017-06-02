@@ -145,7 +145,7 @@ TODO: Add JSON Schema data type/format to html type documentation
 
 ## Further Development
 
-This project includes everything you need to fork and continue development, including an embedded node webserver using express. To run the server, git clone the project and run:
+This project includes everything needed to fork and continue development, including an embedded node webserver. To run the server, git clone the project and run:
 
 ```bash
 npm install
@@ -161,6 +161,14 @@ Pure Form is tested using [JSDom](https://github.com/tmpvar/jsdom), [Nock](https
 ```bash
 npm install
 npm test
+```
+
+## Build
+
+To create a new version of the minified [pure-form.min.js](dist/pure-form.min.js) and [pure-form.min.css](dist/pure-form) files from source, run the following command:
+
+```bash
+npm run build
 ```
 
 ## Reporting Bugs
