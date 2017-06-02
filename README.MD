@@ -4,8 +4,6 @@
 
 Pure Form is a w3c Web Component that uses JSON Schema (v3) to create a typical web form. Removing the need to worry about form markup, validation, layout and UX. The component is written in pure JavaScript (ES5) adhering to web standards, and does not have any dependency on 3rd party frameworks or transpilers.
 
-I would really like to see this component become a 
-
 ## Usage
 
 ```html
@@ -20,7 +18,7 @@ I would really like to see this component become a
   </head>
   <body>
     <!-- create just like a regular HTML tag (can also be created using document.createElement) -->
-    <pure-form src="contact-form.json" buttons="Cancel, Save"></pure-form>
+    <pure-form src="contact-form.json" buttons="Save"></pure-form>
   </body>
 </html>
 ```
