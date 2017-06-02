@@ -183,6 +183,8 @@ Pure Form fires events using w3c [CustomEvent](https://developer.mozilla.org/en/
 | `render-complete` | Fired when pure-form completes rendering | _null_ |
 | `button-clicked` | Fired when a pure-form button is clicked | _button display value_ |
 | `value-set` | Fired when the form value is set | _null_ |
+| `submit-successful` | Fired when form successfully submited to the server (200 response) | _response data_ |
+| `submit-failed` | Fired when form failed to successfully submit to server | _submission url_ |
 
 
 ## Data Types
