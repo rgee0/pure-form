@@ -142,4 +142,45 @@ describe('pure-form events', function () {
         el.src = tempSchemaUrl;
     });
 
+    it('should fire value-set event when .value is set', function(done) {
+
+        var el = document.createElement('pure-form');
+
+        var testValue = {
+            title: 'Mr',
+            firstName: 'John ' + (new Date()).getTime(),
+            surname: 'Doherty' + (new Date()).getTime(),
+            email: 'contact@johndoherty.info',
+            phone: '01223 223 332' + (new Date()).getTime(),
+            message: 'Test' + (new Date()).getTime()
+        };
+
+        el.addEventListener('value-set', function(e) {
+
+            // check event data
+            expect(e).toBeDefined();
+            expect(e.target).toEqual(el);
+            expect(e.detail).toEqual(null);
+
+            expect(this).toEqual(el);
+
+            // check value was set correctly
+            expect(e.target.value.title).toEqual(testValue.title);
+            expect(e.target.value.firstName).toEqual(testValue.firstName);
+            expect(e.target.value.surname).toEqual(testValue.surname);
+            expect(e.target.value.email).toEqual(testValue.email);
+            expect(e.target.value.phone).toEqual(testValue.phone);
+            expect(e.target.value.message).toEqual(testValue.message);
+
+            done();
+        });
+
+        el.addEventListener('render-complete', function() {
+            el.value = testValue;
+        });
+
+        el.src = tempSchemaUrl;
+    });
+    //
+
 });

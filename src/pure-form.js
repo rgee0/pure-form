@@ -305,31 +305,7 @@
         return valid;
     };
 
-    /**
-     * Event handler fired when a record is created (override and return true to continue with next step)
-     * @param {object} data - json data that was sent to the server
-     * @param {object} next - next hateoas link returned from creation (if present)
-     * @returns {boolean} return true to load the next link if returned, otherwise false
-     */
-    proto.oncreate = function (data, next) {
-        return true;
-    };
-
-    /**
-     * Event handler fired when a record is update (return true to continue with next step)
-     * @param {object} data - json data that was sent to the server
-     * @param {object} next - next hateoas link returned from update (if present)
-     * @returns {boolean} returns true to allow navigation to .next is present
-     */
-    proto.onupdate = function (data, next) {
-        return true;
-    };
-
     proto.onbuttonclick = function (label) {
-        return true;
-    };
-
-    proto.onpopulatecomplete = function () {
         return true;
     };
 
@@ -741,11 +717,15 @@
                     // get next schema from response is present
                     var next = arrayWhere((data || {}).links, 'rel', 'next', true);
 
-                    // if event handler returns true and we have a next object, load the next step
-                    if (self.onupdate.call(self, data, next) && next) {
-                        self.src = next.href;
-                    }
+                    // TODO: fire 'update-successful' event and if we have a next schema, load that
+
+                    // // if event handler returns true and we have a next object, load the next step
+                    // if (self.onupdate.call(self, data, next) && next) {
+                    //     self.src = next.href;
+                    // }
                 });
+
+                // TODO: add catch block to fire 'update-failed'
         }
         else if (createUrl !== '') {
 
@@ -764,11 +744,15 @@
                     // get next schema from response is present
                     var next = arrayWhere((data || {}).links, 'rel', 'next', true);
 
-                    // if event handler returns true and we have a next object, load the next step
-                    if (self.oncreate.call(self, data, next) && next) {
-                        self.src = next.href;
-                    }
+                    // TODO: fire 'create-successful' event, if next has a schema, load it
+
+                    // // if event handler returns true and we have a next object, load the next step
+                    // if (self.oncreate.call(self, data, next) && next) {
+                    //     self.src = next.href;
+                    // }
                 });
+
+                // TODO: add catch block to fire 'create-failed'
         }
         else {
             self.onsave.call(self, formData);
@@ -784,22 +768,22 @@
     function populateForm(data) {
 
         data = data || this._value;
+        var self = this;
 
-        for (var key in data) {
-            if (key !== 'links' && key.indexOf('$') === -1 && data.hasOwnProperty(key)) {
+        Object.keys(data).forEach(function(key) {
 
-                var el = this.querySelector('[name="' + key + '"]'),
-                    value = (typeof data[key] != "undefined") ? data[key] : '';
+            if (key === 'links') return;
 
-                if (!el) continue;
+            var el = self.querySelector('[name="' + key + '"]');
+            var value = (typeof data[key] !== 'undefined') ? data[key] : '';
 
+            if (el) {
                 setElementValue(el, value);
             }
-        }
+        });
 
-        if (this.onpopulatecomplete) {
-            this.onpopulatecomplete.call(this);
-        }
+        // fire onload event
+        self.dispatchEvent(new CustomEvent('value-set', { bubbles: false }));
     }
 
     /**
