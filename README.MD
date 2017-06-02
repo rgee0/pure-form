@@ -4,14 +4,16 @@
 
 Pure Form is a w3c Web Component that uses JSON Schema (v3) to create a typical web form. Removing the need to worry about form markup, validation, layout and UX. The component is written in pure JavaScript (ES5) adhering to web standards, and does not have any dependency on 3rd party frameworks or transpilers.
 
-Key features:
+Benefits:
 
- * Schematic HTML
- * Client side validation
- * Inline error messages
- * Get/Set value using a JSON object
- * Ability to retrieve schema from server
- * Ability to post to server
+* No need to hand code a HTML form
+* No need to worry about client side validation
+* Inline client side error messages take care of
+* Get/Set value using a JSON object
+* Ability to retrieve schema from server
+* Ability to REST POST/PUT form to server as JSON
+* Automatic persistance between refreshes _(optional)_
+* UX friendly onblur validation _(optional)_
 
 ## Usage
 
@@ -27,7 +29,7 @@ Key features:
   </head>
   <body>
     <!-- create just like a regular HTML tag (can also be created using document.createElement) -->
-    <pure-form id="example" src="contact-form.json" buttons="Save" validate-onblur="true"></pure-form>
+    <pure-form id="example" src="contact-form.json" validate-onblur="true"></pure-form>
   </body>
 </html>
 ```
@@ -43,6 +45,9 @@ Pure form uses JSON Schema (v3) to define the forms input requirements and valid
   "$schema": "http://json-schema.org/draft-03/schema#",
   "title": "Contact Us",
   "description": "Got a question? Get in touch!",
+  "links": [
+    { "rel": "create", "title": "Save", "href": "http://localhost:8080/contact", "method": "POST" }
+  ],
   "properties": {
     "title": {
       "title": "Title",

@@ -39,13 +39,13 @@
                 var updateInfo = arrayWhere(this._schema.links, 'rel', 'self', true);
                 if (updateInfo) {
                     this.updateUrl = updateInfo.href;
-                    this.buttons += updateInfo.title || 'Update';
+                    this.buttons = (this.buttons + ',' + (updateInfo.title || 'Update')).trim();
                 }
 
                 var createInfo = arrayWhere(this._schema.links, 'rel', 'create', true);
-                if (updateInfo) {
+                if (createInfo) {
                     this.createUrl = createInfo.href;
-                    this.buttons += createInfo.title || 'Save';
+                    this.buttons = (this.buttons + ',' + (createInfo.title || 'Save')).trim();
                 }
 
                 renderForm.call(this);
@@ -345,7 +345,11 @@
         var self = this;
         var schemaUrl = this.src;
 
-        http.get(schemaUrl, function(data) {
+        http.get(schemaUrl, 'application/json', function(error) {
+            // fire error event
+            self.dispatchEvent(new CustomEvent('schema-errored', { detail: schemaUrl, bubbles: false }));
+        },
+        function(data) {
 
             // store the schema
             self.schema = JSON.parse(data);
@@ -362,10 +366,6 @@
                     populateForm.call(JSON.parse(formData));
                 }
             }
-        },
-        function(error) {
-            // fire error event
-            self.dispatchEvent(new CustomEvent('schema-errored', { detail: schemaUrl, bubbles: false }));
         });
     }
 
@@ -397,13 +397,16 @@
                     // hook form submit event
                     this.form.onsubmit = function (e) {
 
-                        if (!self.isValid()) {
-                            e.preventDefault();
-                        }
-                        else {
-                            console.log('submmitting....');
-                            save.call(self);
-                        }
+                        e.preventDefault();
+
+                        // // TODO: review this!
+                        // if (!self.isValid()) {
+                        //     e.preventDefault();
+                        // }
+                        // else {
+                        //     console.log('submmitting....');
+                        //     save.call(self);
+                        // }
                     };
                 }
 
@@ -421,7 +424,7 @@
             // erase current form
             this.form.innerHTML = '';
 
-            // remove keys we're not interested in
+            // go through array of keys (as string) and remove keys we're not interested in
             orderedKeys = orderedKeys.filter(function (key) {
                 return (key !== 'links' && key.indexOf('$') === -1 && properties.hasOwnProperty(key));
             });
@@ -496,6 +499,17 @@
 
             // fire onload event
             self.dispatchEvent(new CustomEvent('render-complete', { bubbles: false }));
+
+            // when a button is clicked, check if we have a link object for it and if so, execute the request
+            self.addEventListener('button-clicked', function(e) {
+
+                var buttonValue = e.detail;
+
+                // find the link either by title or rel
+                var link = arrayWhere((self.schema || {}).links, 'title', buttonValue, true) || arrayWhere((self.schema || {}).links, 'rel', buttonValue, true);
+
+                submit.call(self, link);
+            });
         }
     }
 
@@ -565,7 +579,7 @@
                 var el = e.target;
 
                 if (el.tagName === 'INPUT' && el.type === 'submit') {
-                    self.dispatchEvent(new CustomEvent('button-clicked', { detail: el.value, bubbles: false }));
+                    self.dispatchEvent(new CustomEvent('button-clicked', { detail: el.value, bubbles: true, cancelable: true }));
                 }
             };
         }
@@ -700,81 +714,111 @@
     }
 
     /**
-     * Saves the form data back to the server
-     * @access private
+     * Submits the form to the server via whichever method detailed in the link object
+     * @param {object} linkDescObject - the link object retrieved from the schema .links collection
      * @returns {void}
      */
-    function save() {
+    function submit(linkDescObject) {
+
+        if (!linkDescObject) return;
 
         var self = this;
-        var createUrl = this.getAttribute('create-url') || '';
-        var updateUrl = this.getAttribute('update-url') || '';
         var formData = getData.call(this);
+        var url = (linkDescObject.href || document.location.href);
+        var method = (linkDescObject.method || 'POST').toLowerCase();
+        var contentType = (linkDescObject.enctype || 'application/json');
 
         self.clearValidationErrors();
 
         // exit if not valid
         if (!self.isValid(formData)) return;
 
-        // execute update or create request
-        if (updateUrl !== '') {
-
-            fetch(updateUrl, {
-                    method: 'PUT',
-                    body: formData,
-                    headers: new Headers({
-                        'Content-Type': 'application/json'
-                    })
-                })
-                .then(function(res) {
-                    return res.json();
-                })
-                .then(function (data) {
-
-                    // get next schema from response is present
-                    var next = arrayWhere((data || {}).links, 'rel', 'next', true);
-
-                    // TODO: fire 'update-successful' event and if we have a next schema, load that
-
-                    // // if event handler returns true and we have a next object, load the next step
-                    // if (self.onupdate.call(self, data, next) && next) {
-                    //     self.src = next.href;
-                    // }
-                });
-
-                // TODO: add catch block to fire 'update-failed'
-        }
-        else if (createUrl !== '') {
-
-            fetch(createUrl, {
-                    method: 'POST',
-                    body: formData,
-                    headers: new Headers({
-                        'Content-Type': 'application/json'
-                    })
-                })
-                .then(function(res) {
-                    return res.json();
-                })
-                .then(function (data) {
-
-                    // get next schema from response is present
-                    var next = arrayWhere((data || {}).links, 'rel', 'next', true);
-
-                    // TODO: fire 'create-successful' event, if next has a schema, load it
-
-                    // // if event handler returns true and we have a next object, load the next step
-                    // if (self.oncreate.call(self, data, next) && next) {
-                    //     self.src = next.href;
-                    // }
-                });
-
-                // TODO: add catch block to fire 'create-failed'
-        }
-        else {
-            self.onsave.call(self, formData);
-        }
+        http[method](url, contentType, formData, function(err) {
+            // fire error event
+            self.dispatchEvent(new CustomEvent('submit-failed', { detail: url, bubbles: false }));
+        },
+        function(data) {
+            // fire onload event
+            self.dispatchEvent(new CustomEvent('submit-successful', { detail: data, bubbles: false }));
+        });
     }
+
+    // /**
+    //  * Saves the form data back to the server
+    //  * @access private
+    //  * @returns {void}
+    //  */
+    // function save() {
+
+    //     var self = this;
+    //     var createUrl = this.getAttribute('create-url') || '';
+    //     var updateUrl = this.getAttribute('update-url') || '';
+    //     var formData = getData.call(this);
+
+    //     self.clearValidationErrors();
+
+    //     // exit if not valid
+    //     if (!self.isValid(formData)) return;
+
+    //     // execute update or create request
+    //     if (updateUrl !== '') {
+
+    //         fetch(updateUrl, {
+    //                 method: 'PUT',
+    //                 body: formData,
+    //                 headers: new Headers({
+    //                     'Content-Type': 'application/json'
+    //                 })
+    //             })
+    //             .then(function(res) {
+    //                 return res.json();
+    //             })
+    //             .then(function (data) {
+
+    //                 // get next schema from response is present
+    //                 var next = arrayWhere((data || {}).links, 'rel', 'next', true);
+
+    //                 // TODO: fire 'update-successful' event and if we have a next schema, load that
+
+    //                 // // if event handler returns true and we have a next object, load the next step
+    //                 // if (self.onupdate.call(self, data, next) && next) {
+    //                 //     self.src = next.href;
+    //                 // }
+    //             });
+
+    //             // TODO: add catch block to fire 'update-failed'
+    //     }
+    //     else if (createUrl !== '') {
+
+    //         fetch(createUrl, {
+    //                 method: 'POST',
+    //                 body: formData,
+    //                 headers: new Headers({
+    //                     'Content-Type': 'application/json'
+    //                 })
+    //             })
+    //             .then(function(res) {
+    //                 return res.json();
+    //             })
+    //             .then(function (data) {
+
+    //                 // get next schema from response is present
+    //                 var next = arrayWhere((data || {}).links, 'rel', 'next', true);
+
+    //                 // TODO: fire 'create-successful' event, if next has a schema, load it
+
+    //                 // // if event handler returns true and we have a next object, load the next step
+    //                 // if (self.oncreate.call(self, data, next) && next) {
+    //                 //     self.src = next.href;
+    //                 // }
+    //             });
+
+    //             // TODO: add catch block to fire 'create-failed'
+    //     }
+    //     else {
+    //         self.onsave.call(self, formData);
+    //     }
+    // }
 
     /**
      * Go through the data, for each key get the element and set it's value based on element type
@@ -1189,7 +1233,6 @@
         return ((pattern.constructor !== RegExp) ? new RegExp(pattern, 'g') : pattern).test(src);
     }
 
-
     // Add Custom Event support (IE9)
     if (!CustomEvent) {
 
@@ -1247,22 +1290,29 @@
 
         /**
          * Executes an AJAX GET request
+         * @param {string} method - HTTP method to use
          * @param {string} url - url to request
-         * @param {any} callback - method to handle success response
-         * @param {any} error - method to handle an error
+         * @param {string} contentType - the content type to send to the server
+         * @param {object} data - data to sent
+         * @param {function} error - method to handle an error
+         * @param {function} callback - method to handle success response
          * @returns {void}
          */
-        function get(url, callback, error) {
+        function exec(method, url, contentType, data, error, callback) {
 
             var xhr = createXMLHttpRequest();
 
             xhr = (!('withCredentials' in xhr)) ? new XDomainRequest() : xhr;  // fix IE9
 
             if (xhr) {
-                xhr.open('GET', url);
+
+                method = method || 'GET';
+                contentType = contentType || 'application/json';
+
+                xhr.open(method, url);
                 xhr.withCredentials = true;
                 xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.setRequestHeader('Content-Type', contentType);
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         callback(xhr.responseText);
@@ -1271,12 +1321,42 @@
                         error(xhr.status);
                     }
                 };
-                xhr.send();
+
+                if (data) {
+
+                    switch (contentType) {
+
+                        case 'application/x-www-form-urlencoded': {
+                            data = encodeData(data);
+                        } break;
+
+                        default: {
+                            data = JSON.stringify(data);
+                        } break;
+
+                    }
+                }
+
+                xhr.send(data || null);
             }
         }
 
         return {
-            get: get
+            get: function(url, contentType, callback, error) {
+                exec('GET', url, contentType, null, callback, error);
+            },
+            post: function(url, contentType, data, callback, error) {
+                exec('POST', url, contentType, data, callback, error);
+            },
+            put: function(url, contentType, data, callback, error) {
+                exec('PUT', url, contentType, data, callback, error);
+            },
+            patch: function(url, contentType, callback, error) {
+                exec('PATCH', url, contentType, callback, error);
+            },
+            delete: function(url, contentType, callback, error) {
+                exec('DELETE', url, contentType, callback, error);
+            }
         };
     })();
 

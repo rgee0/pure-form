@@ -4,7 +4,9 @@
   "$schema": "http://json-schema.org/draft-03/schema#",
   "title": "Contact Us",
   "description": "Got a question? Get in touch!",
-  "links": [],
+  "links": [
+    { "rel": "create", "title": "Create", "href": "http://localhost:8080/contact", "method": "POST" }
+  ],
   "additionalProperties": false,
   "properties": {
     "title": {

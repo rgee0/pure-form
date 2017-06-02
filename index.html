@@ -13,8 +13,17 @@
 
             body { padding-bottom: 40px; font-size: 14px; font-family: tahoma; color: #333; }
         </style>
+        <script>
+            window.onload = function(){
+                var el = document.getElementById('example');
+
+                // el.addEventListener('button-clicked', function(e){
+                //     e.stopImmediatePropagation();
+                // });
+            }
+        </script>
     </head>
     <body>
-        <pure-form src="schemas/contact-form.json" buttons="Save" validate-onblur="true"></pure-form>
+        <pure-form id="example" src="schemas/contact-form.json" buttons="Save" validate-onblur="true"></pure-form>
     </body>
 </html>
