@@ -95,16 +95,15 @@ You can get the value of all form fields by calling `.value`:
 
 ```js
 var data = document.getElementById('example').value;
-```
 
-In the above example, the data variable now contains the following:
-
-```js
+// Based on the above example, data contains the following (empty fields are omitted):
+/*
 {
   title: "Mr",
   firstName: "John",
   surname: "Doherty"
 }
+*/
 ```
 
 
