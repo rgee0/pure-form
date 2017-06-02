@@ -134,6 +134,7 @@ Pure Form fires events using w3c [CustomEvent](https://developer.mozilla.org/en/
 | `schema-errored` | Fired when `.src` url fails to return a JSON Schema | _schema url_ |
 | `render-complete` | Fired when pure-form completes rendering | _null_ |
 | `button-clicked` | Fired when a pure-form button is clicked | _button display value_ |
+| `value-set` | Fired when the form value is set | _null_ |
 
 
 ### Data Types
