@@ -122,6 +122,9 @@ describe('pure-form rendering', function () {
 
         el.autofocusError = true;
         expect(el.getAttribute('autofocus-error')).toEqual('true');
+
+        el.validateOnBlur = true;
+        expect(el.getAttribute('validate-onblur')).toEqual('true');
     });
 
     it('should load JSON schema set via .src attribute', function(done) {

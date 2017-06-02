@@ -18,7 +18,7 @@ Pure Form is a w3c Web Component that uses JSON Schema (v3) to create a typical 
   </head>
   <body>
     <!-- create just like a regular HTML tag (can also be created using document.createElement) -->
-    <pure-form src="contact-form.json" buttons="Save"></pure-form>
+    <pure-form src="contact-form.json" buttons="Save" validate-onblur="true"></pure-form>
   </body>
 </html>
 ```
@@ -93,6 +93,7 @@ The following HTML attributes can be set directly on the element within your pag
 | `disable-validation` | Disables all form validation
 | `placeholder-maxlength` | Max description length to be used as placeholder, values greater than are inlined
 | `autofocus-error` | If set to true, sets focus to the first input containing an error after validation
+| `validate-onblur` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_
 
 ### JavaScript Properties
 
@@ -113,6 +114,7 @@ The following JavaScript property allows you to interact with the component:
 | `.disableValidation` | _boolean_ | `false` | Disables all form validation |
 | `.placeholderMaxLength` | _boolean_ | `75` | Max description length to be used as placeholder, values greater than are inlined
 | `.autofocusError`| _boolean_ | `false` | If set to true, sets focus to the first input containing an error after validation
+| `.validateOnBlur` | _boolean_ | `false` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_
 
 ### Methods
 

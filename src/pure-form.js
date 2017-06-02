@@ -144,6 +144,17 @@
             set: function (value) {
                 this.setAttribute('autofocus-error', value === true);
             }
+        },
+        validateOnBlur: {
+            get: function () {
+                return (this.getAttribute('validate-onblur') === 'true');
+            },
+            set: function (value) {
+                this.setAttribute('validate-onblur', value === true);
+                if (value) {
+                    this.autofocusError = false;
+                }
+            }
         }
     });
 
@@ -395,6 +406,14 @@
                         }
                     };
                 }
+
+                // add validate on blur handler
+                this.form.addEventListener('focusout', function(e) {
+
+                    if (self.validateOnBlur) {
+                        self.validateField(e.target.id, e.target.value);
+                    }
+                }, true);
             }
 
             // erase current form
@@ -447,11 +466,6 @@
                         if (i === 0) {
                             inputEl.setAttribute('autofocus', 'true');
                         }
-
-                        // validate on blur (only for visible elements)
-                        inputEl.onblur = function () {
-                            self.validateField(this.id, this.value);
-                        };
                     }
 
                     if (!isHidden) {
