@@ -18,12 +18,12 @@ Pure Form is a w3c Web Component that uses JSON Schema (v3) to create a typical 
   </head>
   <body>
     <!-- create just like a regular HTML tag (can also be created using document.createElement) -->
-    <pure-form src="contact-form.json" buttons="Save" validate-onblur="true"></pure-form>
+    <pure-form id="example" src="contact-form.json" buttons="Save" validate-onblur="true"></pure-form>
   </body>
 </html>
 ```
 
-## JSON Schema
+### JSON Schema
 
 Pure form uses JSON Schema (v3) to define the forms input requirements and validation. If the `contact-form.json` referenced above contained the following JSON Schema (v3):
 
@@ -75,8 +75,40 @@ It would produce the following form, including all validation. The markup create
 
 ![Cucumber HTML report](docs/img/pure-form-screenshot.png)
 
+### Get Form Value
 
-### HTML Attributes
+You can get the value of all form fields by calling `.value`:
+
+```js
+var data = document.getElementById('example').value;
+```
+
+In the above example, the data variable now contains the following:
+
+```js
+{
+  title: "Mr",
+  firstName: "John",
+  surname: "Doherty"
+}
+```
+
+
+### Set Form Value
+
+To set the value, simply assign a JSON object with keys matching the field names to the `.value` property. For example:
+
+```js
+document.getElementById('example').value = {
+  title: "Mr",
+  firstName: "John",
+  surname: "Doherty"
+};
+```
+
+Keys that are not referenced in the original schema are ignored.
+
+## HTML Attributes
 
 The following HTML attributes can be set directly on the element within your page or via JavaScript using `element.setAttribute(key, value)`
 
@@ -95,7 +127,7 @@ The following HTML attributes can be set directly on the element within your pag
 | `autofocus-error` | If set to true, sets focus to the first input containing an error after validation
 | `validate-onblur` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_
 
-### JavaScript Properties
+## JavaScript Properties
 
 The following JavaScript property allows you to interact with the component:
 
@@ -116,7 +148,7 @@ The following JavaScript property allows you to interact with the component:
 | `.autofocusError`| _boolean_ | `false` | If set to true, sets focus to the first input containing an error after validation
 | `.validateOnBlur` | _boolean_ | `false` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_
 
-### Methods
+## Methods
 
 | Method | Returns | Description |
 | :--- | :--- | :--- |
@@ -126,7 +158,7 @@ The following JavaScript property allows you to interact with the component:
 | `.validateField(keyAsString, valueAsAny)` | _Boolean_ | Checks if a key/value is valid against the schema |
 | `.isValid()` | _boolean_ | Checks if the entire form is valid |
 
-### Events
+## Events
 
 Pure Form fires events using w3c [CustomEvent](https://developer.mozilla.org/en/docs/Web/API/CustomEvent) method, additional information is stored within the .detail property of the event object.
 
@@ -139,7 +171,7 @@ Pure Form fires events using w3c [CustomEvent](https://developer.mozilla.org/en/
 | `value-set` | Fired when the form value is set | _null_ |
 
 
-### Data Types
+## Data Types
 
 TODO: Add JSON Schema data type/format to html type documentation
 
