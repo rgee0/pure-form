@@ -398,17 +398,28 @@
 
             this.form = this.querySelector('form');
 
-            // if we've not yet created the form, create and list for submit
+            // if we've not yet created the form, create and hook submit event
             if (!this.form) {
 
                 // keep a handle to the form element
                 this.form = createEl(this, 'form', { action: '', method: 'post', novalidate: 'novalidate' });
 
-                // hook form submit event
-                this.form.onsubmit = function (e) {
-                    e.preventDefault();
-                    save.call(self);
-                };
+                // if we have a create/update url, dont submit the form
+                if (this.getAttribute('create-url') !== '' || this.getAttribute('update-url') !== '') {
+
+                    // hook form submit event
+                    this.form.onsubmit = function (e) {
+
+                        if (!self.isValid()) {
+                            e.preventDefault();
+                        }
+                        else {
+                            console.log('submmitting....');
+                            save.call(self);
+                        }
+                    };
+                }
+
             }
 
             // erase current form
@@ -426,7 +437,7 @@
                 var item = properties[key];
 
                 // create a form label container (acts as a row)
-                lbl = createEl(null, 'label', { 'for': key, 'class':'pure-form-label' });
+                lbl = createEl(null, 'label', { for: key, 'class': 'pure-form-label' });
 
                 if (item.format) {
                     lbl.setAttribute('data-format', item.format);

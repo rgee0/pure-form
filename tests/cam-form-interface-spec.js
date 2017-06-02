@@ -1,15 +1,26 @@
 'use strict';
 
+var nock = require('nock');
 var jsdom = require('jsdom');
 var path = require('path');
 
 var document = null;
 var window = null;
 
+nock.disableNetConnect();
+
 describe('pure-form interface', function () {
 
     // create a new browser instance before each test
     beforeEach(function (done) {
+
+        nock('http://localhost:8080')
+            .get('/polyfills/document-register-element.js')
+            .replyWithFile(200, path.resolve('./polyfills/document-register-element.js'))
+            .get('/src/pure-form.js')
+            .replyWithFile(200, path.resolve('./src/pure-form.js'))
+            .get('/schemas/contact-form.json')
+            .replyWithFile(200, path.resolve('./schemas/contact-form.json'));
 
         var virtualConsole = new jsdom.VirtualConsole();
 

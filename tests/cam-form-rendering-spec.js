@@ -1,36 +1,30 @@
 'use strict';
 
+var nock = require('nock');
 var jsdom = require('jsdom');
-//var nock = require('nock');
 var path = require('path');
-var contactFormSchema = require('../schemas/contact-form.json');
+//var contactFormSchema = require('../schemas/contact-form.json');
 
 var document = null;
 var window = null;
 
 var tempSchemaUrl = 'http://localhost:8080/schemas/contact-form.json';
 
-var corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': '*',
-    'Access-Control-Allow-Headers': '*'
-};
-
 // intercept request for schema
-//nock.disableNetConnect();
-//nock.enableNetConnect('http://localhost:8080');
-
-//nock('http://localhost:8080').get('/schemas/contact-form.json').reply(200, contactFormSchema, corsHeaders);
-// nock('https://github.com').intercept('', 'OPTIONS').reply(200, '', {
-//     'Access-Control-Allow-Origin': '*',
-//     'Access-Control-Allow-Methods': '*',
-//     'Access-Control-Allow-Headers': '*'
-// });
+nock.disableNetConnect();
 
 describe('pure-form rendering', function () {
 
     // create a new browser instance before each test
     beforeEach(function (done) {
+
+        nock('http://localhost:8080')
+            .get('/polyfills/document-register-element.js')
+            .replyWithFile(200, path.resolve('./polyfills/document-register-element.js'))
+            .get('/src/pure-form.js')
+            .replyWithFile(200, path.resolve('./src/pure-form.js'))
+            .get('/schemas/contact-form.json')
+            .replyWithFile(200, path.resolve('./schemas/contact-form.json'));
 
         var virtualConsole = new jsdom.VirtualConsole();
 

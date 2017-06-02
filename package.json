@@ -5,7 +5,8 @@
   "main": "dev-server.js",
   "scripts": {
     "start": "node server/dev-server.js",
-    "test": "DEBUG=nock.* jasmine-node tests --verbose --color --forceexit --junitreport || true",
+    "test": "jasmine-node tests --verbose --color --forceexit --junitreport || true",
+    "_test": "DEBUG=nock.* jasmine-node tests --verbose --color --forceexit --junitreport || true",
     "build": "node_modules/gulp/bin/gulp.js build",
     "clean": "node_modules/gulp/bin/gulp.js clean"
   },
