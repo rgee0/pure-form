@@ -128,12 +128,12 @@ The following JavaScript property allows you to interact with the component:
 
 Pure Form fires events using w3c [CustomEvent](https://developer.mozilla.org/en/docs/Web/API/CustomEvent) method, additional information is stored within the .detail property of the event object.
 
-| Event | .detail contains | Description |
+| Event | Description | .detail Contains |
 | :--- | :--- | :--- |
-| `schema-loaded` | _schema url_ | Fired when `.src` url is successfully loaded |
-| `schema-errored` | _schema url_ | Fired when `.src` url fails to return a JSON Schema |
-| `render-complete` | _null_ | Fired when pure-form completes rendering |
-| `button-clicked` | _button display value_ | Fired when a pure-form button is clicked |
+| `schema-loaded` | Fired when `.src` url is successfully loaded | _schema url_ |
+| `schema-errored` | Fired when `.src` url fails to return a JSON Schema | _schema url_ |
+| `render-complete` | Fired when pure-form completes rendering | _null_ |
+| `button-clicked` | Fired when a pure-form button is clicked | _button display value_ |
 
 
 ### Data Types
