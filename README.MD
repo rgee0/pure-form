@@ -94,6 +94,7 @@ The following HTML attributes can be set directly on the element within your pag
 | `persist` | Partially completed forms survive refreshes _(until browser is closed)_
 | `disable-validation` | Disables all form validation
 | `placeholder-maxlength` | Max description length to be used as placeholder, values greater than are inlined
+| `autofocus-error` | If set to true, sets focus to the first input containing an error after validation
 
 ### JavaScript Properties
 
@@ -113,6 +114,7 @@ The following JavaScript property allows you to interact with the component:
 | `.persist` | _boolean_ | `false` | Partially completed forms survive refreshes _(until browser is closed)_ |
 | `.disableValidation` | _boolean_ | `false` | Disables all form validation |
 | `.placeholderMaxLength` | _boolean_ | `75` | Max description length to be used as placeholder, values greater than are inlined
+| `.autofocusError`| _boolean_ | `false` | If set to true, sets focus to the first input containing an error after validation
 
 ### Methods
 

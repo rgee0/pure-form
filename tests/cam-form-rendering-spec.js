@@ -119,6 +119,9 @@ describe('pure-form rendering', function () {
 
         el.disableValidation = true;
         expect(el.getAttribute('disable-validation')).toEqual('true');
+
+        el.autofocusError = true;
+        expect(el.getAttribute('autofocus-error')).toEqual('true');
     });
 
     it('should load JSON schema set via .src attribute', function(done) {

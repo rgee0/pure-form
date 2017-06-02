@@ -136,6 +136,14 @@
             set: function (value) {
                 this.setAttribute('placeholder-maxlength', value);
             }
+        },
+        autofocusError: {
+            get: function () {
+                return (this.getAttribute('autofocus-error') === 'true');
+            },
+            set: function (value) {
+                this.setAttribute('autofocus-error', value === true);
+            }
         }
     });
 
@@ -300,6 +308,13 @@
         // update session stored form data
         if (this.persist && window.sessionStorage) {
             window.sessionStorage[this.src] = JSON.stringify(getRawData.call(this));
+        }
+
+        if (this.autofocusError) {
+            var firstErrorEl = this.querySelector('form [data-valid="false"]');
+            if (firstErrorEl) {
+                firstErrorEl.focus();
+            }
         }
 
         return valid;
