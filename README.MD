@@ -75,7 +75,7 @@ Pure form uses JSON Schema (v3) to define the forms input requirements and valid
 It would produce the following form, including all validation. The markup created within the `pure-form` tag is just regular HTML and can be [styled accordingly](docs/STYLING.MD).
 
 
-![Cucumber HTML report](docs/img/pure-form-screenshot.png =693×554)
+![Cucumber HTML report](docs/img/pure-form-screenshot.png)
 
 
 ### HTML Attributes
