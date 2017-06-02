@@ -393,7 +393,6 @@
             var self = this;
             var properties = this.schema.properties;
             var orderedKeys = getSortedSchemaKeys(this.schema);
-            var itemIndex = 1;
             var lbl = null;
 
             this.form = this.querySelector('form');
@@ -419,7 +418,6 @@
                         }
                     };
                 }
-
             }
 
             // erase current form
@@ -430,7 +428,7 @@
                 return (key !== 'links' && key.indexOf('$') === -1 && properties.hasOwnProperty(key));
             });
 
-            // go through each property of the schema and add form elements
+            // go through the array of ordered keys and create an element for each item
             for (var i = 0; i < orderedKeys.length; i++) {
 
                 var key = orderedKeys[i];
@@ -469,7 +467,7 @@
                     else if (!isHidden) {
 
                         // set focus to the first item
-                        if (itemIndex === 1) {
+                        if (i === 0) {
                             inputEl.setAttribute('autofocus', 'true');
                         }
 
@@ -499,9 +497,6 @@
                 else {
                     throw new Error('Failed to convert schema item to html element (key:' + key + ')');
                 }
-
-                // keep a count of the number of items added
-                itemIndex++;
             }
 
             renderButtons.call(this);
