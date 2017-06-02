@@ -130,10 +130,10 @@ Pure Form fires events using w3c [CustomEvent](https://developer.mozilla.org/en/
 
 | Event | .detail contains | Description |
 | :--- | :--- | :--- |
-| `schema-loaded` | schema url | Fired when `.src` url is successfully loaded. `.schema` property exposes the newly loaded JSON schema object |
-| `schema-errored` | schema url | Fired when `.src` url fails to return a JSON Schema |
-| `render-complete` | null | Fired when pure-form completes rendering |
-| `button-clicked` | buttons display value | Fired when a pure-form button is clicked |
+| `schema-loaded` | _schema url_ | Fired when `.src` url is successfully loaded. `.schema` property exposes the newly loaded JSON schema object |
+| `schema-errored` | _schema url_ | Fired when `.src` url fails to return a JSON Schema |
+| `render-complete` | _null_ | Fired when pure-form completes rendering |
+| `button-clicked` | _button display value_ | Fired when a pure-form button is clicked |
 
 
 ### Data Types
