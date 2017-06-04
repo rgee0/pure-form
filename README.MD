@@ -24,8 +24,8 @@ Benefits:
     <script src="document-register-element.js"></script>
 
     <!-- add pure-form script & css -->
-    <link href="pure-form.css" rel="stylesheet" />
-    <script src="pure-form.js"></script>
+    <link href="pure-form.min.css" rel="stylesheet" />
+    <script src="pure-form.min.js"></script>
   </head>
   <body>
     <!-- create just like a regular HTML tag (can also be created using document.createElement) -->
