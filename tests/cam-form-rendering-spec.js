@@ -158,6 +158,41 @@ describe('pure-form rendering', function () {
         });
     });
 
+
+    it('should re-render buttons when reset', function () {
+
+        var buttonValues = ['One', 'Two', 'Three'];
+        var el = document.createElement('pure-form');
+
+        el.schema = inlineSchema;
+
+        // convert to CSV string before setting
+        el.buttons = buttonValues.join(',');
+
+        // check the buttons container exists in the dom
+        expect(el.querySelector('.pure-form-buttons')).toBeDefined();
+
+        // grab button elements from the DOM, convert to array so we can inspect them
+        var elements = Array.prototype.slice.call(el.querySelectorAll('.pure-form-buttons .pure-form-button'));
+
+        // check we have the correct number of buttons
+        expect(elements.length).toEqual(buttonValues.length);
+
+        // go through each button element and check it's value is correct
+        elements.forEach(function(button, index) {
+            expect(button.value).toEqual(buttonValues[index]);
+        });
+
+        // change buttons property
+        var newButtonsValue = 'test' + (new Date()).getTime();
+        el.buttons = newButtonsValue;
+
+        // check changes have been reflected
+        expect(el.querySelectorAll('.pure-form-buttons').length).toEqual(1);
+        expect(el.querySelectorAll('.pure-form-buttons .pure-form-button').length).toEqual(1);
+        expect(el.querySelector('.pure-form-buttons .pure-form-button').value).toEqual(newButtonsValue);
+    });
+
     it('should remove buttons when value is cleared', function () {
 
         var buttonValues = ['One', 'Two', 'Three'];
@@ -172,6 +207,7 @@ describe('pure-form rendering', function () {
         expect(el.querySelector('.pure-form-buttons')).toBeDefined();
 
         // check we have the correct number of buttons
+        expect(el.querySelectorAll('.pure-form-buttons').length).toEqual(1);
         expect(el.querySelectorAll('.pure-form-buttons .pure-form-button').length).toEqual(buttonValues.length);
 
         // clear

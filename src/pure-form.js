@@ -566,7 +566,7 @@
             var buttons = this.buttons.split(',');
 
             // insert button container if it does not already exist
-            var buttonContainer = createEl(this.form, 'div', { 'class': 'pure-form-buttons' });
+            var buttonContainer = this.form.querySelector('.pure-form-buttons') || createEl(this.form, 'div', { 'class': 'pure-form-buttons' });
 
             // ensure it's empty (this could be a re-render)
             buttonContainer.innerHTML = '';
