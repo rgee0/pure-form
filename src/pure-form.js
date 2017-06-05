@@ -17,7 +17,7 @@
     };
 
     // Create a new instance of the base object with these additional items
-    var proto = Object.create(base, {
+    var pureForm = Object.create(base, {
         src: {
             get: function () {
                 return this.getAttribute('src') || '';
@@ -170,7 +170,7 @@
      * @access private
      * @returns {void}
      */
-    proto.createdCallback = function () {
+    pureForm.createdCallback = function () {
 
         var self = this;
         var attributes = Array.prototype.slice.call(self.attributes);
@@ -190,7 +190,7 @@
      * @param {string} newVal - the new value of the attribute
      * @returns {void}
      */
-    proto.attributeChangedCallback = function (attrName, oldVal, newVal) {
+    pureForm.attributeChangedCallback = function (attrName, oldVal, newVal) {
 
         if (oldVal === newVal) return;
 
@@ -221,7 +221,7 @@
      * @access public
      * @returns {void}
      */
-    proto.clearValidationErrors = function () {
+    pureForm.clearValidationErrors = function () {
 
         // clear previous validation errors
         this.form.removeAttribute('data-error');
@@ -238,7 +238,7 @@
      * @param {string} errorMessage - error message to set on the element
      * @returns {void}
      */
-    proto.setInvalid = function (fieldName, errorMessage) {
+    pureForm.setInvalid = function (fieldName, errorMessage) {
 
         var el = this.querySelector('[name="' + fieldName + '"]');
 
@@ -255,7 +255,7 @@
      * @param {string} fieldName - name of the element to set valid
      * @returns {void}
      */
-    proto.setValid = function (fieldName) {
+    pureForm.setValid = function (fieldName) {
 
         var el = this.querySelector('[name="' + fieldName + '"]');
 
@@ -272,7 +272,7 @@
      * @param {object} value - value to test against schema
      * @returns {boolean} true if valid, otherwise false
      */
-    proto.validateField = function (key, value) {
+    pureForm.validateField = function (key, value) {
 
         // create fake data object
         var dataItem = {};
@@ -290,7 +290,7 @@
      * @param {object} [data] - key/value data object to check against schema
      * @returns {boolean} true if valid otherwise false
      */
-    proto.isValid = function (data) {
+    pureForm.isValid = function (data) {
 
         // if validation has been disabled (for example, the Form Builder doesn't want/need it)
         if (this.disableValidation) return true;
@@ -1391,7 +1391,7 @@
 
     if (document.registerElement) {
         // register component with the dom
-        document.registerElement(componentName, { prototype: proto });
+        document.registerElement(componentName, { prototype: pureForm });
     }
     else {
         throw new Error('document.registerElement does not exist. Are you missing the polyfill?');
