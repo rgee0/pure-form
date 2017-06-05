@@ -71,7 +71,7 @@ describe('pure-form interface', function () {
         expect(typeof el.readonly).toEqual('boolean');
         expect(typeof el.title).toEqual('string');
         expect(typeof el.description).toEqual('string');
-        expect(Array.isArray(el.buttons)).toEqual(true);
+        expect(typeof el.buttons).toEqual('string');
         expect(typeof el.persist).toEqual('boolean');
         expect(typeof el.disableValidation).toEqual('boolean');
         expect(typeof el.placeholderMaxLength).toEqual('number');

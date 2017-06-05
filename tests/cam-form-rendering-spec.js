@@ -9,6 +9,31 @@ var window = null;
 
 var tempSchemaUrl = 'http://localhost:8080/schemas/contact-form.json';
 
+var inlineSchema = {
+    type: 'object',
+    id: 'contact-form',
+    $schema: 'http://json-schema.org/draft-03/schema#',
+    title: 'Contact Us',
+    description: 'Got a question? Get in touch!',
+    additionalProperties: false,
+    properties: {
+        firstName: {
+            title: 'First name',
+            id: 'order:020',
+            type: 'string',
+            required: true,
+            description: 'This is a really long description to test the placeholderMaxLength feature is working correctly.'
+        },
+        surname: {
+            title: 'Surname',
+            id: 'order:030',
+            type: 'string',
+            required: true,
+            description: 'Family name'
+        }
+    }
+};
+
 // intercept request for schema
 nock.disableNetConnect();
 
@@ -106,6 +131,55 @@ describe('pure-form rendering', function () {
 
         el.description = '';
         expect(el.querySelector('.pure-form-description')).toBe(null);
+    });
+
+    it('should render buttons when set', function () {
+
+        var buttonValues = ['One', 'Two', 'Three'];
+        var el = document.createElement('pure-form');
+
+        el.schema = inlineSchema;
+
+        // convert to CSV string before setting
+        el.buttons = buttonValues.join(',');
+
+        // check the buttons container exists in the dom
+        expect(el.querySelector('.pure-form-buttons')).toBeDefined();
+
+        // grab button elements from the DOM, convert to array so we can inspect them
+        var elements = Array.prototype.slice.call(el.querySelectorAll('.pure-form-buttons .pure-form-button'));
+
+        // check we have the correct number of buttons
+        expect(elements.length).toEqual(buttonValues.length);
+
+        // go through each button element and check it's value is correct
+        elements.forEach(function(button, index) {
+            expect(button.value).toEqual(buttonValues[index]);
+        });
+    });
+
+    it('should remove buttons when value is cleared', function () {
+
+        var buttonValues = ['One', 'Two', 'Three'];
+        var el = document.createElement('pure-form');
+
+        el.schema = inlineSchema;
+
+        // convert to CSV string before setting
+        el.buttons = buttonValues.join(',');
+
+        // check the buttons container exists in the dom
+        expect(el.querySelector('.pure-form-buttons')).toBeDefined();
+
+        // check we have the correct number of buttons
+        expect(el.querySelectorAll('.pure-form-buttons .pure-form-button').length).toEqual(buttonValues.length);
+
+        // clear
+        el.buttons = '';
+
+        // check to ensure the buttons (inc container) have been removed
+        expect(el.querySelector('.pure-form-buttons')).toBe(null);
+        expect(el.querySelectorAll('.pure-form-buttons .pure-form-button').length).toEqual(0);
     });
 
     it('should reflect properties as attributes', function () {

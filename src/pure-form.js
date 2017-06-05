@@ -106,9 +106,13 @@
         },
         buttons: {
             get: function () {
-                return (this.getAttribute('buttons') || '').split(',').filter(Boolean);
+                return this.getAttribute('buttons') || '';
             },
             set: function (value) {
+
+                // remove any empty values
+                value = value.split(',').filter(Boolean).join(',');
+
                 this.setAttribute('buttons', value);
             }
         },
@@ -554,16 +558,19 @@
         var self = this;
 
         // add buttons from array if we have them
-        if (this.form && this.buttons.length > 0) {
+        if (this.form && this.buttons !== '') {
+
+            // convert buttons string into array for processing
+            var buttons = this.buttons.split(',');
 
             // insert button container if it does not already exist
-            var buttonContainer = this.form.querySelector('.pure-form-buttons') || createEl(this.form, 'div', { 'class': 'pure-form-buttons' });
+            var buttonContainer = createEl(this.form, 'div', { 'class': 'pure-form-buttons' });
 
             // ensure it's empty (this could be a re-render)
             buttonContainer.innerHTML = '';
 
             // insert buttons
-            this.buttons.forEach(function(item) {
+            buttons.forEach(function(item) {
                 // insert button
                 createEl(buttonContainer, 'input', { type: 'submit', value: item.trim(), class: 'pure-form-button' });
             });
@@ -584,6 +591,9 @@
                     self.dispatchEvent(new CustomEvent('button-clicked', { detail: el.value, bubbles: true, cancelable: true }));
                 }
             };
+        }
+        else {
+            removeElementBySelector(this, '.pure-form-buttons');
         }
     }
 
