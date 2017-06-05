@@ -1343,11 +1343,13 @@
                 xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                 xhr.setRequestHeader('Content-Type', contentType);
                 xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        callback(xhr.responseText);
-                    }
-                    else {
-                        error(xhr.status);
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200 || (xhr.status === 0 && xhr.responseText !== '')) {
+                            callback(xhr.responseText);
+                        }
+                        else {
+                            error(xhr.status);
+                        }
                     }
                 };
 
