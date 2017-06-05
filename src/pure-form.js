@@ -1262,10 +1262,10 @@
         return ((pattern.constructor !== RegExp) ? new RegExp(pattern, 'g') : pattern).test(src);
     }
 
-    // Add Custom Event support (IE9)
-    if (!CustomEvent) {
+    // patch CustomEvent to allow constructor creation (IE/Chrome) - resolved once initCustomEvent no longer exists
+    if ('initCustomEvent' in document.createEvent('CustomEvent')) {
 
-        var CustomEvent = function(event, params) {
+        window.CustomEvent = function(event, params) {
 
             params = params || { bubbles: false, cancelable: false, detail: undefined };
 
@@ -1274,9 +1274,7 @@
             return evt;
         };
 
-        CustomEvent.prototype = window.Event.prototype;
-
-        window.CustomEvent = CustomEvent; // expose definition to window
+        window.CustomEvent.prototype = window.Event.prototype;
     }
 
     /**
