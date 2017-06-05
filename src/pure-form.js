@@ -392,7 +392,7 @@
             if (!this.form) {
 
                 // keep a handle to the form element
-                this.form = createEl(this, 'form', { action: '', method: 'post', 'class': 'pure-form-form', novalidate: 'novalidate' });
+                this.form = createEl(null, 'form', { action: '', method: 'post', 'class': 'pure-form-form', novalidate: 'novalidate' });
 
                 // if we have a create/update url, dont submit the form
                 if (this.getAttribute('create-url') !== '' || this.getAttribute('update-url') !== '') {
@@ -496,6 +496,8 @@
                 else {
                     throw new Error('Failed to convert schema item to html element (key:' + key + ')');
                 }
+
+                this.appendChild(this.form);
             }
 
             renderButtons.call(this);
@@ -513,6 +515,16 @@
 
                 submit.call(self, link);
             });
+
+            // implement auto focus with slight delay just in case its faded in etc
+            setTimeout(function() {
+
+                var el = self.form.querySelector('[autofocus="true"]');
+
+                if (el) {
+                    el.focus();
+                }
+            }, 100);
         }
     }
 
