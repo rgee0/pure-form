@@ -515,16 +515,6 @@
 
                 submit.call(self, link);
             });
-
-            // implement auto focus with slight delay just in case its faded in etc
-            setTimeout(function() {
-
-                var el = self.form.querySelector('[autofocus="true"]');
-
-                if (el) {
-                    el.focus();
-                }
-            }, 100);
         }
     }
 
