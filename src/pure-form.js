@@ -519,14 +519,12 @@
      */
     function renderTitle() {
 
-        var titleEl = this.querySelector('.pure-form-title');
-
-        if (titleEl) {
-            titleEl.innerHTML = this.title;
+        if (this.title !== '') {
+            var titleEl = createEl(null, 'div', { class: 'pure-form-title' }, this.title);
+            this.insertBefore(titleEl, this.form);
         }
         else {
-            titleEl = createEl(null, 'div', { class: 'pure-form-title' }, this.title);
-            this.insertBefore(titleEl, this.form);
+            removeElementBySelector(this, '.pure-form-title');
         }
     }
 
@@ -537,14 +535,12 @@
      */
     function renderDescription() {
 
-        var descEl = this.querySelector('.pure-form-description');
-
-        if (descEl) {
-            descEl.innerHTML = this.description;
+        if (this.description !== '') {
+            var descEl = createEl(null, 'div', { class: 'pure-form-description' }, this.description);
+            this.insertBefore(descEl, this.form);
         }
         else {
-            descEl = createEl(null, 'div', { class: 'pure-form-description' }, this.description);
-            this.insertBefore(descEl, this.form);
+            removeElementBySelector(this, '.pure-form-description');
         }
     }
 
@@ -1226,6 +1222,23 @@
             }
         }
         return (firstOnly) ? null : res;
+    }
+
+    /**
+     * Removes an element from the dom by CSS selector
+     * @access private
+     * @param {HTMLElement} parent - html element to look within
+     * @param {string} selector - CSS selector
+     * @returns {void}
+     */
+    function removeElementBySelector(parent, selector) {
+
+        // remove container
+        var el = (parent || document).querySelector(selector);
+
+        if (el) {
+            el.parentElement.removeChild(el);
+        }
     }
 
     /**

@@ -71,6 +71,19 @@ describe('pure-form rendering', function () {
         expect(el.querySelector('.pure-form-title').textContent).toEqual(testString);
     });
 
+    it('should remove title when cleared', function () {
+
+        var el = document.createElement('pure-form');
+        var testString = 'Hello World';
+        el.title = testString;
+
+        expect(el.querySelector('.pure-form-title')).toBeDefined();
+        expect(el.querySelector('.pure-form-title').textContent).toEqual(testString);
+
+        el.title = '';
+        expect(el.querySelector('.pure-form-title')).toBe(null);
+    });
+
     it('should render description when set', function () {
 
         var el = document.createElement('pure-form');
@@ -80,6 +93,19 @@ describe('pure-form rendering', function () {
         expect(el.querySelector('pure-form-description')).toBeDefined();
         expect(el.querySelectorAll('.pure-form-description').length).toEqual(1);
         expect(el.querySelector('.pure-form-description').textContent).toEqual(testString);
+    });
+
+    it('should remove description when cleared', function () {
+
+        var el = document.createElement('pure-form');
+        var testString = 'Hello World';
+        el.description = testString;
+
+        expect(el.querySelector('.pure-form-description')).toBeDefined();
+        expect(el.querySelector('.pure-form-description').textContent).toEqual(testString);
+
+        el.description = '';
+        expect(el.querySelector('.pure-form-description')).toBe(null);
     });
 
     it('should reflect properties as attributes', function () {
