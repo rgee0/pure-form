@@ -474,6 +474,9 @@
                         if (i === 0) {
                             inputEl.setAttribute('autofocus', 'true');
                         }
+
+                        // insure all inputs have a dedicated class
+                        inputEl.className = 'pure-form-item';
                     }
 
                     if (!isHidden) {

@@ -68,6 +68,10 @@ pure-form .pure-form-label {
     /*overflow: auto;*/
 }
 
+pure-form .pure-form-item {
+
+}
+
 pure-form .pure-form-label[data-required=true] .pure-form-label-text:after {
     content: " * ";
     color: #800;
@@ -93,52 +97,6 @@ pure-form .pure-form-label[data-error]:after {
     text-transform: lowercase;
 }
 
-pure-form input[type=password][data-valid="true"], 
-pure-form input[type=email][data-valid="true"], 
-pure-form input[type=url][data-valid="true"], 
-pure-form input[type=date][data-valid="true"], 
-pure-form input[type=month][data-valid="true"], 
-pure-form input[type=time][data-valid="true"], 
-pure-form input[type=datetime][data-valid="true"], 
-pure-form input[type=datetime-local][data-valid="true"], 
-pure-form input[type=week][data-valid="true"], 
-pure-form input[type=tel][data-valid="true"], 
-pure-form input[type=color][data-valid="true"], 
-pure-form input[type=number][data-valid="true"], 
-pure-form input[type=search][data-valid="true"], 
-pure-form input[type=text][data-valid="true"], 
-pure-form select[data-valid="true"], 
-pure-form textarea[data-valid="true"] {
-    border-color: #3c763d;
-    background-image: url('img/pure-form-icon-valid.svg');
-    background-repeat: no-repeat;
-    background-position: calc(100% - 4px) center;
-    background-size: 34px;
-}
-
-pure-form input[type=password][data-valid="false"], 
-pure-form input[type=email][data-valid="false"], 
-pure-form input[type=url][data-valid="false"], 
-pure-form input[type=date][data-valid="false"], 
-pure-form input[type=month][data-valid="false"], 
-pure-form input[type=time][data-valid="false"], 
-pure-form input[type=datetime][data-valid="false"], 
-pure-form input[type=datetime-local][data-valid="false"], 
-pure-form input[type=week][data-valid="false"], 
-pure-form input[type=tel][data-valid="false"], 
-pure-form input[type=color][data-valid="false"], 
-pure-form input[type=number][data-valid="false"], 
-pure-form input[type=search][data-valid="false"], 
-pure-form input[type=text][data-valid="false"], 
-pure-form select[data-valid="false"], 
-pure-form textarea[data-valid="false"] {
-    border-color: #a94442;
-    background-image: url('img/pure-form-icon-invalid.svg');
-    background-repeat: no-repeat;
-    background-position: calc(100% - 4px) center;
-    background-size: 34px;
-}
-
 pure-form .pure-form-label-text {
     display: inline-block;
     padding: 10px 10px 10px 0;
@@ -147,33 +105,7 @@ pure-form .pure-form-label-text {
     vertical-align: middle;
 }
 
-pure-form .pure-form-item-description {
-    display: block;
-    font-size: 12px;
-    color: #888;
-    text-align: right;
-    padding: 4px 0 14px 0;
-    width: calc(100% - 169px);
-    float: right;
-    line-height: 18px;
-}
-
-pure-form input[type=password], 
-pure-form input[type=email], 
-pure-form input[type=url], 
-pure-form input[type=date], 
-pure-form input[type=month], 
-pure-form input[type=time], 
-pure-form input[type=datetime], 
-pure-form input[type=datetime-local], 
-pure-form input[type=week], 
-pure-form input[type=tel], 
-pure-form input[type=color], 
-pure-form input[type=number], 
-pure-form input[type=search], 
-pure-form input[type=text], 
-pure-form select, 
-pure-form textarea {
+pure-form .pure-form-item {
     padding: 10px 37px 10px 10px; /* leave space to the right for the valid/invalid icons */
     display: inline-block;
     border: 1px solid #ccc;
@@ -188,7 +120,34 @@ pure-form textarea {
     width: calc(100% - 170px);
 }
 
-pure-form select {
+pure-form .pure-form-item[data-valid="true"] {
+    border-color: #3c763d;
+    background-image: url('img/pure-form-icon-valid.svg');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 4px) center;
+    background-size: 34px;
+}
+
+pure-form .pure-form-item[data-valid="false"] {
+    border-color: #a94442;
+    background-image: url('img/pure-form-icon-invalid.svg');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 4px) center;
+    background-size: 34px;
+}
+
+pure-form .pure-form-item-description {
+    display: block;
+    font-size: 12px;
+    color: #888;
+    text-align: right;
+    padding: 4px 0 14px 0;
+    width: calc(100% - 169px);
+    float: right;
+    line-height: 18px;
+}
+
+pure-form select.pure-form-item {
     background-color: #fff;
     background-image: url('data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMnB4IiBoZWlnaHQ9IjMycHgiIHZpZXdCb3g9IjAgMCA5NiAxMDAiPjxwb2x5Z29uIHBvaW50cz0iNDggNzAuNDIgOC41IDMwLjkzIDEyLjA3IDI3LjM2IDQ4IDYzLjI5IDgzLjkzIDI3LjM2IDg3LjUgMzAuOTMgNDggNzAuNDIiLz48L3N2Zz4=');
     background-repeat: no-repeat;
@@ -237,22 +196,7 @@ pure-form ::-moz-placeholder  { font-size: 14px; }
         width: 100%;
     }
 
-    pure-form input[type=password], 
-    pure-form input[type=email], 
-    pure-form input[type=url], 
-    pure-form input[type=date], 
-    pure-form input[type=month], 
-    pure-form input[type=time], 
-    pure-form input[type=datetime], 
-    pure-form input[type=datetime-local], 
-    pure-form input[type=week], 
-    pure-form input[type=tel], 
-    pure-form input[type=color], 
-    pure-form input[type=number], 
-    pure-form input[type=search], 
-    pure-form input[type=text], 
-    pure-form select, 
-    pure-form textarea {
+    pure-form .pure-form-item {
         width: 100%;
     }
 
