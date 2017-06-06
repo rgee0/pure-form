@@ -166,6 +166,14 @@
             set: function (value) {
                 this.setAttribute('tab-on-enter', value === true);
             }
+        },
+        useFormTag: {
+            get: function () {
+                return (this.getAttribute('use-form-tag') !== 'false');
+            },
+            set: function (value) {
+                this.setAttribute('use-form-tag', value === true);
+            }
         }
     });
 
@@ -414,31 +422,36 @@
             var orderedKeys = getSortedSchemaKeys(this.schema);
             var lbl = null;
 
-            this.form = this.querySelector('form');
+            this.form = this.querySelector('.pure-form-form');
 
             // if we've not yet created the form, create and hook submit event
             if (!this.form) {
 
-                // keep a handle to the form element
-                this.form = createEl(null, 'form', { action: '', method: 'post', 'class': 'pure-form-form', novalidate: 'novalidate' });
+                if (self.useFormTag) {
 
-                // if we have a create/update url, dont submit the form
-                if (this.getAttribute('create-url') !== '' || this.getAttribute('update-url') !== '') {
+                    this.form = createEl(null, 'form', { action: '', method: 'post', 'class': 'pure-form-form', novalidate: 'novalidate' });
 
-                    // hook form submit event
-                    this.form.onsubmit = function (e) {
+                    // if we have a create/update url, dont submit the form
+                    if (this.getAttribute('create-url') !== '' || this.getAttribute('update-url') !== '') {
 
-                        e.preventDefault();
+                        // hook form submit event
+                        this.form.onsubmit = function (e) {
 
-                        // // TODO: review this!
-                        // if (!self.isValid()) {
-                        //     e.preventDefault();
-                        // }
-                        // else {
-                        //     console.log('submmitting....');
-                        //     save.call(self);
-                        // }
-                    };
+                            e.preventDefault();
+
+                            // // TODO: review this!
+                            // if (!self.isValid()) {
+                            //     e.preventDefault();
+                            // }
+                            // else {
+                            //     console.log('submmitting....');
+                            //     save.call(self);
+                            // }
+                        };
+                    }
+                }
+                else {
+                    this.form = createEl(null, 'div', { 'class': 'pure-form-form', novalidate: 'novalidate' });
                 }
 
                 // add validate on blur handler

@@ -78,6 +78,7 @@ describe('pure-form interface', function () {
         expect(typeof el.autofocusError).toEqual('boolean');
         expect(typeof el.validateOnBlur).toEqual('boolean');
         expect(typeof el.tabOnEnter).toEqual('boolean');
+        expect(typeof el.useFormTag).toEqual('boolean');
     });
 
 
@@ -100,6 +101,7 @@ describe('pure-form interface', function () {
         expect(el.autofocusError).toEqual(false);
         expect(el.validateOnBlur).toEqual(false);
         expect(el.tabOnEnter).toEqual(false);
+        expect(el.useFormTag).toEqual(true);
     });
 
 

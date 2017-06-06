@@ -264,6 +264,9 @@ describe('pure-form rendering', function () {
 
         el.tabOnEnter = true;
         expect(el.getAttribute('tab-on-enter')).toEqual('true');
+
+        el.useFormTag = false;
+        expect(el.getAttribute('use-form-tag')).toEqual('false');
     });
 
     it('should load JSON schema set via .src attribute', function(done) {
