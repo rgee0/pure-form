@@ -169,6 +169,7 @@ The following JavaScript property allows you to interact with the component:
 | `.setValid(fieldNameAsString)` | - | Sets a form field to valid, clearing an error message |
 | `.validateField(keyAsString, valueAsAny)` | _Boolean_ | Checks if a key/value is valid against the schema |
 | `.isValid()` | _boolean_ | Checks if the entire form is valid |
+| `.clear()` | - | Clears all form fields |
 
 ## Events
 

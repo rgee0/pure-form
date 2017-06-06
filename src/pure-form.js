@@ -334,6 +334,26 @@
         return valid;
     };
 
+    /**
+     * Clears all form field values
+     * @returns {void}
+     */
+    pureForm.clear = function() {
+
+        var formData = {};
+        var schemaProperties = (this.schema || {}).properties || {};
+
+        Object.keys(schemaProperties).filter(function(key) {
+            // skip schema .links or schema properties
+            return (key !== 'links' && key.indexOf('$') <= -1);
+        })
+        .forEach(function(key) {
+            formData[key] = schemaProperties[key].default || '';
+        });
+
+        this.value = formData;
+    };
+
     /*-----------------*/
     /* PRIVATE METHODS */
     /*-----------------*/
