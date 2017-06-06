@@ -455,7 +455,7 @@
                     }
                 }
                 else {
-                    this.form = createEl(null, 'div', { 'class': 'pure-form-form', novalidate: 'novalidate' });
+                    this.form = createEl(null, 'div', { 'class': 'pure-form-form' });
                 }
 
                 // add validate on blur handler
