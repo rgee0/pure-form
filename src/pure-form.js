@@ -609,74 +609,73 @@
      */
     function getData() {
 
-        var schema = (this.schema || {}).properties;
+        var self = this;
+        var schema = (this.schema || {}).properties || {};
         var formData = {};
 
         // go through the schema and get the form values
-        for (var key in schema) {
+        Object.keys(schema).forEach(function(key) {
 
-            if (key !== 'links' && key.indexOf('$') === -1 && schema.hasOwnProperty(key)) {
+            // skip schema .links or schema properties
+            if (key === 'links' && key.indexOf('$') > -1) return;
 
-                // this is the schema item not the element itself
-                var schemaItem = schema[key];
+            // this is the schema item not the element itself
+            var schemaItem = schema[key];
 
-                if (!schema[key].readonly) {
+            if (!schema[key].readonly) {
 
-                    var element = this.querySelector('[name="' + key + '"]'),
-                        value = '';
+                var element = self.querySelector('[name="' + key + '"]');
 
-                    if (element) {
+                if (element) {
 
-                        switch (schemaItem.type) {
+                    switch (schemaItem.type) {
 
-                            case 'array': {
+                        case 'array': {
 
-                                if (schemaItem.items.format === 'textarea') {
-                                    formData[key] = (element.value != '') ? element.value.split('\n') : [];
-                                }
-                                else if (schemaItem.items.format === 'uri') {
-                                    formData[key] = element.data;
-                                }
-                                else if (Array.isArray(element.value)) {
-                                    formData[key] = element.value;
-                                }
-                                else {
-                                    formData[key] = element.value;
-                                }
+                            if (schemaItem.items.format === 'textarea') {
+                                formData[key] = (element.value !== '') ? element.value.split('\n') : [];
+                            }
+                            else if (schemaItem.items.format === 'uri') {
+                                formData[key] = element.data;
+                            }
+                            else if (Array.isArray(element.value)) {
+                                formData[key] = element.value;
+                            }
+                            else {
+                                formData[key] = element.value;
+                            }
 
-                            } break;
+                        } break;
 
-                            case 'boolean': {
-                                formData[key] = (element.checked);
-                            } break;
+                        case 'boolean': {
+                            formData[key] = (element.checked);
+                        } break;
 
-                            case 'integer': {
-                                formData[key] = element.value ? parseInt(element.value) : '';
-                            } break;
+                        case 'integer': {
+                            formData[key] = element.value ? parseInt(element.value, 10) : '';
+                        } break;
 
-                            case 'number': {
-                                formData[key] = element.value ? parseFloat(element.value) : '';
-                            } break;
+                        case 'number': {
+                            formData[key] = element.value ? parseFloat(element.value) : '';
+                        } break;
 
-                            default: {
-                                formData[key] = (element.value || '').trim();
-                            } break;
-                        }
-                    }
-
-                    // remove empty strings
-                    if (!schemaItem.required && formData[key] === '') {
-                        delete formData[key];
+                        default: {
+                            formData[key] = (element.value || '').trim();
+                        } break;
                     }
                 }
-                else {
 
-                    // Required, read-only value will keep its existing value since the form will not allow entry.
-                    formData[key] = (this.value && this.value[key]) || (schemaItem.required && schemaItem.default) || undefined;
+                // remove empty strings
+                if (!schemaItem.required && formData[key] === '') {
+                    delete formData[key];
                 }
             }
+            else {
 
-        }
+                // Required, read-only value will keep its existing value since the form will not allow entry.
+                formData[key] = (this.value && this.value[key]) || (schemaItem.required && schemaItem.default) || undefined;
+            }
+        });
 
         return formData;
     }
