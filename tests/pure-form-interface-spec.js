@@ -77,6 +77,7 @@ describe('pure-form interface', function () {
         expect(typeof el.placeholderMaxLength).toEqual('number');
         expect(typeof el.autofocusError).toEqual('boolean');
         expect(typeof el.validateOnBlur).toEqual('boolean');
+        expect(typeof el.tabOnEnter).toEqual('boolean');
     });
 
 
@@ -98,6 +99,7 @@ describe('pure-form interface', function () {
         expect(el.placeholderMaxLength).toEqual(75);
         expect(el.autofocusError).toEqual(false);
         expect(el.validateOnBlur).toEqual(false);
+        expect(el.tabOnEnter).toEqual(false);
     });
 
 
@@ -110,6 +112,7 @@ describe('pure-form interface', function () {
         expect(typeof el.setValid).toEqual('function');
         expect(typeof el.validateField).toEqual('function');
         expect(typeof el.isValid).toEqual('function');
+        expect(typeof el.clear).toEqual('function');
     });
 
     it('should not expose private methods', function() {

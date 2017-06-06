@@ -261,6 +261,9 @@ describe('pure-form rendering', function () {
 
         el.validateOnBlur = true;
         expect(el.getAttribute('validate-onblur')).toEqual('true');
+
+        el.tabOnEnter = true;
+        expect(el.getAttribute('tab-on-enter')).toEqual('true');
     });
 
     it('should load JSON schema set via .src attribute', function(done) {

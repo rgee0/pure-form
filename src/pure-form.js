@@ -158,6 +158,14 @@
                     this.autofocusError = false;
                 }
             }
+        },
+        tabOnEnter: {
+            get: function () {
+                return (this.getAttribute('tab-on-enter') === 'true');
+            },
+            set: function (value) {
+                this.setAttribute('tab-on-enter', value === true);
+            }
         }
     });
 
@@ -442,6 +450,36 @@
                         self.validateField(el.id, el.value);
                     }
                 }, true);
+
+                // listen for keyboard events in case tabOnEnter is later enabled
+                this.form.addEventListener('keyup', function(e) {
+
+                    var el = e.target;
+
+                    if (self.tabOnEnter) {
+
+                        // only intercept keyup for enter key on inputs
+                        if (e.keyCode === 13 && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')) {
+
+                            e.preventDefault();
+
+                            // get all form items, convert to array to make it easier to search
+                            var items = Array.prototype.slice.call(self.form.querySelectorAll('.pure-form-item'));
+
+                            // find the input that fired the keyup, grab its index and then move focus to the next input
+                            items.forEach(function(item, index) {
+
+                                if (el === item) {
+
+                                    // shift focus to the next visible item if it is present
+                                    if (items[index + 1]) {
+                                        items[index + 1].focus();
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
             }
 
             // erase current form

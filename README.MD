@@ -127,17 +127,18 @@ The following HTML attributes can be set directly on the element within your pag
 | Attribute | Description |
 | :--- |  :--- |
 | `src`  | Path to the JSON Schema that defines the form |
-| `create-url` | Url to post the form to when the user clicks Create
-| `update-url` | Url to post the form to when the user clicks Save
-| `readonly` | If true, adds read only property to all form fields
-| `title` | The title to be rendered before the form
-| `description` | The description before the form
-| `buttons` | Comma separated list of button labels _(excludes buttons created by schema links)_
-| `persist` | Partially completed forms survive refreshes _(until browser is closed)_
-| `disable-validation` | Disables all form validation
-| `placeholder-maxlength` | Max description length to be used as placeholder, values greater than are inlined
-| `autofocus-error` | If set to true, sets focus to the first input containing an error after validation
-| `validate-onblur` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_
+| `create-url` | Url to post the form to when the user clicks Create |
+| `update-url` | Url to post the form to when the user clicks Save |
+| `readonly` | If true, adds read only property to all form fields |
+| `title` | The title to be rendered before the form |
+| `description` | The description before the form |
+| `buttons` | Comma separated list of button labels _(excludes buttons created by schema links)_ |
+| `persist` | Partially completed forms survive refreshes _(until browser is closed)_ |
+| `disable-validation` | Disables all form validation |
+| `placeholder-maxlength` | Max description length to be used as placeholder, values greater than are inlined |
+| `autofocus-error` | If set to true, sets focus to the first input containing an error after validation |
+| `validate-onblur` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_ |
+| `tab-on-enter` | If true, moves focus to the next field in the form when enter is pressed |
 
 ## JavaScript Properties
 
@@ -156,9 +157,10 @@ The following JavaScript property allows you to interact with the component:
 | `.buttons` | _string_ | `[]` | Comma separated list of button labels _(excludes buttons created by schema links)_ |
 | `.persist` | _boolean_ | `false` | Partially completed forms survive refreshes _(until browser is closed)_ |
 | `.disableValidation` | _boolean_ | `false` | Disables all form validation |
-| `.placeholderMaxLength` | _boolean_ | `75` | Max description length to be used as placeholder, values greater than are inlined
-| `.autofocusError`| _boolean_ | `false` | If set to true, sets focus to the first input containing an error after validation
-| `.validateOnBlur` | _boolean_ | `false` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_
+| `.placeholderMaxLength` | _boolean_ | `75` | Max description length to be used as placeholder, values greater than are inlined |
+| `.autofocusError`| _boolean_ | `false` | If set to true, sets focus to the first input containing an error after validation |
+| `.validateOnBlur` | _boolean_ | `false` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_ |
+| `.tabOnEnter` | _boolean_ | `false` | If true, moves focus to the next field in the form when enter is pressed |
 
 ## Methods
 
