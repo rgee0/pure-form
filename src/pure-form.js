@@ -169,7 +169,7 @@
         },
         useFormTag: {
             get: function () {
-                return (this.getAttribute('use-form-tag') !== 'false');
+                return (this.getAttribute('use-form-tag') === 'true');
             },
             set: function (value) {
                 this.setAttribute('use-form-tag', value === true);
@@ -227,6 +227,10 @@
             case 'buttons': {
                 renderButtons.call(this);
             } break;
+
+            case 'use-form-tag': {
+                renderForm.call(this);
+            }
 
             // NOTE: .schema & .value are properties not attributes!
         }

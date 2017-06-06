@@ -282,4 +282,33 @@ describe('pure-form rendering', function () {
         el.src = tempSchemaUrl;
     });
 
+    it('should not render FORM tag by default', function(done) {
+
+        var el = document.createElement('pure-form');
+
+        el.addEventListener('schema-loaded', function() {
+            expect(el.schema).toBeDefined();
+            expect(el.querySelector('.pure-form-form').tagName).toEqual('DIV');
+            done();
+        });
+
+        el.src = tempSchemaUrl;
+    });
+
+    it('should render FORM tag when .useFormTag set', function(done) {
+
+        var el = document.createElement('pure-form');
+
+        el.useFormTag = true;
+
+        el.addEventListener('schema-loaded', function() {
+            expect(el.schema).toBeDefined();
+            expect(el.querySelector('.pure-form-form').tagName).toEqual('FORM');
+            done();
+        });
+
+        el.src = tempSchemaUrl;
+    });
+
+
 });

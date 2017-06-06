@@ -102,7 +102,7 @@ describe('pure-form events', function () {
             expect(e.detail).toBeUndefined();
             expect(this).toEqual(el);
             expect(form).toBeDefined();
-            expect(form.tagName).toEqual('FORM');
+            expect(form.tagName).toEqual('DIV');
             expect(labels.length).toBeGreaterThan(0);
             done();
         });

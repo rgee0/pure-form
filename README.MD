@@ -162,7 +162,7 @@ The following JavaScript property allows you to interact with the component:
 | `.autofocusError`| _boolean_ | `false` | If set to true, sets focus to the first input containing an error after validation |
 | `.validateOnBlur` | _boolean_ | `false` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_ |
 | `.tabOnEnter` | _boolean_ | `false` | If true, moves focus to the next field in the form when enter is pressed |
-| `.useFormTag` | _boolean_ | `true` | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_ |
+| `.useFormTag` | _boolean_ | `false` | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_ |
 
 ## Methods
 
