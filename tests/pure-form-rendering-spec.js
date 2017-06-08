@@ -29,7 +29,8 @@ var inlineSchema = {
             id: 'order:030',
             type: 'string',
             required: true,
-            description: 'Family name'
+            description: 'Family name',
+            maxLength: 10
         }
     }
 };
@@ -308,6 +309,71 @@ describe('pure-form rendering', function () {
         });
 
         el.src = tempSchemaUrl;
+    });
+
+    it('should add data-characters-remaining when maxLength set', function(done) {
+
+        var el = document.createElement('pure-form');
+
+        // preform test when render is complete
+        el.addEventListener('render-complete', function() {
+
+            var label = el.querySelector('label[for="surname"]');
+
+            // check we have a label for surname
+            expect(label).toBeDefined();
+
+            // check the data-characters-remaining is set correctly
+            expect(parseInt(label.getAttribute('data-characters-remaining'), 10)).toEqual(inlineSchema.properties.surname.maxLength);
+
+            // check the data-max-length is set correctly
+            expect(parseInt(label.getAttribute('data-max-length'), 10)).toEqual(inlineSchema.properties.surname.maxLength);
+
+            done();
+        });
+
+        // set schema via property
+        el.schema = inlineSchema;
+    });
+
+
+    it('should adjust data-characters-remaining when value changes', function(done) {
+
+        var el = document.createElement('pure-form');
+
+        // preform test when render is complete
+        el.addEventListener('render-complete', function() {
+
+            var label = el.querySelector('label[for="surname"]');
+            var maxLength = inlineSchema.properties.surname.maxLength;
+
+            // check we have a label for surname
+            expect(label).toBeDefined();
+
+            // check the data-characters-remaining is set correctly
+            expect(parseInt(label.getAttribute('data-characters-remaining'), 10)).toEqual(maxLength);
+
+            // set value to exact number of characters allowed
+            el.value = {
+                surname: new Array(maxLength + 1).join('x')
+            };
+
+            // check remaining to be 0
+            expect(parseInt(label.getAttribute('data-characters-remaining'), 10)).toEqual(0);
+
+            // set value to exceed number of characters allowed
+            el.value = {
+                surname: new Array(maxLength + 3).join('x') // remember, an array is 0 indexed so + 1
+            };
+
+            // check remaining to be max length - 2
+            expect(parseInt(label.getAttribute('data-characters-remaining'), 10)).toEqual(-2);
+
+            done();
+        });
+
+        // set schema via property
+        el.schema = inlineSchema;
     });
 
 

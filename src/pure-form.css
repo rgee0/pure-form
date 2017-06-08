@@ -97,9 +97,16 @@ pure-form .pure-form-label[data-characters-remaining]:after {
     text-transform: lowercase;
 }
 
-pure-form .pure-form-label[data-characters-remaining]:after {
-    content: attr(data-characters-remaining) " characters remaining";
+
+pure-form .pure-form-label[data-max-length][data-characters-remaining]:after {
+    content: "Max " attr(data-max-length) " characters (" attr(data-characters-remaining) " remaining)";
+    text-transform: none;
 }
+
+pure-form .pure-form-label[data-max-length][data-characters-remaining*="-"]:after {
+    color: #800;
+}
+
 
 pure-form .pure-form-label[data-error]:after {
     content: attr(data-error);

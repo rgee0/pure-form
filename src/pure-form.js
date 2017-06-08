@@ -502,18 +502,7 @@
 
                     // add max length attribute to inform the user
                     if (el.getAttribute('data-maxlength')) {
-                        var maxLen = parseInt(el.getAttribute('data-maxlength') || '0', 10);
-
-                        if (maxLen > 0) {
-                            el.parentElement.setAttribute('data-characters-remaining', (maxLen - el.value.length));
-                        }
-                        else {
-                            el.parentElement.removeAttribute('data-characters-remaining');
-                        }
-
-                        // remove error attribute
-                        el.removeAttribute('data-valid');
-                        el.parentElement.removeAttribute('data-error');
+                        setCharactersRemaining(el);
                     }
                 });
             }
@@ -582,6 +571,9 @@
                             // description is too long to render as placeholder, insert below input
                             createEl(lbl, 'span', { class: 'pure-form-item-description' }, item.description || '');
                         }
+
+                        // add max length attribute to label if present so we can use CSS to let the user know
+                        setCharactersRemaining(inputEl);
 
                         // add row to form
                         this.form.appendChild(lbl);
@@ -693,6 +685,35 @@
         }
         else {
             removeElementBySelector(this, '.pure-form-buttons');
+        }
+    }
+
+    /**
+     * Updated data-characters-remaining attribute of a input label (CSS adds UX tips)
+     * @param {HTMLElemenet} input - HTML element to set char attributes on
+     * @returns {void}
+     */
+    function setCharactersRemaining(input) {
+
+        var maxLen = parseInt(input.getAttribute('data-maxlength') || '0', 10);
+        var label = getParentByAttributeValue(input, 'tagName', 'LABEL');
+
+        if (label && maxLen > 0) {
+
+            var valLen = input.value.length;
+
+            label.setAttribute('data-max-length', maxLen);
+
+            if (maxLen > 0) {
+                input.parentElement.setAttribute('data-characters-remaining', (maxLen - valLen));
+            }
+            else {
+                input.parentElement.removeAttribute('data-characters-remaining');
+            }
+
+            // remove error attribute
+            input.removeAttribute('data-valid');
+            label.removeAttribute('data-error');
         }
     }
 
@@ -943,17 +964,21 @@
     function populateForm(data) {
 
         data = data || this._value;
+
         var self = this;
 
+        // go through all keys in data object, if we have an element and a value, set it
         Object.keys(data).forEach(function(key) {
-
-            if (key === 'links') return;
 
             var el = self.querySelector('[name="' + key + '"]');
             var value = (typeof data[key] !== 'undefined') ? data[key] : '';
 
             if (el) {
                 setElementValue(el, value);
+
+                if (self.schema.properties[key].maxLength) {
+                    setCharactersRemaining(el);
+                }
             }
         });
 
@@ -1062,6 +1087,27 @@
     /*------------------------*/
     /* PRIVATE HELPER METHODS */
     /*------------------------*/
+
+    /**
+    * Walks up the DOM from the current node and returns an element where the attribute matches the value.
+    * @param {object} el - element to indicate the DOM walking starting position
+    * @param {string} attName - attribute/property name
+    * @param {string} attValue - value of the attribute/property to match
+    * @returns {HTMLElement} or null if not found
+    */
+    function getParentByAttributeValue(el, attName, attValue) {
+
+        attName = (attName === 'class') ? 'className' : attName;
+        attValue = (attName === 'className') ? '(^|\\s)' + attValue + '(\\s|$)' : attValue;
+        var tmp = el.parentNode;
+        while (tmp !== null && tmp.tagName && tmp.tagName.toLowerCase() !== "html") {
+            if (tmp[attName] === attValue || tmp.getAttribute(attName) === attValue || (attName === 'className' && tmp[attName].matches(attValue))) {
+                return tmp;
+            }
+            tmp = tmp.parentNode;
+        }
+        return null;
+    }
 
     /**
     * Creates, configures & optionally inserts DOM elements via one function call
