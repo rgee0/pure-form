@@ -308,9 +308,10 @@
      * Validates either the passed in object or current form data against the schema
      * @access public
      * @param {object} [data] - key/value data object to check against schema
+     * @param {boolean} silent - if true, does not update the UI to reflect validation status
      * @returns {boolean} true if valid otherwise false
      */
-    pureForm.isValid = function (data) {
+    pureForm.isValid = function (data, silent) {
 
         // if validation has been disabled (for example, the Form Builder doesn't want/need it)
         if (this.disableValidation) return true;
