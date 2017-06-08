@@ -109,7 +109,7 @@ pure-form .pure-form-label[data-max-length][data-characters-remaining*="-"]:afte
 
 
 pure-form .pure-form-label[data-error]:after {
-    content: attr(data-error);
+    content: attr(data-error) !important;
     color: #800;
 }
 
