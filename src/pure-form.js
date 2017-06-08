@@ -308,10 +308,9 @@
      * Validates either the passed in object or current form data against the schema
      * @access public
      * @param {object} [data] - key/value data object to check against schema
-     * @param {boolean} silent - if true, does not update the UI to reflect validation status
      * @returns {boolean} true if valid otherwise false
      */
-    pureForm.isValid = function (data, silent) {
+    pureForm.isValid = function (data) {
 
         // if validation has been disabled (for example, the Form Builder doesn't want/need it)
         if (this.disableValidation) return true;
@@ -332,9 +331,7 @@
             var error = validateAgainstSchema(schema, key, value);
 
             if (error) {
-                if (!silent) {
-                    self.setInvalid(key, error);
-                }
+                self.setInvalid(key, error);
                 valid = false;
             }
             else {
@@ -1090,6 +1087,7 @@
 
     /**
     * Walks up the DOM from the current node and returns an element where the attribute matches the value.
+    * @access private
     * @param {object} el - element to indicate the DOM walking starting position
     * @param {string} attName - attribute/property name
     * @param {string} attValue - value of the attribute/property to match
@@ -1219,6 +1217,14 @@
                 return 'Invalid email address';
             }
 
+            if (value && schemaItem.minLength && valLen < schemaItem.minLength) {
+                return 'The value must have a minimum of ' + schemaItem.minLength + ' character(s)';
+            }
+
+            if (value && schemaItem.maxLength && valLen > schemaItem.maxLength) {
+                return 'Maximum ' + schemaItem.maxLength + ' character' + ((valLen > 1) ? 's' : '');
+            }
+
             // check required status
             if (schemaItem.required && (!value || (Array.isArray(value) && value.length <= 0))) {
                 return 'This field must have a value';
@@ -1242,14 +1248,6 @@
 
             if (value && schemaItem.maximum && parseInt(value, 10) > schemaItem.maximum) {
                 return 'The value must not be higher than ' + schemaItem.maximum;
-            }
-
-            if (value && schemaItem.minLength && valLen < schemaItem.minLength) {
-                return 'The value must have a minimum of ' + schemaItem.minLength + ' character(s)';
-            }
-
-            if (value && schemaItem.maxLength && valLen > schemaItem.maxLength) {
-                return 'Maximum ' + schemaItem.maxLength + ' character' + ((valLen > 1) ? 's' : '');
             }
         }
 
