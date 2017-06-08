@@ -332,7 +332,9 @@
             var error = validateAgainstSchema(schema, key, value);
 
             if (error) {
-                self.setInvalid(key, error);
+                if (!silent) {
+                    self.setInvalid(key, error);
+                }
                 valid = false;
             }
             else {
@@ -496,6 +498,22 @@
                                 }
                             });
                         }
+                    }
+
+                    // add max length attribute to inform the user
+                    if (el.getAttribute('data-maxlength')) {
+                        var maxLen = parseInt(el.getAttribute('data-maxlength') || '0', 10);
+
+                        if (maxLen > 0) {
+                            el.parentElement.setAttribute('data-characters-remaining', (maxLen - el.value.length));
+                        }
+                        else {
+                            el.parentElement.removeAttribute('data-characters-remaining');
+                        }
+
+                        // remove error attribute
+                        el.removeAttribute('data-valid');
+                        el.parentElement.removeAttribute('data-error');
                     }
                 });
             }
@@ -737,6 +755,10 @@
 
                         default: {
                             formData[key] = (element.value || '').trim();
+
+                            if (schemaItem.maxLength) {
+                                formData[key] = formData[key].substr(0, Math.max(schemaItem.maxLength, 0));
+                            }
                         } break;
                     }
                 }
@@ -1024,7 +1046,8 @@
             if (item.min) el.setAttribute('min', item.min);
             if (item.max) el.setAttribute('max', item.max);
             if (item.minLength) el.setAttribute('minlength', item.minLength);
-            if (item.maxLength) el.setAttribute('maxlength', item.maxLength);
+            //if (item.maxLength) el.setAttribute('maxlength', item.maxLength);
+            if (item.maxLength) el.setAttribute('data-maxlength', item.maxLength);
             if (item.minItems) el.setAttribute('min-items', item.minItems);
             if (item.maxItems) el.setAttribute('max-items', item.maxItems);
             if (item.description && item.description.length < this.placeholderMaxLength) {
@@ -1177,6 +1200,10 @@
 
             if (value && schemaItem.minLength && valLen < schemaItem.minLength) {
                 return 'The value must have a minimum of ' + schemaItem.minLength + ' character(s)';
+            }
+
+            if (value && schemaItem.maxLength && valLen > schemaItem.maxLength) {
+                return 'Maximum ' + schemaItem.maxLength + ' character' + ((valLen > 1) ? 's' : '');
             }
         }
 

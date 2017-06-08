@@ -78,16 +78,16 @@ pure-form .pure-form-label[data-required=true] .pure-form-label-text:after {
     font-size: 12px;
     vertical-align: top;
 }
-
+/*
 pure-form .pure-form-label[data-error] .pure-form-label {
     font-weight: bold;
     color: #a94442;
-}
+}*/
 
-pure-form .pure-form-label[data-error]:after {
+pure-form .pure-form-label[data-error]:after,
+pure-form .pure-form-label[data-characters-remaining]:after {
     content: attr(data-error);
     font-size: 12px;
-    color: #800;
     position: absolute;
     right: 10px;
     top: -8px;
@@ -95,6 +95,15 @@ pure-form .pure-form-label[data-error]:after {
     border-radius: 2px;
     background: #fff;
     text-transform: lowercase;
+}
+
+pure-form .pure-form-label[data-characters-remaining]:after {
+    content: attr(data-characters-remaining) " characters remaining";
+}
+
+pure-form .pure-form-label[data-error]:after {
+    content: attr(data-error);
+    color: #800;
 }
 
 pure-form .pure-form-label-text {

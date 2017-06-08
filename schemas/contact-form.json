@@ -51,7 +51,8 @@
       "id": "order:060",
       "type": "string",
       "format": "textarea",
-      "required": true
+      "required": true,
+      "maxLength": 10
     }
   }
 }
