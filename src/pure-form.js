@@ -182,7 +182,7 @@
             set: function (value) {
                 this.setAttribute('enforce-max-length', value === true);
             }
-        },
+        }
     });
 
     /*----------------*/
