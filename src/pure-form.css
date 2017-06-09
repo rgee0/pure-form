@@ -107,7 +107,6 @@ pure-form .pure-form-label[data-max-length][data-characters-remaining*="-"]:afte
     color: #800;
 }
 
-
 pure-form .pure-form-label[data-error]:after {
     content: attr(data-error) !important;
     color: #800;

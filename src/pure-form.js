@@ -134,10 +134,10 @@
         },
         placeholderMaxLength: {
             get: function () {
-                return parseInt(this.getAttribute('placeholder-maxlength') || '75', 10);
+                return parseInt(this.getAttribute('placeholder-max-length') || '75', 10);
             },
             set: function (value) {
-                this.setAttribute('placeholder-maxlength', value);
+                this.setAttribute('placeholder-max-length', value);
             }
         },
         autofocusError: {
@@ -150,10 +150,10 @@
         },
         validateOnBlur: {
             get: function () {
-                return (this.getAttribute('validate-onblur') === 'true');
+                return (this.getAttribute('validate-on-blur') === 'true');
             },
             set: function (value) {
-                this.setAttribute('validate-onblur', value === true);
+                this.setAttribute('validate-on-blur', value === true);
                 if (value) {
                     this.autofocusError = false;
                 }
@@ -174,7 +174,15 @@
             set: function (value) {
                 this.setAttribute('use-form-tag', value === true);
             }
-        }
+        },
+        enforceMaxLength: {
+            get: function () {
+                return (this.getAttribute('enforce-max-length') === 'true');
+            },
+            set: function (value) {
+                this.setAttribute('enforce-max-length', value === true);
+            }
+        },
     });
 
     /*----------------*/
@@ -228,8 +236,17 @@
                 renderButtons.call(this);
             } break;
 
-            case 'use-form-tag': {
+            case 'use-form-tag':
+            case 'enforce-maxlength': {
+
+                // we dont want to wipe out the values when a property changes, so save it's value
+                var value = this.value;
+
+                // re-render the form
                 renderForm.call(this);
+
+                // reassign the value
+                this.value = value;
             }
 
             // NOTE: .schema & .value are properties not attributes!
@@ -498,9 +515,9 @@
                     }
 
                     // add max length attribute to inform the user
-                    if (el.getAttribute('data-maxlength')) {
+                    //if (el.getAttribute('data-maxlength')) {
                         setCharactersRemaining(el);
-                    }
+                    //}
                 });
             }
 
@@ -692,13 +709,14 @@
      */
     function setCharactersRemaining(input) {
 
-        var maxLen = parseInt(input.getAttribute('data-maxlength') || '0', 10);
+        var maxLen = parseInt(input.getAttribute('maxlength') || input.getAttribute('data-maxlength') || '0', 10);
         var label = getParentByAttributeValue(input, 'tagName', 'LABEL');
 
         if (label && maxLen > 0) {
 
             var valLen = input.value.length;
 
+            // ensure label has a copy of the value so css can render a tip
             label.setAttribute('data-max-length', maxLen);
 
             if (maxLen > 0) {
@@ -960,7 +978,7 @@
      */
     function populateForm(data) {
 
-        data = data || this._value;
+        data = data || this._value || {};
 
         var self = this;
 
@@ -1068,8 +1086,7 @@
             if (item.min) el.setAttribute('min', item.min);
             if (item.max) el.setAttribute('max', item.max);
             if (item.minLength) el.setAttribute('minlength', item.minLength);
-            //if (item.maxLength) el.setAttribute('maxlength', item.maxLength);
-            if (item.maxLength) el.setAttribute('data-maxlength', item.maxLength);
+            if (item.maxLength) el.setAttribute((this.enforceMaxLength) ? 'maxlength' : 'data-maxlength', item.maxLength);
             if (item.minItems) el.setAttribute('min-items', item.minItems);
             if (item.maxItems) el.setAttribute('max-items', item.maxItems);
             if (item.description && item.description.length < this.placeholderMaxLength) {

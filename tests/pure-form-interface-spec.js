@@ -79,6 +79,7 @@ describe('pure-form interface', function () {
         expect(typeof el.validateOnBlur).toEqual('boolean');
         expect(typeof el.tabOnEnter).toEqual('boolean');
         expect(typeof el.useFormTag).toEqual('boolean');
+        expect(typeof el.enforceMaxLength).toEqual('boolean');
     });
 
 
@@ -102,6 +103,7 @@ describe('pure-form interface', function () {
         expect(el.validateOnBlur).toEqual(false);
         expect(el.tabOnEnter).toEqual(false);
         expect(el.useFormTag).toEqual(false);
+        expect(el.enforceMaxLength).toEqual(false);
     });
 
 

@@ -29,7 +29,7 @@ Benefits:
   </head>
   <body>
     <!-- create just like a regular HTML tag (can also be created using document.createElement) -->
-    <pure-form id="example" src="contact-form.json" validate-onblur="true"></pure-form>
+    <pure-form id="example" src="contact-form.json" validate-on-blur="true"></pure-form>
   </body>
 </html>
 ```
@@ -135,11 +135,12 @@ The following HTML attributes can be set directly on the element within your pag
 | `buttons` | Comma separated list of button labels _(excludes buttons created by schema links)_ |
 | `persist` | Partially completed forms survive refreshes _(until browser is closed)_ |
 | `disable-validation` | Disables all form validation |
-| `placeholder-maxlength` | Max description length to be used as placeholder, values greater than are inlined |
+| `placeholder-max-length` | Max description length to be used as placeholder, values greater than are inlined |
 | `autofocus-error` | If set to true, sets focus to the first input containing an error after validation |
-| `validate-onblur` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_ |
+| `validate-on-blur` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_ |
 | `tab-on-enter` | If true, moves focus to the next field in the form when enter is pressed |
 | `use-form-tag` | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_ |
+| `enforce-max-length` | If true, does not allow the user to enter more characters that the value of schema maxLength property |
 
 ## JavaScript Properties
 
@@ -163,6 +164,7 @@ The following JavaScript property allows you to interact with the component:
 | `.validateOnBlur` | _boolean_ | `false` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_ |
 | `.tabOnEnter` | _boolean_ | `false` | If true, moves focus to the next field in the form when enter is pressed |
 | `.useFormTag` | _boolean_ | `false` | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_ |
+| `.enforceMaxLength` | _boolean_ | `false` | If true, does not allow the user to enter more characters that the value of schema maxLength property |
 
 ## Methods
 

@@ -261,13 +261,16 @@ describe('pure-form rendering', function () {
         expect(el.getAttribute('autofocus-error')).toEqual('true');
 
         el.validateOnBlur = true;
-        expect(el.getAttribute('validate-onblur')).toEqual('true');
+        expect(el.getAttribute('validate-on-blur')).toEqual('true');
 
         el.tabOnEnter = true;
         expect(el.getAttribute('tab-on-enter')).toEqual('true');
 
-        el.useFormTag = false;
-        expect(el.getAttribute('use-form-tag')).toEqual('false');
+        el.useFormTag = true;
+        expect(el.getAttribute('use-form-tag')).toEqual('true');
+
+        el.enforceMaxLength = true;
+        expect(el.getAttribute('enforce-max-length')).toEqual('true');
     });
 
     it('should load JSON schema set via .src attribute', function(done) {
