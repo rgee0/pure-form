@@ -4,7 +4,7 @@
 
 ## Introduction
 
-A simple, framework free _(written in pure JavaScript)_ web component that removes the need to manually craft and validate HTML forms. Simply define your form requirements in a JSON Schema and assign it to the new `pure-form` HTML tag:
+A simple, framework free _(written in pure JavaScript)_ web component that removes the need to manually craft and validate HTML forms. Simply define your form requirements in a [JSON Schema](https://tools.ietf.org/html/draft-zyp-json-schema-03) and assign it to the new `pure-form` HTML tag:
 
 ```html
 <pure-form src="path-to-json-schema.json"></pure-form>
