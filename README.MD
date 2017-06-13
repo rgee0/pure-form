@@ -16,6 +16,7 @@ Benefits:
 * Automatically handles client side validation
 * Provides visual validation on blur of form fields _(optional)_
 * Get/set the value of the entire form using JSON
+* Displays character limits (including characters remaining) when maxLength set
 * Retain partially completed forms values between refreshes _(optional)_
 
 ## Compatibility
