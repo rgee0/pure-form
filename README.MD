@@ -27,7 +27,7 @@ pure-form is fully functional in all modern browsers from IE9+, including mobile
 ```html
 <html>
   <head>
-    <!-- add document.registerElement polyfill if you need IE & Safari support -->
+    <!-- add document.registerElement polyfill if IE/Safari support required -->
     <script src="document-register-element.js"></script>
 
     <!-- add pure-form script & css -->
