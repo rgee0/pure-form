@@ -1,16 +1,22 @@
-# Pure Form
+# pure-form
 
 [![Linked In](https://img.shields.io/badge/Linked-In-blue.svg)](https://www.linkedin.com/in/john-i-doherty) [![Twitter Follow](https://img.shields.io/twitter/follow/CambridgeMVP.svg?style=social&label=Twitter&style=plastic)](https://twitter.com/CambridgeMVP)
 
-w3c Web Component written in pure Javascript that creates a web form from a JSON Schema (v3).
+## Introduction
+
+A simple, framemwork free _(written in pure JavaScript)_ web component that removes the need to manually craft and validate HTML forms. Simply define your form requirements in a JSON Schema and assign it to the new `pure-form` HTML tag:
+
+`<pure-form src="path-to-json-schema.json"></pure-form>`
 
 Benefits:
 
 * Creates a schematic HTML FORM from a JSON Schema
-* Automatically handles client side validation
-* Provides validation feedback onblur of form fields
+* Automatically handles client side validation _(optional)_
+* Provides validation feedback onblur of form fields _(optional)_
 * Get/set value of the entire form using JSON
-* Optional persistance between refreshes using sessionStorage
+* Persistance between refreshes using sessionStorage _(optional)_
+
+## Compatibility
 
 ## Usage
 
