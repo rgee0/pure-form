@@ -15,8 +15,8 @@ Benefits:
 * Creates a schematic HTML FORM from a JSON Schema
 * Automatically handles client side validation _(optional)_
 * Provides validation feedback onblur of form fields _(optional)_
-* Get/set value of the entire form using JSON
-* Persistance between refreshes using sessionStorage _(optional)_
+* Get/set the value of the entire form using JSON
+* Optionally retain partially complete forms between refreshes _(optional)_
 
 ## Compatibility
 
