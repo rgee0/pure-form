@@ -113,10 +113,9 @@ var data = document.getElementById('example').value;
 }
 ```
 
-
 ### Set Form Value
 
-To set the value, simply assign a JSON object with keys matching the field names to the `.value` property. For example:
+To set the value, simply assign a JSON object with keys matching the field names to the `.value` property.
 
 ```js
 document.getElementById('example').value = {
@@ -130,7 +129,7 @@ Keys that are not referenced in the original schema are ignored.
 
 ## HTML Attributes
 
-The following HTML attributes can be set directly on the element within your page or via JavaScript using `element.setAttribute(key, value)`
+The following HTML attributes can be set directly on the element within your page or using `element.setAttribute(key, value)`:
 
 | Attribute | Description |
 | :--- |  :--- |
@@ -152,7 +151,7 @@ The following HTML attributes can be set directly on the element within your pag
 
 ## JavaScript Properties
 
-The following JavaScript property allows you to interact with the component:
+The following properties can be set via JavaScript:
 
 | Property | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
@@ -176,6 +175,8 @@ The following JavaScript property allows you to interact with the component:
 
 ## Methods
 
+Each pure-form element exposes the following methods:
+
 | Method | Returns | Description |
 | :--- | :--- | :--- |
 | `.clearValidationErrors()` | - | Clear all form validation error messages |
@@ -187,7 +188,7 @@ The following JavaScript property allows you to interact with the component:
 
 ## Events
 
-Pure Form fires events using w3c [CustomEvent](https://developer.mozilla.org/en/docs/Web/API/CustomEvent) method, additional information is stored within the .detail property of the event object.
+pure-form fires the following events _(additional information is stored within the .detail property of the event object)_:
 
 | Event | Description | .detail Contains |
 | :--- | :--- | :--- |
@@ -204,11 +205,15 @@ Pure Form fires events using w3c [CustomEvent](https://developer.mozilla.org/en/
 
 TODO: Add JSON Schema data type/format to html type documentation
 
-## Further Development
+## Continued Development
 
-This project includes everything needed to fork and continue development, including an embedded node webserver. To run the server, git clone the project and run:
+This project is a work in progress, my objective is to advance the component to handle all common form tasks - ideally incorporating all major UX tips. The project includes everything needed to continue development, including an embedded node webserver.
+
+If you'd like to help out, run the following to get started:
 
 ```bash
+git clone https://github.com/john-doherty/pure-form
+cd pure-form/
 npm install
 npm start
 ```
@@ -226,11 +231,13 @@ npm test
 
 ## Build
 
-To create a new version of the minified [pure-form.min.js](dist/pure-form.min.js) and [pure-form.min.css](dist/pure-form) files from source, run the following command:
+The distribution version of pure-form lives in the __dist__ folder ([dist/pure-form.min.js](dist/pure-form.min.js) and [dist/pure-form.min.css](dist/pure-form.min.css)). To create a new version of the minified files from source, run the following command:
 
 ```bash
 npm run build
 ```
+
+The version number is picked up from the `package.json` file.
 
 ## Reporting Bugs
 
