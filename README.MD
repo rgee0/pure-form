@@ -6,7 +6,9 @@
 
 A simple, framemwork free _(written in pure JavaScript)_ web component that removes the need to manually craft and validate HTML forms. Simply define your form requirements in a JSON Schema and assign it to the new `pure-form` HTML tag:
 
-`<pure-form src="path-to-json-schema.json"></pure-form>`
+```html
+<pure-form src="path-to-json-schema.json"></pure-form>
+```
 
 Benefits:
 
@@ -17,6 +19,8 @@ Benefits:
 * Persistance between refreshes using sessionStorage _(optional)_
 
 ## Compatibility
+
+pure-form is fully functional in all modern browsers from IE9+, including mobile browsers and WebViews in Cordova/PhoneGap projects.
 
 ## Usage
 
