@@ -43,7 +43,7 @@ pure-form is fully functional in all modern browsers from IE9+, including mobile
 
 ### JSON Schema
 
-Pure form uses JSON Schema (v3) to define the forms input requirements and validation. If the `contact-form.json` referenced above contained the following JSON Schema (v3):
+Pure form uses JSON Schema (v3) to define the forms input requirements and validation. The following `contact-form.json` referenced above:
 
 ```json
 {
