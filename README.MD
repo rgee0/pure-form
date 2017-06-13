@@ -13,10 +13,10 @@ A simple, framemwork free _(written in pure JavaScript)_ web component that remo
 Benefits:
 
 * Creates a schematic HTML FORM from a JSON Schema
-* Automatically handles client side validation _(optional)_
-* Provides validation feedback onblur of form fields _(optional)_
+* Automatically handles client side validation
+* Provides visual validation on blur of form fields _(optional)_
 * Get/set the value of the entire form using JSON
-* Optionally retain partially complete forms between refreshes _(optional)_
+* Retain partially completed forms values between refreshes _(optional)_
 
 ## Compatibility
 
@@ -241,11 +241,11 @@ The version number is picked up from the `package.json` file.
 
 ## Reporting Bugs
 
-If you find a bug, please create a [jsfiddle](https://jsfiddle.net) to replicate the bug before raising an issue and attach it to the post.
+If you find a bug, please create an [issue](https://github.com/john-doherty/pure-form/issues) and provide as much detail as possible - include a [jsfiddle](https://jsfiddle.net) if possible.
 
 ## Pull Requests
 
-Feel free to submit a PR requests, but please ensure your work is covered by unit tests and follows the current ESLint coding style defined in the [package.json](package.json) file.
+Feel free to submit a pull requests, but please ensure your work is covered with unit tests and you code follows the current ESLint coding style defined in the [package.json](package.json) file.
 
 ## License
 
