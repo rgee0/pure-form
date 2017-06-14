@@ -17,13 +17,15 @@ Benefits:
 * Provides visual validation on blur of form fields _(optional)_
 * Get/set the value of the entire form using JSON
 * Displays character limits (including characters remaining) when maxLength set
-* Retain partially completed forms values between refreshes _(optional)_
+* Preserve partially completed form values between refreshes _(optional)_
 
 ## Compatibility
 
-pure-form is fully functional in all modern browsers from IE9+, including mobile browsers and WebViews in Cordova/PhoneGap projects.
+pure-form works all modern browsers from IE9+, including mobile browsers and Cordova/PhoneGap projects.
 
 ## Usage
+
+### HTML
 
 ```html
 <html>
@@ -92,21 +94,19 @@ Pure form uses JSON Schema (v3) to define the forms input requirements and valid
 }
 ```
 
-Produces the following form, including all validation.
+Produces the following form, including validation.
 
 ![Cucumber HTML report](docs/img/pure-form-screenshot.png)
 
 The markup created within the `pure-form` tag is just regular HTML and can be [styled accordingly](docs/STYLING.MD).
 
-### Get Form Value
+### Get Value
 
-Pure Form `.value` returns as a JSON object containing all populated fields _(empty fields are omitted)_:
+pure-form `.value` returns as a JSON object containing all __populated__ form fields, empty form fields are omitted.
 
-```js
-var data = document.getElementById('example').value;
+Giving the above example `document.getElementById('example').value` would return:
 
-// returns:
-
+```json
 {
   title: "Mr",
   firstName: "John",
@@ -114,9 +114,9 @@ var data = document.getElementById('example').value;
 }
 ```
 
-### Set Form Value
+### Set Value
 
-To set the value, simply assign a JSON object with keys matching the field names to the `.value` property.
+To set the value, simply assign a JSON object with keys matching the field names to the pure-form `.value` property:
 
 ```js
 document.getElementById('example').value = {
@@ -189,7 +189,7 @@ Each pure-form element exposes the following methods:
 
 ## Events
 
-pure-form fires the following events _(additional information is stored within the .detail property of the event object)_:
+pure-form fires the following events _(additional information is stored event.detail property)_:
 
 | Event | Description | .detail Contains |
 | :--- | :--- | :--- |
@@ -208,13 +208,13 @@ TODO: Add JSON Schema data type/format to html type documentation
 
 ## Continued Development
 
-This project is a work in progress, my objective is to advance the component to handle all common form tasks - ideally incorporating all major UX tips. The project includes everything needed to continue development, including an embedded node webserver.
+This project is a work in progress, my objective is to advance the component to handle all common form tasks - ideally incorporating all major UX tips. The project includes everything needed to continue development, including a node webserver.
 
 If you'd like to help out, run the following to get started:
 
 ```bash
 git clone https://github.com/john-doherty/pure-form
-cd pure-form/
+cd pure-form
 npm install
 npm start
 ```
@@ -223,7 +223,16 @@ Then visit [http://localhost:8080](http://localhost:8080) in your browser.
 
 ## Unit Test
 
-Pure Form is tested using [JSDom](https://github.com/tmpvar/jsdom), [Nock](https://github.com/node-nock/nock) and [Jasmine-Node](https://github.com/mhevery/jasmine-node). Tests can be run by git cloning the project and executing:
+Unit tests are broken into 4 sections:
+
+| Filename | Description |
+| :--- | :--- |
+| `pure-form-event-spec.js` | List of tests that test pure-form events |
+| `pure-form-interface-spec.js` | List of tests that check the correct properties and methods are exposed |
+| `pure-form-method-spec.js` | List of tests that execute methods and verify their functionality |
+| `pure-form-rendering-spec.js` | List of tests that tweak properties and verify the rendered output |
+
+Unit tests are written using [JSDom](https://github.com/tmpvar/jsdom), [Nock](https://github.com/node-nock/nock) and [Jasmine-Node](https://github.com/mhevery/jasmine-node). Tests can be run by executing the following from within the pure-form folder:
 
 ```bash
 npm install
