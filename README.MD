@@ -191,7 +191,7 @@ Each pure-form element exposes the following methods:
 
 pure-form fires the following events _(additional information is stored event.detail property)_:
 
-| Event | Description | .detail Contains |
+| Event | Description | .detail |
 | :--- | :--- | :--- |
 | `schema-loaded` | Fired when `.src` url is successfully loaded | _schema url_ |
 | `schema-errored` | Fired when `.src` url fails to return a JSON Schema | _schema url_ |
