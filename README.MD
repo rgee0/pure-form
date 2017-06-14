@@ -106,7 +106,7 @@ pure-form `.value` returns as a JSON object containing all __populated__ form fi
 
 Giving the above example `document.getElementById('example').value` would return:
 
-```json
+```js
 {
   title: "Mr",
   firstName: "John",
@@ -223,7 +223,7 @@ Then visit [http://localhost:8080](http://localhost:8080) in your browser.
 
 ## Unit Test
 
-Unit tests are broken into 4 sections:
+Unit tests are written using [JSDom](https://github.com/tmpvar/jsdom), [Nock](https://github.com/node-nock/nock) and [Jasmine-Node](https://github.com/mhevery/jasmine-node) and are broken into 4 sections:
 
 | Filename | Description |
 | :--- | :--- |
@@ -232,7 +232,7 @@ Unit tests are broken into 4 sections:
 | `pure-form-method-spec.js` | List of tests that execute methods and verify their functionality |
 | `pure-form-rendering-spec.js` | List of tests that tweak properties and verify the rendered output |
 
-Unit tests are written using [JSDom](https://github.com/tmpvar/jsdom), [Nock](https://github.com/node-nock/nock) and [Jasmine-Node](https://github.com/mhevery/jasmine-node). Tests can be run by executing the following from within the pure-form folder:
+ Tests can be run by executing the following from within the pure-form folder:
 
 ```bash
 npm install
