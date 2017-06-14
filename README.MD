@@ -132,75 +132,74 @@ Keys that are not referenced in the original schema are ignored.
 
 The following HTML attributes can be set directly on the element within your page or using `element.setAttribute(key, value)`:
 
-| Attribute | Description |
-| :--- |  :--- |
-| `src`  | Path to the JSON Schema that defines the form |
-| `create-url` | Url to post the form to when the user clicks Create |
-| `update-url` | Url to post the form to when the user clicks Save |
-| `readonly` | If true, adds read only property to all form fields |
-| `title` | The title to be rendered before the form |
-| `description` | The description before the form |
-| `buttons` | Comma separated list of button labels _(excludes buttons created by schema links)_ |
-| `persist` | Partially completed forms survive refreshes _(until browser is closed)_ |
-| `disable-validation` | Disables all form validation |
-| `placeholder-max-length` | Max description length to be used as placeholder, values greater than are inlined |
-| `autofocus-error` | If set to true, sets focus to the first input containing an error after validation |
-| `validate-on-blur` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_ |
-| `tab-on-enter` | If true, moves focus to the next field in the form when enter is pressed |
-| `use-form-tag` | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_ |
-| `enforce-max-length` | If true, does not allow the user to enter more characters that the value of schema maxLength property |
+Attribute                | Description
+------------------------ | -----------------------------------------------------------------------------------------------------
+`src`                    | Path to the JSON Schema that defines the form
+`create-url`             | Url to post the form to when the user clicks Create
+`update-url`             | Url to post the form to when the user clicks Save
+`readonly`               | If true, adds read only property to all form fields
+`title`                  | The title to be rendered before the form
+`description`            | The description before the form
+`buttons`                | Comma separated list of button labels _(excludes buttons created by schema links)_
+`persist`                | Partially completed forms survive refreshes _(until browser is closed)_
+`disable-validation`     | Disables all form validation
+`placeholder-max-length` | Max description length to be used as placeholder, values greater than are inlined
+`autofocus-error`        | If set to true, sets focus to the first input containing an error after validation
+`validate-on-blur`       | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_
+`tab-on-enter`           | If true, moves focus to the next field in the form when enter is pressed
+`use-form-tag`           | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_
+`enforce-max-length`     | If true, does not allow the user to enter more characters that the value of schema maxLength property
 
 ## JavaScript Properties
 
 The following properties can be set via JavaScript:
 
-| Property | Type | Default | Description |
-| :--- | :--- | :--- | :--- |
-| `.src` | _string_ | `""` | Path to the JSON Schema that defines the form |
-| `.schema` | _object_ | `null` | Schema object to use |
-| `.value` | _object_ | `{}` | Object containing key/value pair of values |
-| `.createUrl` | _string_ | `""` | Url to post the form to when the user clicks Create |
-| `.updateUrl` | _string_ | `""` | Url to post the form to when the user clicks Save |
-| `.readonly` | _boolean_ | `false` | If true, adds readonly property to all form fields |
-| `.title` | _string_ | `""` | The title to be rendered before the form |
-| `.description` | _string_ | `""` | The description before the form |
-| `.buttons` | _string_ | `[]` | Comma separated list of button labels _(excludes buttons created by schema links)_ |
-| `.persist` | _boolean_ | `false` | Partially completed forms survive refreshes _(until browser is closed)_ |
-| `.disableValidation` | _boolean_ | `false` | Disables all form validation |
-| `.placeholderMaxLength` | _boolean_ | `75` | Max description length to be used as placeholder, values greater than are inlined |
-| `.autofocusError`| _boolean_ | `false` | If set to true, sets focus to the first input containing an error after validation |
-| `.validateOnBlur` | _boolean_ | `false` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_ |
-| `.tabOnEnter` | _boolean_ | `false` | If true, moves focus to the next field in the form when enter is pressed |
-| `.useFormTag` | _boolean_ | `false` | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_ |
-| `.enforceMaxLength` | _boolean_ | `false` | If true, does not allow the user to enter more characters that the value of schema maxLength property |
+Property                | Type      | Default | Description
+----------------------- | --------- | ------- | -----------------------------------------------------------------------------------------------------
+`.src`                  | _string_  | `""`    | Path to the JSON Schema that defines the form
+`.schema`               | _object_  | `null`  | Schema object to use
+`.value`                | _object_  | `{}`    | Object containing key/value pair of values
+`.createUrl`            | _string_  | `""`    | Url to post the form to when the user clicks Create
+`.updateUrl`            | _string_  | `""`    | Url to post the form to when the user clicks Save
+`.readonly`             | _boolean_ | `false` | If true, adds readonly property to all form fields
+`.title`                | _string_  | `""`    | The title to be rendered before the form
+`.description`          | _string_  | `""`    | The description before the form
+`.buttons`              | _string_  | `[]`    | Comma separated list of button labels _(excludes buttons created by schema links)_
+`.persist`              | _boolean_ | `false` | Partially completed forms survive refreshes _(until browser is closed)_
+`.disableValidation`    | _boolean_ | `false` | Disables all form validation
+`.placeholderMaxLength` | _boolean_ | `75`    | Max description length to be used as placeholder, values greater than are inlined
+`.autofocusError`       | _boolean_ | `false` | If set to true, sets focus to the first input containing an error after validation
+`.validateOnBlur`       | _boolean_ | `false` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_
+`.tabOnEnter`           | _boolean_ | `false` | If true, moves focus to the next field in the form when enter is pressed
+`.useFormTag`           | _boolean_ | `false` | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_
+`.enforceMaxLength`     | _boolean_ | `false` | If true, does not allow the user to enter more characters that the value of schema maxLength property
 
 ## Methods
 
 Each pure-form element exposes the following methods:
 
-| Method | Returns | Description |
-| :--- | :--- | :--- |
-| `.clearValidationErrors()` | - | Clear all form validation error messages |
-| `.setInvalid(fieldNameAsString, errorAsString)` | - | Sets a form field to invalid with a custom error message |
-| `.setValid(fieldNameAsString)` | - | Sets a form field to valid, clearing an error message |
-| `.validateField(keyAsString, valueAsAny)` | _Boolean_ | Checks if a key/value is valid against the schema |
-| `.isValid(optKeyValuePairObject, optionalSilentBool)` | _boolean_ | Checks if the entire form is valid and updates UI _(does not update UI if silent is true)_|
-| `.clear()` | - | Clears all form fields |
+Method                                                | Returns   | Description
+----------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------
+`.clearValidationErrors()`                            |     -     | Clear all form validation error messages
+`.setInvalid(fieldNameAsString, errorAsString)`       |     -     | Sets a form field to invalid with a custom error message
+`.setValid(fieldNameAsString)`                        |     -     | Sets a form field to valid, clearing an error message
+`.validateField(keyAsString, valueAsAny)`             | _Boolean_ | Checks if a key/value is valid against the schema
+`.isValid(optKeyValuePairObject, optionalSilentBool)` | _boolean_ | Checks if the entire form is valid and updates UI _(does not update UI if silent is true)_
+`.clear()`                                            |     -     | Clears all form fields
 
 ## Events
 
 pure-form fires the following events _(additional information is stored event.detail property)_:
 
-| Event | Description | .detail |
-| :--- | :--- | :--- |
-| `schema-loaded` | Fired when `.src` url is successfully loaded | _schema url_ |
-| `schema-errored` | Fired when `.src` url fails to return a JSON Schema | _schema url_ |
-| `render-complete` | Fired when pure-form completes rendering | _null_ |
-| `button-clicked` | Fired when a pure-form button is clicked | _button display value_ |
-| `value-set` | Fired when the form value is set | _null_ |
-| `submit-successful` | Fired when form successfully submited to the server (200 response) | _response data_ |
-| `submit-failed` | Fired when form failed to successfully submit to server | _submission url_ |
-
+Event               | Description                                                        | .detail
+------------------- | ------------------------------------------------------------------ | ---------------------
+`schema-loaded`     | Fired when `.src` url is successfully loaded                       | _schema url_
+`schema-errored`    | Fired when `.src` url fails to return a JSON Schema                | _schema url_
+`render-complete`   | Fired when pure-form completes rendering                           | _null_
+`button-clicked`    | Fired when a pure-form button is clicked                           | _button display value_
+`value-set`         | Fired when the form value is set                                   | _null_
+`submit-successful` | Fired when form successfully submited to the server (200 response) | _response data_
+`submit-failed`     | Fired when form failed to successfully submit to server            | _submission url_
 
 ## Data Types
 
