@@ -120,4 +120,32 @@ describe('pure-form methods', function () {
 
         el.src = tempSchemaUrl;
     });
+
+    it('should set a field invalid when calling .setInvalid', function(done) {
+
+        var el = document.createElement('pure-form');
+
+        var invalidErrorMessage = 'Error' + (new Date()).getTime();
+
+        // once rendered set a field invalid
+        el.addEventListener('render-complete', function(e) {
+
+            el.setInvalid('title', invalidErrorMessage);
+
+            var titleLabel = el.querySelector('label[for=title]');
+            var titleEl = el.querySelector('select[name=title]');
+
+            expect(titleEl).toBeDefined();
+            expect(titleLabel).toBeDefined();
+
+            expect(titleEl.tagName).toEqual('SELECT');
+            expect(titleLabel.tagName).toEqual('LABEL');
+
+            expect(titleEl.getAttribute('data-valid')).toEqual('false');
+            expect(titleLabel.getAttribute('data-error')).toEqual(invalidErrorMessage);
+            done();
+        });
+
+        el.src = tempSchemaUrl;
+    });
 });
