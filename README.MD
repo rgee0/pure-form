@@ -183,7 +183,7 @@ Method                                                | Returns   | Description
 `.clearValidationErrors()`                            |     -     | Clear all form validation error messages
 `.setInvalid(fieldNameAsString, errorAsString)`       |     -     | Sets a form field to invalid with a custom error message
 `.setValid(fieldNameAsString)`                        |     -     | Sets a form field to valid, clearing an error message
-`.validateField(keyAsString, valueAsAny)`             | _Boolean_ | Checks if a key/value is valid against the schema
+`.validateField(keyAsString, valueAsAny)`             | _boolean_ | Checks if a key/value is valid against the schema
 `.isValid(optKeyValuePairObject, optionalSilentBool)` | _boolean_ | Checks if the entire form is valid and updates UI _(does not update UI if silent is true)_
 `.clear()`                                            |     -     | Clears all form fields
 
@@ -191,15 +191,15 @@ Method                                                | Returns   | Description
 
 pure-form fires the following events _(additional information is stored event.detail property)_:
 
-Event               | Description                                                        | .detail
-------------------- | ------------------------------------------------------------------ | ---------------------
-`schema-loaded`     | Fired when `.src` url is successfully loaded                       | _schema url_
-`schema-errored`    | Fired when `.src` url fails to return a JSON Schema                | _schema url_
-`render-complete`   | Fired when pure-form completes rendering                           | _null_
-`button-clicked`    | Fired when a pure-form button is clicked                           | _button display value_
-`value-set`         | Fired when the form value is set                                   | _null_
-`submit-successful` | Fired when form successfully submited to the server (200 response) | _response data_
-`submit-failed`     | Fired when form failed to successfully submit to server            | _submission url_
+Event               | Description                                                         | .detail
+------------------- | ------------------------------------------------------------------- | ---------------------
+`schema-loaded`     | Fired when `.src` url is successfully loaded                        | _schema url_
+`schema-errored`    | Fired when `.src` url fails to return a JSON Schema                 | _schema url_
+`render-complete`   | Fired when pure-form completes rendering                            | _null_
+`button-clicked`    | Fired when a pure-form button is clicked                            | _button display value_
+`value-set`         | Fired when the form value is set                                    | _null_
+`submit-successful` | Fired when form successfully submitted to the server (200 response) | _response data_
+`submit-failed`     | Fired when form failed to successfully submit to server             | _submission url_
 
 ## Data Types
 

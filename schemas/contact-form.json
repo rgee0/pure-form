@@ -39,7 +39,8 @@
       "id": "order:040",
       "type": "string",
       "format": "email",
-      "required": true
+      "required": true,
+      "description": "you@email.com"
     },
     "phone": {
       "title": "Telephone",
