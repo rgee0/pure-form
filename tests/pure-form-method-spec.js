@@ -83,7 +83,7 @@ describe('pure-form methods', function () {
         el.src = tempSchemaUrl;
     });
 
-    it('should clear field values', function(done) {
+    it('should clear field values .clear() is called', function(done) {
 
         var el = document.createElement('pure-form');
 
