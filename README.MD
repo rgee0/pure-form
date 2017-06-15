@@ -19,7 +19,7 @@ Benefits:
 
 ## Compatibility
 
-pure-form works all modern browsers from IE9+, including mobile browsers and Cordova/PhoneGap projects.
+pure-form works in all modern desktop and mobile browsers from IE9+, including Cordova/PhoneGap projects.
 
 ## Usage
 
