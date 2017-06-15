@@ -203,15 +203,13 @@ Method                                                | Returns   | Description
 
 pure-form fires the following events _(additional information is stored event.detail property)_:
 
-Event               | Description                                                         | .detail
-------------------- | ------------------------------------------------------------------- | ----------------------------------------------
-`schema-loaded`     | Fired when `.src` url is successfully loaded                        | _{url: url, status: 200, body: jsonString }_
-`schema-error`      | Fired when `.src` url fails to return a JSON Schema                 | _{url: url, status: 404, body: responseBody }_
-`render-complete`   | Fired when pure-form completes rendering                            | _null_
-`button-clicked`    | Fired when a pure-form button is clicked                            | _button display value_
-`value-set`         | Fired when the form value is set                                    | _{ oldValue: data, newValue: data }_
-
-// TODO: add more events!! (submit etc)
+Event                               | Description                                                         | .detail
+----------------------------------- | ------------------------------------------------------------------- | ----------------------------------------------
+[schema-loaded](#schema-loaded)     | Fired when `.src` url is successfully loaded                        | _{url: url, status: 200, body: jsonString }_
+[schema-error](#schema-error)       | Fired when `.src` url fails to return a JSON Schema                 | _{url: url, status: 404, body: responseBody }_
+[render-complete](#render-complete) | Fired when pure-form completes rendering                            | _null_
+[button-clicked](#button-clicked)   | Fired when a pure-form button is clicked                            | _button display value_
+[value-set](#value-set)             | Fired when the form value is set                                    | _{ oldValue: data, newValue: data }_
 
 ### schema-loaded
 
@@ -276,6 +274,8 @@ document.getElementById('contact').addEventListener('value-set', function(e) {
     console.log(e.detail.newValue); // NEW value of the form
 });
 ```
+
+**TODO** add more events!! (submit etc)
 
 ## Data Types
 
