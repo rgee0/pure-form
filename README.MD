@@ -220,9 +220,9 @@ npm start
 
 Then visit [http://localhost:8080](http://localhost:8080) in your browser.
 
-## Unit Test
+## Testing
 
-To run tests, execute the following from within the pure-form folder:
+The project includes Unit Test. To run tests, execute the following from within the pure-form folder:
 
 ```bash
 npm install
