@@ -130,8 +130,6 @@ Keys that are not referenced in the original schema are ignored.
 
 ## HTML Attributes
 
-The following HTML attributes can be set directly on the element within your page or using `element.setAttribute(key, value)`:
-
 Attribute                | Description
 ------------------------ | -----------------------------------------------------------------------------------------------------
 `src`                    | Path to the JSON Schema that defines the form
@@ -149,6 +147,20 @@ Attribute                | Description
 `tab-on-enter`           | If true, moves focus to the next field in the form when enter is pressed
 `use-form-tag`           | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_
 `enforce-max-length`     | If true, does not allow the user to enter more characters that the value of schema maxLength property
+
+Attributes can be applied in the following ways:
+
+```html
+<!-- html literal -->
+<pure-form id="contactForm" src="path-to-json-schema.json" readonly="true" persist="true" use-form-tag="false"></pure-form>
+```
+
+Or
+
+```js
+// via setAttribute
+document.getElementById('contactForm').setAttribute('use-form-tag', 'false');
+```
 
 ## JavaScript Properties
 
@@ -194,10 +206,11 @@ pure-form fires the following events _(additional information is stored event.de
 Event               | Description                                                         | .detail
 ------------------- | ------------------------------------------------------------------- | ---------------------
 `schema-loaded`     | Fired when `.src` url is successfully loaded                        | _schema url_
-`schema-error`    | Fired when `.src` url fails to return a JSON Schema                 | _schema url_
+`schema-error`      | Fired when `.src` url fails to return a JSON Schema                 | _schema url_
 `render-complete`   | Fired when pure-form completes rendering                            | _null_
 `button-clicked`    | Fired when a pure-form button is clicked                            | _button display value_
 `value-set`         | Fired when the form value is set                                    | _null_
+`before-submit`     | Fired
 `submit-successful` | Fired when form successfully submitted to the server (200 response) | _response data_
 `submit-failed`     | Fired when form failed to successfully submit to server             | _submission url_
 
