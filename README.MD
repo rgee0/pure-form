@@ -152,14 +152,14 @@ Attributes can be applied in the following ways:
 
 ```html
 <!-- html literal -->
-<pure-form id="contactForm" src="path-to-json-schema.json" readonly="true" persist="true" use-form-tag="false"></pure-form>
+<pure-form id="contact" src="path-to-json-schema.json" persist="true" use-form-tag="false"></pure-form>
 ```
 
 Or
 
 ```js
 // via setAttribute
-document.getElementById('contactForm').setAttribute('use-form-tag', 'false');
+document.getElementById('contact').setAttribute('use-form-tag', 'false');
 ```
 
 ## JavaScript Properties
