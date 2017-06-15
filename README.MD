@@ -203,13 +203,13 @@ Method                                                | Returns   | Description
 
 pure-form fires the following events _(additional information is stored event.detail property)_:
 
-Event                               | Description                                                         | .detail
------------------------------------ | ------------------------------------------------------------------- | ----------------------------------------------
-[schema-loaded](#schema-loaded)     | Fired when `.src` url is successfully loaded                        | _{url: url, status: 200, body: jsonString }_
-[schema-error](#schema-error)       | Fired when `.src` url fails to return a JSON Schema                 | _{url: url, status: 404, body: responseBody }_
-[render-complete](#render-complete) | Fired when pure-form completes rendering                            | _null_
-[button-clicked](#button-clicked)   | Fired when a pure-form button is clicked                            | _button display value_
-[value-set](#value-set)             | Fired when the form value is set                                    | _{ oldValue: data, newValue: data }_
+Event                               | Description
+----------------------------------- | -------------------------------------------------------------------
+[schema-loaded](#schema-loaded)     | Fired when `.src` url is successfully loaded
+[schema-error](#schema-error)       | Fired when `.src` url fails to return a JSON Schema
+[render-complete](#render-complete) | Fired when pure-form completes rendering
+[button-clicked](#button-clicked)   | Fired when a pure-form button is clicked
+[value-set](#value-set)             | Fired when the form value is set
 
 ### schema-loaded
 
