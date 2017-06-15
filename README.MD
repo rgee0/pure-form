@@ -222,6 +222,13 @@ Then visit [http://localhost:8080](http://localhost:8080) in your browser.
 
 ## Unit Test
 
+To run tests, execute the following from within the pure-form folder:
+
+```bash
+npm install
+npm test
+```
+
 Tests are written using [jsdom](https://github.com/tmpvar/jsdom), [nock](https://github.com/node-nock/nock) and [jasmine-node](https://github.com/mhevery/jasmine-node) and are broken into 4 files:
 
 | Filename | Description |
@@ -230,13 +237,6 @@ Tests are written using [jsdom](https://github.com/tmpvar/jsdom), [nock](https:/
 | `pure-form-interface-spec.js` | Tests that check the correct properties and methods are exposed |
 | `pure-form-method-spec.js` | Tests that execute methods and verify their functionality |
 | `pure-form-rendering-spec.js` | Tests that tweak properties and verify the rendered output |
-
- To run tests, execute the following from within the pure-form folder:
-
-```bash
-npm install
-npm test
-```
 
 ## Build
 
