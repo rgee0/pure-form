@@ -17,45 +17,9 @@ Benefits:
 * Displays character limits (including characters remaining) when maxLength set
 * Preserve partially completed form values between refreshes _(optional)_
 
-<!-- toc -->
+## Compatibility
 
-* [Usage](#usage)
-  * [HTML](#html)
-  * [JSON Schema](#json-schema)
-  * [HTML attributes](#html-attributes)
-    * [src](#src)
-    * [create-url](#create-url)
-    * [update-url](#update-url)
-    * [readonly](#readonly)
-    * [title](#title)
-    * [description](#description)
-    * [buttons](#buttons)
-    * [persist](#persist)
-    * [disable-validation](#disable-validation)
-    * [placeholder-max-length](#placeholder-max-length)
-    * [autofocus-error](#autofocus-error)
-    * [validate-on-blur](#validate-on-blur)
-    * [tab-on-enter](#tab-on-enter)
-    * [use-form-tag](#use-form-tag)
-    * [enforce-max-length](#enforce-max-length)
-  * [JavaScript Properties](#javascript-properties)
-    * [src](#src)
-    * [schema](#schema)
-    * [value](#value)
-    * [createUrl](#createUrl)
-    * [updateUrl](#updateUrl)
-    * [readonly](#readonly)
-    * [title](#title)
-    * [description](#description)
-    * [buttons](#buttons)
-    * [persist](#persist)
-    * [disableValidation](#disableValidation)
-    * [placeholderMaxLength](#placeholderMaxLength)
-    * [autofocusError](#autofocusError)
-    * [validateOnBlur](#validateOnBlur)
-    * [tabOnEnter](#tabOnEnter)
-    * [useFormTag](#useFormTag)
-    * [enforceMaxLength](#enforceMaxLength)
+pure-form works in all modern desktop and mobile browsers from IE9+, including Cordova/PhoneGap projects.
 
 ## Usage
 
@@ -136,155 +100,7 @@ Produces the following form, including validation.
 
 The markup created within the `pure-form` tag is just regular HTML and can be [styled accordingly](docs/STYLING.MD).
 
-### HTML Attributes
-
-#### src
-
-Path to the JSON Schema that defines the form
-
-```html
-
-```
-
-#### create-url
-
-Url to post the form to when the user clicks Create
-
-```html
-
-```
-
-#### update-url
-
-Url to post the form to when the user clicks Save
-
-```html
-
-```
-
-#### readonly
-
-If true, adds read only property to all form fields
-
-```html
-
-```
-
-#### title
-
-The title to be rendered before the form
-
-```html
-
-```
-
-#### description
-
-The description before the form
-
-```html
-
-```
-
-#### buttons
-
-Comma separated list of button labels _(excludes buttons created by schema links)_
-
-```html
-
-```
-
-#### persist
-
-Partially completed forms survive refreshes _(until browser is closed)_
-
-```html
-
-```
-
-#### disable-validation
-
-Disables all form validation
-
-```html
-
-```
-
-#### placeholder-max-length
-
-Max description length to be used as placeholder, values greater than are inlined
-
-```html
-
-```
-
-#### autofocus-error
-
-If set to true, sets focus to the first input containing an error after validation
-
-```html
-
-```
-
-#### validate-on-blur
-
-If set to true, validates each form field as it looses focus _(disabled .autofocusError)_
-
-```html
-
-```
-
-#### tab-on-enter
-
-If true, moves focus to the next field in the form when enter is pressed
-
-```html
-
-```
-
-#### use-form-tag
-
-If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_
-
-```html
-
-```
-
-#### enforce-max-length
-
-If true, does not allow the user to enter more characters that the value of schema maxLength property
-
-```html
-
-```
-
-### JavaScript Properties
-
-The following properties can be set via JavaScript:
-
-Property                | Type      | Default | Description
------------------------ | --------- | ------- | -----------------------------------------------------------------------------------------------------
-`.src`                  | _string_  | `""`    | Path to the JSON Schema that defines the form
-`.schema`               | _object_  | `null`  | Schema object to use
-`.value`                | _object_  | `{}`    | Object containing key/value pair of values
-`.createUrl`            | _string_  | `""`    | Url to post the form to when the user clicks Create
-`.updateUrl`            | _string_  | `""`    | Url to post the form to when the user clicks Save
-`.readonly`             | _boolean_ | `false` | If true, adds readonly property to all form fields
-`.title`                | _string_  | `""`    | The title to be rendered before the form
-`.description`          | _string_  | `""`    | The description before the form
-`.buttons`              | _string_  | `[]`    | Comma separated list of button labels _(excludes buttons created by schema links)_
-`.persist`              | _boolean_ | `false` | Partially completed forms survive refreshes _(until browser is closed)_
-`.disableValidation`    | _boolean_ | `false` | Disables all form validation
-`.placeholderMaxLength` | _boolean_ | `75`    | Max description length to be used as placeholder, values greater than are inlined
-`.autofocusError`       | _boolean_ | `false` | If set to true, sets focus to the first input containing an error after validation
-`.validateOnBlur`       | _boolean_ | `false` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_
-`.tabOnEnter`           | _boolean_ | `false` | If true, moves focus to the next field in the form when enter is pressed
-`.useFormTag`           | _boolean_ | `false` | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_
-`.enforceMaxLength`     | _boolean_ | `false` | If true, does not allow the user to enter more characters that the value of schema maxLength property
-
-
-
-#### Get value
+### Get value
 
 pure-form `.value` returns as a JSON object containing all __populated__ form fields, empty form fields are omitted.
 
@@ -312,6 +128,64 @@ document.getElementById('example').value = {
 
 Keys that are not referenced in the original schema are ignored.
 
+## HTML Attributes
+
+Attribute                | Description
+------------------------ | -----------------------------------------------------------------------------------------------------
+`src`                    | Path to the JSON Schema that defines the form
+`create-url`             | Url to post the form to when the user clicks Create
+`update-url`             | Url to post the form to when the user clicks Save
+`readonly`               | If true, adds read only property to all form fields
+`title`                  | The title to be rendered before the form
+`description`            | The description before the form
+`buttons`                | Comma separated list of button labels _(excludes buttons created by schema links)_
+`persist`                | Partially completed forms survive refreshes _(until browser is closed)_
+`disable-validation`     | Disables all form validation
+`placeholder-max-length` | Max description length to be used as placeholder, values greater than are inlined
+`autofocus-error`        | If set to true, sets focus to the first input containing an error after validation
+`validate-on-blur`       | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_
+`tab-on-enter`           | If true, moves focus to the next field in the form when enter is pressed
+`use-form-tag`           | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_
+`enforce-max-length`     | If true, does not allow the user to enter more characters that the value of schema maxLength property
+
+Attributes can be applied in the following ways:
+
+```html
+<!-- html literal -->
+<pure-form id="contact" src="path-to-json-schema.json" persist="true" use-form-tag="false"></pure-form>
+```
+
+Or
+
+```js
+// via setAttribute
+document.getElementById('contact').setAttribute('use-form-tag', 'false');
+```
+
+## JavaScript Properties
+
+The following properties can be set via JavaScript:
+
+Property                | Type      | Default | Description
+----------------------- | --------- | ------- | -----------------------------------------------------------------------------------------------------
+`.src`                  | _string_  | `""`    | Path to the JSON Schema that defines the form
+`.schema`               | _object_  | `null`  | Schema object to use
+`.value`                | _object_  | `{}`    | Object containing key/value pair of values
+`.createUrl`            | _string_  | `""`    | Url to post the form to when the user clicks Create
+`.updateUrl`            | _string_  | `""`    | Url to post the form to when the user clicks Save
+`.readonly`             | _boolean_ | `false` | If true, adds readonly property to all form fields
+`.title`                | _string_  | `""`    | The title to be rendered before the form
+`.description`          | _string_  | `""`    | The description before the form
+`.buttons`              | _string_  | `[]`    | Comma separated list of button labels _(excludes buttons created by schema links)_
+`.persist`              | _boolean_ | `false` | Partially completed forms survive refreshes _(until browser is closed)_
+`.disableValidation`    | _boolean_ | `false` | Disables all form validation
+`.placeholderMaxLength` | _boolean_ | `75`    | Max description length to be used as placeholder, values greater than are inlined
+`.autofocusError`       | _boolean_ | `false` | If set to true, sets focus to the first input containing an error after validation
+`.validateOnBlur`       | _boolean_ | `false` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_
+`.tabOnEnter`           | _boolean_ | `false` | If true, moves focus to the next field in the form when enter is pressed
+`.useFormTag`           | _boolean_ | `false` | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_
+`.enforceMaxLength`     | _boolean_ | `false` | If true, does not allow the user to enter more characters that the value of schema maxLength property
+
 ## Methods
 
 Each pure-form element exposes the following methods:
@@ -327,7 +201,17 @@ Method                                                | Returns   | Description
 
 ## Events
 
-pure-form fires the following events _(additional information is stored event.detail property)_
+pure-form fires the following events _(additional information is stored event.detail property)_:
+
+Event               | Description                                                         | .detail
+------------------- | ------------------------------------------------------------------- | ----------------------------------------------
+`schema-loaded`     | Fired when `.src` url is successfully loaded                        | _{url: url, status: 200, body: jsonString }_
+`schema-error`      | Fired when `.src` url fails to return a JSON Schema                 | _{url: url, status: 404, body: responseBody }_
+`render-complete`   | Fired when pure-form completes rendering                            | _null_
+`button-clicked`    | Fired when a pure-form button is clicked                            | _button display value_
+`value-set`         | Fired when the form value is set                                    | _{ oldValue: data, newValue: data }_
+
+// TODO: add more events!! (submit etc)
 
 ### schema-loaded
 
@@ -393,15 +277,9 @@ document.getElementById('contact').addEventListener('value-set', function(e) {
 });
 ```
 
-// TODO: add more events!! (submit etc)
-
 ## Data Types
 
 TODO: Add JSON Schema data type/format to html type documentation
-
-## Compatibility
-
-pure-form works in all modern desktop and mobile browsers from IE9+, including Cordova/PhoneGap projects.
 
 ## Continued Development
 
