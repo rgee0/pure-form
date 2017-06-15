@@ -27,6 +27,8 @@ pure-form works all modern browsers from IE9+, including mobile browsers and Cor
 
 ### HTML
 
+Add [dist/pure-form.min.js](dist/pure-form.min.js) and [dist/pure-form.min.css](dist/pure-form.min.css)) files to your project:
+
 ```html
 <html>
   <head>
@@ -240,7 +242,7 @@ Tests are written using [jsdom](https://github.com/tmpvar/jsdom), [nock](https:/
 
 ## Build
 
-The distribution version of pure-form lives in the __dist__ folder ([dist/pure-form.min.js](dist/pure-form.min.js) and [dist/pure-form.min.css](dist/pure-form.min.css)). To create a new version of the minified files from source, run the following command:
+The minified [pure-form.min.js](dist/pure-form.min.js) and [pure-form.min.css](dist/pure-form.min.css)) files included in this project are the latest version. To generate .min files, execute the following:
 
 ```bash
 npm run build
