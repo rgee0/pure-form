@@ -62,9 +62,15 @@ describe('pure-form events', function () {
 
         el.addEventListener('schema-loaded', function(e) {
             expect(e).toBeDefined();
-            expect(e.target).toEqual(el);
-            expect(e.detail).toEqual(tempSchemaUrl);
+
             expect(this).toEqual(el);
+            expect(e.target).toEqual(el);
+
+            expect(typeof e.detail).toEqual('object');
+            expect(e.detail.url).toEqual(tempSchemaUrl);
+            expect(e.detail.status).toEqual(200);
+            expect(e.detail.body.length).toBeGreaterThan(0);
+
             expect(el.schema).toBeDefined();
             expect(el.schema.id).toEqual('contact-form');
             done();
@@ -79,8 +85,15 @@ describe('pure-form events', function () {
 
         el.addEventListener('schema-error', function(e) {
             expect(e).toBeDefined();
+
+            expect(this).toEqual(el);
             expect(e.target).toEqual(el);
-            expect(e.detail).toEqual(schema404Url);
+
+            expect(typeof e.detail).toEqual('object');
+            expect(e.detail.url).toEqual(schema404Url);
+            expect(e.detail.status).toEqual(404);
+            expect(e.detail.body).toEqual('');
+
             expect(el.schema).toBe(null);
             done();
         });
@@ -145,6 +158,7 @@ describe('pure-form events', function () {
     it('should fire value-set event when .value is set', function(done) {
 
         var el = document.createElement('pure-form');
+        var oldValue = null;
 
         var testValue = {
             title: 'Mr',
@@ -155,14 +169,22 @@ describe('pure-form events', function () {
             message: 'Test' + (new Date()).getTime()
         };
 
+        // // store the old value when schema loads
+        // el.addEventListener('schema-loaded', function(e) {
+        //     oldValue = e.target.value;
+        // });
+
         el.addEventListener('value-set', function(e) {
 
             // check event data
             expect(e).toBeDefined();
-            expect(e.target).toEqual(el);
-            expect(e.detail).toEqual(null);
 
             expect(this).toEqual(el);
+            expect(e.target).toEqual(el);
+
+            expect(typeof e.detail).toEqual('object');
+            expect(JSON.stringify(e.detail.oldValue)).toEqual(JSON.stringify(oldValue));
+            expect(e.detail.newValue).toEqual(testValue);
 
             // check value was set correctly
             expect(e.target.value.title).toEqual(testValue.title);
@@ -175,8 +197,9 @@ describe('pure-form events', function () {
             done();
         });
 
-        el.addEventListener('render-complete', function() {
-            el.value = testValue;
+        el.addEventListener('render-complete', function(e) {
+            oldValue = e.target.value;
+            e.target.value = testValue;
         });
 
         el.src = tempSchemaUrl;

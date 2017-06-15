@@ -55,8 +55,7 @@
                 return getData.call(this);
             },
             set: function (data) {
-                this._value = data;
-                populateForm.call(this);
+                populateForm.call(this, data);
             }
         },
         createUrl: {
@@ -407,15 +406,15 @@
 
         http.get(schemaUrl, 'application/json', function(error) {
             // fire error event
-            self.dispatchEvent(new CustomEvent('schema-error', { detail: schemaUrl, bubbles: false }));
+            self.dispatchEvent(new CustomEvent('schema-error', { detail: error, bubbles: false }));
         },
         function(data) {
 
             // store the schema
-            self.schema = JSON.parse(data);
+            self.schema = JSON.parse(data.body);
 
             // fire onload event
-            self.dispatchEvent(new CustomEvent('schema-loaded', { detail: schemaUrl, bubbles: false }));
+            self.dispatchEvent(new CustomEvent('schema-loaded', { detail: data, bubbles: false }));
 
             // apply session stored form data if it exists
             if (self.persist && window.sessionStorage && window.sessionStorage[self.src]) {
@@ -423,7 +422,7 @@
                 var formData = window.sessionStorage[self.src] || '';
 
                 if (formData !== '') {
-                    populateForm.call(JSON.parse(formData));
+                    populateForm.call(self, JSON.parse(formData));
                 }
             }
         });
@@ -978,15 +977,16 @@
      */
     function populateForm(data) {
 
-        data = data || this._value || {};
+        var newData = data;
+        var oldData = this.value;
 
         var self = this;
 
         // go through all keys in data object, if we have an element and a value, set it
-        Object.keys(data).forEach(function(key) {
+        Object.keys(newData).forEach(function(key) {
 
             var el = self.querySelector('[name="' + key + '"]');
-            var value = (typeof data[key] !== 'undefined') ? data[key] : '';
+            var value = (typeof newData[key] !== 'undefined') ? newData[key] : '';
 
             if (el) {
                 setElementValue(el, value);
@@ -997,8 +997,13 @@
             }
         });
 
+        var eventData = {
+            oldValue: oldData,
+            newValue: newData
+        };
+
         // fire onload event
-        self.dispatchEvent(new CustomEvent('value-set', { bubbles: false }));
+        self.dispatchEvent(new CustomEvent('value-set', { detail: eventData, bubbles: false }));
     }
 
     /**
@@ -1511,10 +1516,18 @@
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4) {
                         if (xhr.status === 200 || (xhr.status === 0 && xhr.responseText !== '')) {
-                            callback(xhr.responseText);
+                            callback({
+                                url: url,
+                                status: 200,
+                                body: xhr.responseText || ''
+                            });
                         }
                         else {
-                            error(xhr.status);
+                            error({
+                                url: url,
+                                status: xhr.status,
+                                body: xhr.responseText || ''
+                            });
                         }
                     }
                 };

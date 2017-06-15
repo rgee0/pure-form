@@ -204,15 +204,78 @@ Method                                                | Returns   | Description
 pure-form fires the following events _(additional information is stored event.detail property)_:
 
 Event               | Description                                                         | .detail
-------------------- | ------------------------------------------------------------------- | ---------------------
-`schema-loaded`     | Fired when `.src` url is successfully loaded                        | _schema url_
-`schema-error`      | Fired when `.src` url fails to return a JSON Schema                 | _schema url_
+------------------- | ------------------------------------------------------------------- | ----------------------------------------------
+`schema-loaded`     | Fired when `.src` url is successfully loaded                        | _{url: url, status: 200, body: jsonString }_
+`schema-error`      | Fired when `.src` url fails to return a JSON Schema                 | _{url: url, status: 404, body: responseBody }_
 `render-complete`   | Fired when pure-form completes rendering                            | _null_
 `button-clicked`    | Fired when a pure-form button is clicked                            | _button display value_
-`value-set`         | Fired when the form value is set                                    | _null_
-`before-submit`     | Fired
-`submit-successful` | Fired when form successfully submitted to the server (200 response) | _response data_
-`submit-failed`     | Fired when form failed to successfully submit to server             | _submission url_
+`value-set`         | Fired when the form value is set                                    | _{ oldValue: data, newValue: data }_
+
+// TODO: add more events!! (submit etc)
+
+### schema-loaded
+
+Fires when the JSON schema has loaded from `.src` url and assigned to `.schema` property.
+
+```js
+document.getElementById('contact').addEventListener('schema-loaded', function(e) {
+    console.log(this);            // pure form element
+    console.log(e.target);        // pure form element
+    console.log(e.detail.url);    // schema URL
+    console.log(e.detail.status); // http status 200
+    console.log(e.detail.body);   // JSON schema as a string
+});
+```
+
+### schema-error
+
+Fires when JSON schema fails to load for whatever reason.
+
+```js
+document.getElementById('contact').addEventListener('schema-error', function(e) {
+    console.log(this);            // pure form element
+    console.log(e.target);        // pure form element
+    console.log(e.detail.url);    // schema URL
+    console.log(e.detail.status); // http status 404 (500 etc)
+    console.log(e.detail.body);   // empty string
+});
+```
+
+### render-complete
+
+Fires when pure-form rendering has completed.
+
+```js
+document.getElementById('contact').addEventListener('render-complete', function(e) {
+    console.log(this);      // pure form element
+    console.log(e.target);  // pure form element
+});
+```
+
+### button-clicked
+
+```html
+<pure-form id="contact" src="path-to-json-schema.json" buttons="Delete,Disable"></pure-form>
+```
+
+```js
+document.getElementById('contact').addEventListener('button-clicked', function(e) {
+    console.log(this);      // pure form element
+    console.log(e.target);  // pure form element
+    console.log(e.detail);  // value of button clicked (Delete or Disable)
+});
+```
+
+### value-set
+
+```js
+document.getElementById('contact').addEventListener('value-set', function(e) {
+    console.log(this);              // pure form element
+    console.log(e.target);          // pure form element
+    console.log(e.detail.oldValue); // OLD value of the form before the new value was set
+    console.log(e.detail.newValue); // NEW value of the form
+});
+```
 
 ## Data Types
 
