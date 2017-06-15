@@ -194,7 +194,7 @@ pure-form fires the following events _(additional information is stored event.de
 Event               | Description                                                         | .detail
 ------------------- | ------------------------------------------------------------------- | ---------------------
 `schema-loaded`     | Fired when `.src` url is successfully loaded                        | _schema url_
-`schema-errored`    | Fired when `.src` url fails to return a JSON Schema                 | _schema url_
+`schema-error`    | Fired when `.src` url fails to return a JSON Schema                 | _schema url_
 `render-complete`   | Fired when pure-form completes rendering                            | _null_
 `button-clicked`    | Fired when a pure-form button is clicked                            | _button display value_
 `value-set`         | Fired when the form value is set                                    | _null_

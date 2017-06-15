@@ -73,11 +73,11 @@ describe('pure-form events', function () {
         el.src = tempSchemaUrl;
     });
 
-    it('should fire schema-errored event when schema fails to load', function(done) {
+    it('should fire schema-error event when schema fails to load', function(done) {
 
         var el = document.createElement('pure-form');
 
-        el.addEventListener('schema-errored', function(e) {
+        el.addEventListener('schema-error', function(e) {
             expect(e).toBeDefined();
             expect(e.target).toEqual(el);
             expect(e.detail).toEqual(schema404Url);

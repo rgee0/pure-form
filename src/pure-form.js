@@ -407,7 +407,7 @@
 
         http.get(schemaUrl, 'application/json', function(error) {
             // fire error event
-            self.dispatchEvent(new CustomEvent('schema-errored', { detail: schemaUrl, bubbles: false }));
+            self.dispatchEvent(new CustomEvent('schema-error', { detail: schemaUrl, bubbles: false }));
         },
         function(data) {
 
