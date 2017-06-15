@@ -100,7 +100,7 @@ Produces the following form, including validation.
 
 The markup created within the `pure-form` tag is just regular HTML and can be [styled accordingly](docs/STYLING.MD).
 
-### Get Value
+### Get value
 
 pure-form `.value` returns as a JSON object containing all __populated__ form fields, empty form fields are omitted.
 
@@ -114,7 +114,7 @@ Giving the above example `document.getElementById('example').value` would return
 }
 ```
 
-### Set Value
+### Set value
 
 To set the value, simply assign a JSON object with keys matching the field names to the pure-form `.value` property:
 
@@ -222,16 +222,16 @@ Then visit [http://localhost:8080](http://localhost:8080) in your browser.
 
 ## Unit Test
 
-Unit tests are written using [JSDom](https://github.com/tmpvar/jsdom), [Nock](https://github.com/node-nock/nock) and [Jasmine-Node](https://github.com/mhevery/jasmine-node) and are broken into 4 sections:
+Tests are written using [jsdom](https://github.com/tmpvar/jsdom), [nock](https://github.com/node-nock/nock) and [jasmine-node](https://github.com/mhevery/jasmine-node) and are broken into 4 files:
 
 | Filename | Description |
 | :--- | :--- |
-| `pure-form-event-spec.js` | List of tests that test pure-form events |
-| `pure-form-interface-spec.js` | List of tests that check the correct properties and methods are exposed |
-| `pure-form-method-spec.js` | List of tests that execute methods and verify their functionality |
-| `pure-form-rendering-spec.js` | List of tests that tweak properties and verify the rendered output |
+| `pure-form-event-spec.js` | Test pure-form events |
+| `pure-form-interface-spec.js` | Tests that check the correct properties and methods are exposed |
+| `pure-form-method-spec.js` | Tests that execute methods and verify their functionality |
+| `pure-form-rendering-spec.js` | Tests that tweak properties and verify the rendered output |
 
- Tests can be run by executing the following from within the pure-form folder:
+ To run tests, execute the following from within the pure-form folder:
 
 ```bash
 npm install
