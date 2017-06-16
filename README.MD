@@ -15,7 +15,7 @@ Benefits:
 * Provides visual validation on blur of form fields _(optional)_
 * Get/set the value of the entire form using JSON
 * Displays character limits (including characters remaining) when maxLength set
-* Preserve partially completed form values between refreshes _(optional)_
+* Preserves partially completed form values between refreshes _(optional)_
 
 ## Compatibility
 
@@ -194,8 +194,8 @@ Method                                                               | Descripti
 -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------
 [clearError(fieldName)](#clearerrorfieldname)                        | Clears an error message on a form field
 [clearErrors()](#clearerrors)                                        | Clear all form error messages
-[setError(fieldName, errorMessage)](#seterrorfieldname-errormessage) | Sets a custom error message on a form field by field name
-[isValid(object, silent)](#isvalidobject-silent)                     | Checks if the entire form is valid and updates UI _(does not update UI if silent is true)_
+[setError(fieldName,errorMessage)](#seterrorfieldnameerrormessage) | Sets a custom error message on a form field by field name
+[isValid(object,silent)](#isvalidobjectsilent)                     | Checks if the entire form is valid and updates UI _(does not update UI if silent is true)_
 [reset()](#reset)                                                    | Clears all form values and errors
 
 ### clearError(fieldName)
@@ -212,14 +212,14 @@ document.getElementById('contact').clearError('email');
 document.getElementById('contact').clearErrors();
 ```
 
-### setError(fieldName, errorMessage)
+### setError(fieldName,errorMessage)
 
 ```js
 // set a custom error message on the phone field
 document.getElementById('contact').setInvalid('phone', 'Phone number is missing country code');
 ```
 
-### isValid(object, silent)
+### isValid(object,silent)
 
 ```js
 // check if the entire form is valid. returns true if valid, otherwise false
