@@ -231,9 +231,12 @@ if (formIsValid) {
 ```
 
 ```js
-// check if a value is valid against the loaded schema
-// Passing true as the second parameter tells pure-form not to update the UI with any validation errors.
-var isValid = document.getElementById('object').isValid({ phone: '+441223 223 223' }, true);
+// check if a value is valid against the loaded schema (pass true as second param to avoid updating the UI)
+var isValidPhone = document.getElementById('object').isValid({ phone: '+441223 223 223' }, true);
+
+if (isValidPhone) {
+  // the phone number is valid according to form schema, do something
+}
 ```
 
 ### reset()
