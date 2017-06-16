@@ -201,29 +201,37 @@ Method                                                               | Descripti
 ### clearError(fieldName)
 
 ```js
+var contactForm = document.getElementById('contact');
+
 // remove error message from email field
-document.getElementById('contact').clearError('email');
+contactForm.clearError('email');
 ```
 
 ### clearErrors()
 
 ```js
+var contactForm = document.getElementById('contact');
+
 // remove all error messages
-document.getElementById('contact').clearErrors();
+contactForm.clearErrors();
 ```
 
 ### setError(fieldName, errorMessage)
 
 ```js
+var contactForm = document.getElementById('contact');
+
 // set a custom error message on the phone field
-document.getElementById('contact').setInvalid('phone', 'Phone number is missing country code');
+contactForm.setInvalid('phone', 'Phone number is missing country code');
 ```
 
 ### isValid(object, silent)
 
 ```js
+var contactForm = document.getElementById('contact');
+
 // check if the entire form is valid. returns true if valid, otherwise false
-var formIsValid = document.getElementById('object').isValid();
+var formIsValid = contactForm.isValid();
 
 if (formIsValid) {
   // do stuff
@@ -231,8 +239,10 @@ if (formIsValid) {
 ```
 
 ```js
+var contactForm = document.getElementById('contact');
+
 // check if a value is valid against the loaded schema (pass true as second param to avoid updating the UI)
-var isValidPhone = document.getElementById('object').isValid({ phone: '+441223 223 223' }, true);
+var isValidPhone = contactForm.isValid({ phone: '+441223 223 223' }, true);
 
 if (isValidPhone) {
   // the phone number is valid according to form schema, do something
