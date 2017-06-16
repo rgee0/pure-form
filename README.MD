@@ -200,34 +200,29 @@ Method                                                               | Returns  
 
 ### clearError(fieldName)
 
-Clears an error message on a form field.
-
 ```js
-document.getElementById('contact').clearError();
+// remove error message from email field
+document.getElementById('contact').clearError('email');
 ```
 
 ### clearErrors()
 
-Clear all form validation error messages.
-
 ```js
+// remove all error messages
 document.getElementById('contact').clearErrors();
 ```
 
 ### setError(fieldName, errorMessage)
 
-Sets a form field to invalid with a custom error message.
-
 ```js
+// set a custom error message on the phone field
 document.getElementById('contact').setInvalid('phone', 'Phone number is missing country code');
 ```
 
 ### isValid(object, silent)
 
-Check if the entire form is valid:
-
 ```js
-// returns true or false
+// Check if the entire form is valid
 var formIsValid = document.getElementById('object').isValid();
 
 if (formIsValid) {
@@ -235,18 +230,16 @@ if (formIsValid) {
 }
 ```
 
-Check if a key/value is valid against the loaded schema by passing a JSON object as the first param. Passing `true` as the second parameter tells pure-form not to update the UI with any validation errors.
-
 ```js
-// returns true or false
-var formIsValid = document.getElementById('object').isValid({ email: '+441223 223 223' }, true);
+// check if a value is valid against the loaded schema
+// Passing true as the second parameter tells pure-form not to update the UI with any validation errors.
+var isValid = document.getElementById('object').isValid({ phone: '+441223 223 223' }, true);
 ```
 
 ### reset()
 
-The reset() method resets the values of all elements in a form:
-
 ```js
+// Clear all form values and errors
 document.getElementById('object').reset();
 ```
 
