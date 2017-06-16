@@ -164,9 +164,9 @@ The following properties can be set via JavaScript:
 
 Property                | Type      | Default | Description
 ----------------------- | --------- | ------- | -----------------------------------------------------------------------------------------------------
-`.src`                  | _string_  | `""`    | Path to the JSON Schema that defines the form
-`.schema`               | _object_  | `null`  | Schema object to use
-`.value`                | _object_  | `{}`    | Object containing key/value pair of values
+[src](#src)             | _string_  | `""`    | Path to the JSON Schema that defines the form
+[schema](#schema)       | _object_  | `null`  | Schema object to use
+[value](#value)         | _object_  | `{}`    | Object containing key/value pair of values
 `.createUrl`            | _string_  | `""`    | Url to post the form to when the user clicks Create
 `.updateUrl`            | _string_  | `""`    | Url to post the form to when the user clicks Save
 `.readonly`             | _boolean_ | `false` | If true, adds readonly property to all form fields
@@ -198,25 +198,6 @@ var jsonSchema = document.getElementById('contactForm').schema;
 
 ### value
 
-The value property allows you to get/set the value of all field combined as a single JSON object:
-
-#### get
-
-```js
-// get the value of the form as a JSON object
-var formValue = document.getElementById('example').value;
-
-/*
-{
-  title: "Mr",
-  firstName: "William",
-  surname: "Gates"
-}
-*/
-```
-
-#### set
-
 ```js
 // set the value of the form using a JSON object with keys matching fields
 document.getElementById('example').value = {
@@ -224,6 +205,10 @@ document.getElementById('example').value = {
   firstName: "John",
   surname: "Doherty"
 };
+
+
+// get the value of the form as a JSON object
+var formValue = document.getElementById('example').value;
 ```
 
 ## Methods
