@@ -123,7 +123,7 @@ The markup created within the `pure-form` tag is just regular HTML and can be [s
 
 ### Attributes
 
-The following attributes can be set in HTML or via `.setAttribute(key, value)`:
+The following attributes can be set in HTML or via `.setAttribute('readonly', true)`:
 
 Attribute                | Description
 ------------------------ | -----------------------------------------------------------------------------------------------------
