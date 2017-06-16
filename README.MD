@@ -263,7 +263,9 @@ Event                               | Description
 Fires when the JSON schema has loaded from `.src` url and assigned to `.schema` property.
 
 ```js
-document.getElementById('contact').addEventListener('schema-loaded', function(e) {
+var contactForm = document.getElementById('contact');
+
+contactForm.addEventListener('schema-loaded', function(e) {
     console.log(this);            // pure form element
     console.log(e.target);        // pure form element
     console.log(e.detail.url);    // schema URL
@@ -277,7 +279,9 @@ document.getElementById('contact').addEventListener('schema-loaded', function(e)
 Fires when JSON schema fails to load for whatever reason.
 
 ```js
-document.getElementById('contact').addEventListener('schema-error', function(e) {
+var contactForm = document.getElementById('contact');
+
+contactForm.addEventListener('schema-error', function(e) {
     console.log(this);            // pure form element
     console.log(e.target);        // pure form element
     console.log(e.detail.url);    // schema URL
@@ -291,7 +295,9 @@ document.getElementById('contact').addEventListener('schema-error', function(e) 
 Fires when pure-form rendering has completed.
 
 ```js
-document.getElementById('contact').addEventListener('render-complete', function(e) {
+var contactForm = document.getElementById('contact');
+
+contactForm.addEventListener('render-complete', function(e) {
     console.log(this);      // pure form element
     console.log(e.target);  // pure form element
 });
@@ -304,7 +310,9 @@ document.getElementById('contact').addEventListener('render-complete', function(
 ```
 
 ```js
-document.getElementById('contact').addEventListener('button-clicked', function(e) {
+var contactForm = document.getElementById('contact');
+
+contactForm.addEventListener('button-clicked', function(e) {
     console.log(this);      // pure form element
     console.log(e.target);  // pure form element
     console.log(e.detail);  // value of button clicked (Delete or Disable)
@@ -314,7 +322,9 @@ document.getElementById('contact').addEventListener('button-clicked', function(e
 ### value-set
 
 ```js
-document.getElementById('contact').addEventListener('value-set', function(e) {
+var contactForm = document.getElementById('contact');
+
+contactForm.addEventListener('value-set', function(e) {
     console.log(this);              // pure form element
     console.log(e.target);          // pure form element
     console.log(e.detail.oldValue); // OLD value of the form before the new value was set
