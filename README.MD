@@ -222,7 +222,7 @@ document.getElementById('contact').setInvalid('phone', 'Phone number is missing 
 ### isValid(object, silent)
 
 ```js
-// returns true if the entire form is valid, otherwise false
+// check if the entire form is valid. returns true if valid, otherwise false
 var formIsValid = document.getElementById('object').isValid();
 
 if (formIsValid) {
