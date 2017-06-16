@@ -190,13 +190,13 @@ Property                | Type      | Default | Description
 
 Each pure-form element exposes the following methods:
 
-Method                                                | Returns   | Description
------------------------------------------------------ | --------- | ------------------------------------------------------------------------------------------
-[clearError(fieldName)](#clearerrorfieldname)         |     -     | Clears an error message on a form field
-[clearErrors()](#clearerrors)                         |     -     | Clear all form error messages
-[setError(fieldName, error)](#seterrorfieldnameerror) |     -     | Sets a custom error message on a form field by field name
-[isValid(object, silent)](#isvalidobjectsilent)       | _boolean_ | Checks if the entire form is valid and updates UI _(does not update UI if silent is true)_
-[reset()](#reset)                                     |     -     | Clears all form values and errors
+Method                                                               | Returns   | Description
+-------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------
+[clearError(fieldName)](#clearerrorfieldname)                        |     -     | Clears an error message on a form field
+[clearErrors()](#clearerrors)                                        |     -     | Clear all form error messages
+[setError(fieldName, errorMessage)](#seterrorfieldname-errorMessage) |     -     | Sets a custom error message on a form field by field name
+[isValid(object, silent)](#isvalidobject-silent)                     | _boolean_ | Checks if the entire form is valid and updates UI _(does not update UI if silent is true)_
+[reset()](#reset)                                                    |     -     | Clears all form values and errors
 
 ### clearError(fieldName)
 
@@ -214,7 +214,7 @@ Clear all form validation error messages.
 document.getElementById('contact').clearErrors();
 ```
 
-### setError(fieldName, error)
+### setError(fieldName, errorMessage)
 
 Sets a form field to invalid with a custom error message.
 
