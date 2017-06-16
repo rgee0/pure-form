@@ -230,11 +230,8 @@ contactForm.setInvalid('phone', 'Phone number is missing country code');
 ```js
 var contactForm = document.getElementById('contact');
 
-// check if the entire form is valid. returns true if valid, otherwise false
-var formIsValid = contactForm.isValid();
-
-if (formIsValid) {
-  // do stuff
+if (contactForm.isValid()) {
+  // form is valid, do some stuff
 }
 ```
 
