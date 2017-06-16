@@ -83,7 +83,7 @@ describe('pure-form methods', function () {
         el.src = tempSchemaUrl;
     });
 
-    it('should clear field values .clear() is called', function(done) {
+    it('should clear values when .reset() is called', function(done) {
 
         var el = document.createElement('pure-form');
 
@@ -106,7 +106,7 @@ describe('pure-form methods', function () {
             expect(output.surname).toEqual(testData.surname);
 
             // clear the values
-            el.clear();
+            el.reset();
 
             // grab the value again
             output = el.value;
@@ -121,7 +121,7 @@ describe('pure-form methods', function () {
         el.src = tempSchemaUrl;
     });
 
-    it('should set a field invalid when calling .setInvalid', function(done) {
+    it('should set a field invalid when calling .setError', function(done) {
 
         var el = document.createElement('pure-form');
 
@@ -130,7 +130,7 @@ describe('pure-form methods', function () {
         // once rendered set a field invalid
         el.addEventListener('render-complete', function(e) {
 
-            el.setInvalid('title', invalidErrorMessage);
+            el.setError('title', invalidErrorMessage);
 
             var titleLabel = el.querySelector('label[for=title]');
             var titleEl = el.querySelector('select[name=title]');
@@ -150,7 +150,7 @@ describe('pure-form methods', function () {
     });
 
 
-    it('should clear error message when .setValid is called', function(done) {
+    it('should clear error message when .clearError is called', function(done) {
 
         var el = document.createElement('pure-form');
 
@@ -159,7 +159,7 @@ describe('pure-form methods', function () {
         // once rendered set a field invalid
         el.addEventListener('render-complete', function(e) {
 
-            el.setInvalid('title', invalidErrorMessage);
+            el.setError('title', invalidErrorMessage);
 
             var titleLabel = el.querySelector('label[for=title]');
             var titleEl = el.querySelector('select[name=title]');
@@ -167,7 +167,7 @@ describe('pure-form methods', function () {
             expect(titleEl.getAttribute('data-valid')).toEqual('false');
             expect(titleLabel.getAttribute('data-error')).toEqual(invalidErrorMessage);
 
-            el.setValid('title');
+            el.clearError('title');
             expect(titleEl.getAttribute('data-valid')).toEqual('true');
             expect(titleLabel.getAttribute('data-error')).toEqual(null);
 

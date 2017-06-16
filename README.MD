@@ -192,12 +192,63 @@ Each pure-form element exposes the following methods:
 
 Method                                                | Returns   | Description
 ----------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------
-`.clearValidationErrors()`                            |     -     | Clear all form validation error messages
-`.setInvalid(fieldNameAsString, errorAsString)`       |     -     | Sets a form field to invalid with a custom error message
-`.setValid(fieldNameAsString)`                        |     -     | Sets a form field to valid, clearing an error message
-`.validateField(keyAsString, valueAsAny)`             | _boolean_ | Checks if a key/value is valid against the schema
-`.isValid(optKeyValuePairObject, optionalSilentBool)` | _boolean_ | Checks if the entire form is valid and updates UI _(does not update UI if silent is true)_
-`.clear()`                                            |     -     | Clears all form fields
+[clearError(fieldName)](#clearerrorfieldname)         |     -     | Clears an error message on a form field
+[clearErrors()](#clearerrors)                         |     -     | Clear all form error messages
+[setError(fieldName, error)](#seterrorfieldnameerror) |     -     | Sets a custom error message on a form field by field name
+[isValid(object, silent)](#isvalidobjectsilent)       | _boolean_ | Checks if the entire form is valid and updates UI _(does not update UI if silent is true)_
+[reset()](#reset)                                     |     -     | Clears all form values and errors
+
+### clearError(fieldName)
+
+Clears an error message on a form field.
+
+```js
+document.getElementById('contact').clearError();
+```
+
+### clearErrors()
+
+Clear all form validation error messages.
+
+```js
+document.getElementById('contact').clearErrors();
+```
+
+### setError(fieldName, error)
+
+Sets a form field to invalid with a custom error message.
+
+```js
+document.getElementById('contact').setInvalid('phone', 'Phone number is missing country code');
+```
+
+### isValid(object, silent)
+
+Check if the entire form is valid:
+
+```js
+// returns true or false
+var formIsValid = document.getElementById('object').isValid();
+
+if (formIsValid) {
+  // do stuff
+}
+```
+
+Check if a key/value is valid against the loaded schema by passing a JSON object as the first param. Passing `true` as the second parameter tells pure-form not to update the UI with any validation errors.
+
+```js
+// returns true or false
+var formIsValid = document.getElementById('object').isValid({ email: '+441223 223 223' }, true);
+```
+
+### reset()
+
+The reset() method resets the values of all elements in a form:
+
+```js
+document.getElementById('object').reset();
+```
 
 ## Events
 

@@ -111,12 +111,11 @@ describe('pure-form interface', function () {
 
         var el = document.createElement('pure-form');
 
-        expect(typeof el.clearValidationErrors).toEqual('function');
-        expect(typeof el.setInvalid).toEqual('function');
-        expect(typeof el.setValid).toEqual('function');
-        expect(typeof el.validateField).toEqual('function');
+        expect(typeof el.clearError).toEqual('function');
+        expect(typeof el.clearErrors).toEqual('function');
+        expect(typeof el.setError).toEqual('function');
         expect(typeof el.isValid).toEqual('function');
-        expect(typeof el.clear).toEqual('function');
+        expect(typeof el.reset).toEqual('function');
     });
 
     it('should not expose private methods', function() {
@@ -142,6 +141,7 @@ describe('pure-form interface', function () {
         expect(el.renderDescription).not.toBeDefined();
         expect(el.renderTitle).not.toBeDefined();
         expect(el.renderForm).not.toBeDefined();
+        expect(el.validateField).not.toBeDefined();
     });
 
 });

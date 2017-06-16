@@ -253,17 +253,37 @@
     };
 
     /**
+     * Clears a form fields error
+     * @access public
+     * @param {string} fieldName - name of the element to set valid
+     * @returns {void}
+     */
+    pureForm.clearError = function (fieldName) {
+
+        var el = this.querySelector('[name="' + fieldName + '"]');
+
+        if (el) {
+            el.setAttribute('data-valid', 'true');
+            el.parentNode.removeAttribute('data-error');
+        }
+    };
+
+    /**
      * Public method to clear all form validation error messages
      * @access public
      * @returns {void}
      */
-    pureForm.clearValidationErrors = function () {
+    pureForm.clearErrors = function () {
 
         // clear previous validation errors
         this.form.removeAttribute('data-error');
 
         Array.prototype.slice.call(this.querySelectorAll('[data-error]')).forEach(function (item) {
             item.removeAttribute('data-error');
+        });
+
+        Array.prototype.slice.call(this.querySelectorAll('[data-valid]')).forEach(function (item) {
+            item.removeAttribute('data-valid');
         });
     };
 
@@ -274,7 +294,7 @@
      * @param {string} errorMessage - error message to set on the element
      * @returns {void}
      */
-    pureForm.setInvalid = function (fieldName, errorMessage) {
+    pureForm.setError = function (fieldName, errorMessage) {
 
         var el = this.querySelector('[name="' + fieldName + '"]');
 
@@ -286,47 +306,13 @@
     };
 
     /**
-     * Sets a form field to valid
-     * @access public
-     * @param {string} fieldName - name of the element to set valid
-     * @returns {void}
-     */
-    pureForm.setValid = function (fieldName) {
-
-        var el = this.querySelector('[name="' + fieldName + '"]');
-
-        if (el) {
-            el.setAttribute('data-valid', 'true');
-            el.parentNode.removeAttribute('data-error');
-        }
-    };
-
-    /**
-     * Checks if a key/value is valid against the schema
-     * @access public
-     * @param {string} key - id of field to validate
-     * @param {object} value - value to test against schema
-     * @returns {boolean} true if valid, otherwise false
-     */
-    pureForm.validateField = function (key, value) {
-
-        // create fake data object
-        var dataItem = {};
-
-        // populate key
-        dataItem[key] = value;
-
-        // execute regular form validation but passing a single property to test
-        return this.isValid(dataItem);
-    };
-
-    /**
      * Validates either the passed in object or current form data against the schema
      * @access public
      * @param {object} [data] - key/value data object to check against schema
+     * @param {bool} silent - if true does not update the UI to reflect errors
      * @returns {boolean} true if valid otherwise false
      */
-    pureForm.isValid = function (data) {
+    pureForm.isValid = function (data, silent) {
 
         // if validation has been disabled (for example, the Form Builder doesn't want/need it)
         if (this.disableValidation) return true;
@@ -346,12 +332,17 @@
 
             var error = validateAgainstSchema(schema, key, value);
 
-            if (error) {
-                self.setInvalid(key, error);
-                valid = false;
+            if (!silent) {
+                if (error) {
+                    self.setError(key, error);
+                    valid = false;
+                }
+                else {
+                    self.clearError(key);
+                }
             }
-            else {
-                self.setValid(key);
+            else if (error) {
+                valid = false;
             }
         });
 
@@ -360,7 +351,7 @@
             window.sessionStorage[this.src] = JSON.stringify(getRawData.call(this));
         }
 
-        if (this.autofocusError) {
+        if (!silent && this.autofocusError) {
             var firstErrorEl = this.querySelector('form [data-valid="false"]');
             if (firstErrorEl) {
                 firstErrorEl.focus();
@@ -371,10 +362,10 @@
     };
 
     /**
-     * Clears all form field values
+     * Clears all form values and errors
      * @returns {void}
      */
-    pureForm.clear = function() {
+    pureForm.reset = function() {
 
         var formData = {};
         var schemaProperties = (this.schema || {}).properties || {};
@@ -393,6 +384,25 @@
     /*-----------------*/
     /* PRIVATE METHODS */
     /*-----------------*/
+
+    /**
+     * Checks if a key/value is valid against the schema
+     * @access private
+     * @param {string} key - id of field to validate
+     * @param {object} value - value to test against schema
+     * @returns {boolean} true if valid, otherwise false
+     */
+    function validateField(key, value) {
+
+        // create fake data object
+        var dataItem = {};
+
+        // populate key
+        dataItem[key] = value;
+
+        // execute regular form validation but passing a single property to test
+        return this.isValid(dataItem);
+    }
 
     /**
      * Loads the JSON schema from .src property
@@ -480,7 +490,7 @@
                     var el = e.target;
 
                     if (el.type !== 'submit' && self.validateOnBlur) {
-                        self.validateField(el.id, el.value);
+                        validateField.call(self, el.id, el.value);
                     }
                 }, true);
 
@@ -877,7 +887,7 @@
         var method = (linkDescObject.method || 'POST').toLowerCase();
         var contentType = (linkDescObject.enctype || 'application/json');
 
-        self.clearValidationErrors();
+        self.clearErrors();
 
         // exit if not valid
         if (!self.isValid(formData)) return;
@@ -904,7 +914,7 @@
     //     var updateUrl = this.getAttribute('update-url') || '';
     //     var formData = getData.call(this);
 
-    //     self.clearValidationErrors();
+    //     self.clearErrors();
 
     //     // exit if not valid
     //     if (!self.isValid(formData)) return;
