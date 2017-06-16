@@ -2,11 +2,13 @@
 
 [![Linked In](https://img.shields.io/badge/Linked-In-blue.svg)](https://www.linkedin.com/in/john-i-doherty) [![Twitter Follow](https://img.shields.io/twitter/follow/CambridgeMVP.svg?style=social&label=Twitter&style=plastic)](https://twitter.com/CambridgeMVP)
 
-A simple, framework free _(written in pure JavaScript)_ web component that removes the need to manually craft and validate HTML forms. Simply define your form requirements in a [JSON Schema](https://tools.ietf.org/html/draft-zyp-json-schema-03) and assign it to the new `pure-form` HTML tag:
+A simple, framework free, pure JavaScript web component that removes the need to manually craft and validate HTML forms. Simply define your form requirements in a [JSON Schema](https://tools.ietf.org/html/draft-zyp-json-schema-03) and assign it to the new `pure-form` HTML tag:
 
 ```html
 <pure-form src="path-to-json-schema.json"></pure-form>
 ```
+
+Works in all modern desktop and mobile browsers from IE9+, including Cordova/PhoneGap and iconic projects.
 
 Benefits:
 
@@ -16,8 +18,6 @@ Benefits:
 * Get/set the value of the entire form using JSON
 * Displays character limits (including characters remaining) when maxLength set
 * Preserves partially completed form values between refreshes _(optional)_
-
-Works in all modern desktop and mobile browsers from IE9+, including Cordova/PhoneGap and iconic projects.
 
 **Table of Contents**
 
