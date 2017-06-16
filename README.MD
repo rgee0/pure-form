@@ -17,15 +17,33 @@ Benefits:
 * Displays character limits (including characters remaining) when maxLength set
 * Preserves partially completed form values between refreshes _(optional)_
 
-## Compatibility
+**Table of Contents**
 
-pure-form works in all modern desktop and mobile browsers from IE9+, including Cordova/PhoneGap projects.
+* [Install](#install)
+* [Usage](#usage)
+  * [HTML](#html)
+  * [JSON Schema](#json-schema)
+  * [Rendered Output](#rendered-output)
+* [Compatibility](#compatibility)
+* [HTML Attributes](#html-attributes)
+* [JavaScript Properties](#javascript-properties)
+* [Methods](#methods)
+* [Events](#events)
+* [Data Types](#data-types)
+* [Continued Development](#continued-development)
+  * [Testing](#testing)
+  * [Build](#build)
+* [Reporting Bugs](#reporting-bugs)
+* [Pull Requests](#pull-requests)
+* [License](#license)
+
+## Install
+
+Add the [dist/pure-form.min.js](dist/pure-form.min.js) and [dist/pure-form.min.css](dist/pure-form.min.css) files to your project:
 
 ## Usage
 
 ### HTML
-
-Add the [dist/pure-form.min.js](dist/pure-form.min.js) and [dist/pure-form.min.css](dist/pure-form.min.css) files to your project:
 
 ```html
 <html>
@@ -94,39 +112,17 @@ Pure form uses JSON Schema (v3) to define the forms input requirements and valid
 }
 ```
 
+### Rendered Output
+
 Produces the following form, including validation.
 
 ![Cucumber HTML report](docs/img/pure-form-screenshot.png)
 
 The markup created within the `pure-form` tag is just regular HTML and can be [styled accordingly](docs/STYLING.MD).
 
-### Get value
+## Compatibility
 
-pure-form `.value` returns as a JSON object containing all __populated__ form fields, empty form fields are omitted.
-
-Giving the above example `document.getElementById('example').value` would return:
-
-```js
-{
-  title: "Mr",
-  firstName: "John",
-  surname: "Doherty"
-}
-```
-
-### Set value
-
-To set the value, simply assign a JSON object with keys matching the field names to the pure-form `.value` property:
-
-```js
-document.getElementById('example').value = {
-  title: "Mr",
-  firstName: "John",
-  surname: "Doherty"
-};
-```
-
-Keys that are not referenced in the original schema are ignored.
+pure-form works in all modern desktop and mobile browsers from IE9+, including Cordova/PhoneGap projects.
 
 ## HTML Attributes
 
@@ -185,6 +181,50 @@ Property                | Type      | Default | Description
 `.tabOnEnter`           | _boolean_ | `false` | If true, moves focus to the next field in the form when enter is pressed
 `.useFormTag`           | _boolean_ | `false` | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_
 `.enforceMaxLength`     | _boolean_ | `false` | If true, does not allow the user to enter more characters that the value of schema maxLength property
+
+### src
+
+```js
+// setting the src triggers loading of the JSON Schema:
+document.getElementById('contactForm').src = 'http://domain.com/schema-name.json';
+```
+
+### schema
+
+```js
+// get the schema retrieved from the server
+var jsonSchema = document.getElementById('contactForm').schema;
+```
+
+### value
+
+The value property allows you to get/set the value of all field combined as a single JSON object:
+
+#### get
+
+```js
+// get the value of the form as a JSON object
+var formValue = document.getElementById('example').value;
+
+/*
+{
+  title: "Mr",
+  firstName: "William",
+  surname: "Gates"
+}
+*/
+```
+
+#### set
+
+```js
+// set the value of the form using a JSON object with keys matching fields
+document.getElementById('example').value = {
+  title: "Mr",
+  firstName: "John",
+  surname: "Doherty"
+};
+```
 
 ## Methods
 
@@ -360,7 +400,7 @@ npm start
 
 Then visit [http://localhost:8080](http://localhost:8080) in your browser.
 
-## Testing
+### Testing
 
 The project includes Unit Test. To run tests, execute the following from within the pure-form folder:
 
@@ -378,7 +418,7 @@ Tests are written using [jsdom](https://github.com/tmpvar/jsdom), [nock](https:/
 | `pure-form-method-spec.js` | Tests that execute methods and verify their functionality |
 | `pure-form-rendering-spec.js` | Tests that tweak properties and verify the rendered output |
 
-## Build
+### Build
 
 The minified [pure-form.min.js](dist/pure-form.min.js) and [pure-form.min.css](dist/pure-form.min.css) files included in this project are the latest version. To generate .min files, execute the following:
 
