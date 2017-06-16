@@ -123,6 +123,8 @@ The markup created within the `pure-form` tag is just regular HTML and can be [s
 
 ### Attributes
 
+The following attributes can be set in HTML or via `.setAttribute(key, value)`:
+
 Attribute                | Description
 ------------------------ | -----------------------------------------------------------------------------------------------------
 `src`                    | Path to the JSON Schema that defines the form
@@ -140,20 +142,6 @@ Attribute                | Description
 `tab-on-enter`           | If true, moves focus to the next field in the form when enter is pressed
 `use-form-tag`           | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_
 `enforce-max-length`     | If true, does not allow the user to enter more characters that the value of schema maxLength property
-
-Attributes can be applied in the following ways:
-
-```html
-<!-- html literal -->
-<pure-form id="contact" src="path-to-json-schema.json" persist="true" use-form-tag="false"></pure-form>
-```
-
-Or
-
-```js
-// via setAttribute
-document.getElementById('contact').setAttribute('use-form-tag', 'false');
-```
 
 ### Properties
 
