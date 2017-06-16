@@ -194,7 +194,7 @@ Method                                                               | Returns  
 -------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------
 [clearError(fieldName)](#clearerrorfieldname)                        |     -     | Clears an error message on a form field
 [clearErrors()](#clearerrors)                                        |     -     | Clear all form error messages
-[setError(fieldName, errorMessage)](#seterrorfieldname-errorMessage) |     -     | Sets a custom error message on a form field by field name
+[setError(fieldName, errorMessage)](#seterrorfieldname-errormessage) |     -     | Sets a custom error message on a form field by field name
 [isValid(object, silent)](#isvalidobject-silent)                     | _boolean_ | Checks if the entire form is valid and updates UI _(does not update UI if silent is true)_
 [reset()](#reset)                                                    |     -     | Clears all form values and errors
 
