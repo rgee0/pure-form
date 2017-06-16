@@ -17,6 +17,8 @@ Benefits:
 * Displays character limits (including characters remaining) when maxLength set
 * Preserves partially completed form values between refreshes _(optional)_
 
+Works in all modern desktop and mobile browsers from IE9+, including Cordova/PhoneGap and iconic projects.
+
 **Table of Contents**
 
 * [Install](#install)
@@ -24,12 +26,11 @@ Benefits:
   * [HTML](#html)
   * [JSON Schema](#json-schema)
   * [Rendered Output](#rendered-output)
-* [Compatibility](#compatibility)
-* [HTML Attributes](#html-attributes)
-* [JavaScript Properties](#javascript-properties)
-* [Methods](#methods)
-* [Events](#events)
-* [Data Types](#data-types)
+  * [Attributes](#attributes)
+  * [Properties](#properties)
+  * [Methods](#methods)
+  * [Events](#events)
+  * [Data Types](#data-types)
 * [Continued Development](#continued-development)
   * [Testing](#testing)
   * [Build](#build)
@@ -120,11 +121,7 @@ Produces the following form, including validation.
 
 The markup created within the `pure-form` tag is just regular HTML and can be [styled accordingly](docs/STYLING.MD).
 
-## Compatibility
-
-pure-form works in all modern desktop and mobile browsers from IE9+, including Cordova/PhoneGap projects.
-
-## HTML Attributes
+### Attributes
 
 Attribute                | Description
 ------------------------ | -----------------------------------------------------------------------------------------------------
@@ -158,7 +155,7 @@ Or
 document.getElementById('contact').setAttribute('use-form-tag', 'false');
 ```
 
-## JavaScript Properties
+### Properties
 
 The following properties can be set via JavaScript:
 
@@ -182,21 +179,21 @@ Property                | Type      | Default | Description
 `.useFormTag`           | _boolean_ | `false` | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_
 `.enforceMaxLength`     | _boolean_ | `false` | If true, does not allow the user to enter more characters that the value of schema maxLength property
 
-### src
+#### src
 
 ```js
 // setting the src triggers loading of the JSON Schema:
 document.getElementById('contactForm').src = 'http://domain.com/schema-name.json';
 ```
 
-### schema
+#### schema
 
 ```js
 // get the schema retrieved from the server
 var jsonSchema = document.getElementById('contactForm').schema;
 ```
 
-### value
+#### value
 
 ```js
 // get the value of the form as a JSON object
@@ -210,7 +207,7 @@ document.getElementById('contactForm').value = {
 };
 ```
 
-## Methods
+### Methods
 
 Each pure-form element exposes the following methods:
 
@@ -222,28 +219,28 @@ Method                                                               | Descripti
 [isValid(object, silent)](#isvalidobject-silent)                     | Checks if the entire form is valid and updates UI
 [reset()](#reset)                                                    | Clears all form values and errors
 
-### clearError(fieldName)
+#### clearError(fieldName)
 
 ```js
 // remove error message from email field
 document.getElementById('contactForm').clearError('email');
 ```
 
-### clearErrors()
+#### clearErrors()
 
 ```js
 // remove all error messages
 document.getElementById('contactForm').clearErrors();
 ```
 
-### setError(fieldName, errorMessage)
+#### setError(fieldName, errorMessage)
 
 ```js
 // set a custom error message on the phone field
 document.getElementById('contactForm').setInvalid('phone', 'Phone number is missing country code');
 ```
 
-### isValid(object, silent)
+#### isValid(object, silent)
 
 ```js
 var contactForm = document.getElementById('contactForm');
@@ -264,14 +261,14 @@ if (isValidPhone) {
 }
 ```
 
-### reset()
+#### reset()
 
 ```js
 // Clear all form values and errors
 document.getElementById('contactForm').reset();
 ```
 
-## Events
+### Events
 
 pure-form fires the following events _(additional information is stored event.detail property)_:
 
@@ -283,7 +280,7 @@ Event                               | Description
 [button-clicked](#button-clicked)   | Fired when a pure-form button is clicked
 [value-set](#value-set)             | Fired when the form value is set
 
-### schema-loaded
+#### schema-loaded
 
 Fires when the JSON schema has loaded from `.src` url and assigned to `.schema` property.
 
@@ -299,7 +296,7 @@ contactForm.addEventListener('schema-loaded', function(e) {
 });
 ```
 
-### schema-error
+#### schema-error
 
 Fires when JSON schema fails to load for whatever reason.
 
@@ -315,7 +312,7 @@ contactForm.addEventListener('schema-error', function(e) {
 });
 ```
 
-### render-complete
+#### render-complete
 
 Fires when pure-form rendering has completed.
 
@@ -328,7 +325,7 @@ contactForm.addEventListener('render-complete', function(e) {
 });
 ```
 
-### button-clicked
+#### button-clicked
 
 ```html
 <pure-form id="contact" src="path-to-json-schema.json" buttons="Delete,Disable"></pure-form>
@@ -344,7 +341,7 @@ contactForm.addEventListener('button-clicked', function(e) {
 });
 ```
 
-### value-set
+#### value-set
 
 ```js
 var contactForm = document.getElementById('contactForm');
@@ -359,7 +356,7 @@ contactForm.addEventListener('value-set', function(e) {
 
 **TODO** add more events!! (submit etc)
 
-## Data Types
+### Data Types
 
 TODO: Add JSON Schema data type/format to html type documentation
 
