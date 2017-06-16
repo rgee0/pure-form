@@ -199,16 +199,15 @@ var jsonSchema = document.getElementById('contactForm').schema;
 ### value
 
 ```js
+// get the value of the form as a JSON object
+var formValue = document.getElementById('contactForm').value;
+
 // set the value of the form using a JSON object with keys matching fields
-document.getElementById('example').value = {
+document.getElementById('contactForm').value = {
   title: "Mr",
   firstName: "John",
   surname: "Doherty"
 };
-
-
-// get the value of the form as a JSON object
-var formValue = document.getElementById('example').value;
 ```
 
 ## Methods
@@ -226,34 +225,28 @@ Method                                                               | Descripti
 ### clearError(fieldName)
 
 ```js
-var contactForm = document.getElementById('contact');
-
 // remove error message from email field
-contactForm.clearError('email');
+document.getElementById('contactForm').clearError('email');
 ```
 
 ### clearErrors()
 
 ```js
-var contactForm = document.getElementById('contact');
-
 // remove all error messages
-contactForm.clearErrors();
+document.getElementById('contactForm').clearErrors();
 ```
 
 ### setError(fieldName, errorMessage)
 
 ```js
-var contactForm = document.getElementById('contact');
-
 // set a custom error message on the phone field
-contactForm.setInvalid('phone', 'Phone number is missing country code');
+document.getElementById('contactForm').setInvalid('phone', 'Phone number is missing country code');
 ```
 
 ### isValid(object, silent)
 
 ```js
-var contactForm = document.getElementById('contact');
+var contactForm = document.getElementById('contactForm');
 
 if (contactForm.isValid()) {
   // form is valid, do some stuff
@@ -261,7 +254,7 @@ if (contactForm.isValid()) {
 ```
 
 ```js
-var contactForm = document.getElementById('contact');
+var contactForm = document.getElementById('contactForm');
 
 // check if a value is valid against the loaded schema (pass true as second param to avoid updating the UI)
 var isValidPhone = contactForm.isValid({ phone: '+441223 223 223' }, true);
@@ -275,7 +268,7 @@ if (isValidPhone) {
 
 ```js
 // Clear all form values and errors
-document.getElementById('object').reset();
+document.getElementById('contactForm').reset();
 ```
 
 ## Events
@@ -295,7 +288,7 @@ Event                               | Description
 Fires when the JSON schema has loaded from `.src` url and assigned to `.schema` property.
 
 ```js
-var contactForm = document.getElementById('contact');
+var contactForm = document.getElementById('contactForm');
 
 contactForm.addEventListener('schema-loaded', function(e) {
     console.log(this);            // pure form element
@@ -311,7 +304,7 @@ contactForm.addEventListener('schema-loaded', function(e) {
 Fires when JSON schema fails to load for whatever reason.
 
 ```js
-var contactForm = document.getElementById('contact');
+var contactForm = document.getElementById('contactForm');
 
 contactForm.addEventListener('schema-error', function(e) {
     console.log(this);            // pure form element
@@ -327,7 +320,7 @@ contactForm.addEventListener('schema-error', function(e) {
 Fires when pure-form rendering has completed.
 
 ```js
-var contactForm = document.getElementById('contact');
+var contactForm = document.getElementById('contactForm');
 
 contactForm.addEventListener('render-complete', function(e) {
     console.log(this);      // pure form element
@@ -342,7 +335,7 @@ contactForm.addEventListener('render-complete', function(e) {
 ```
 
 ```js
-var contactForm = document.getElementById('contact');
+var contactForm = document.getElementById('contactForm');
 
 contactForm.addEventListener('button-clicked', function(e) {
     console.log(this);      // pure form element
@@ -354,7 +347,7 @@ contactForm.addEventListener('button-clicked', function(e) {
 ### value-set
 
 ```js
-var contactForm = document.getElementById('contact');
+var contactForm = document.getElementById('contactForm');
 
 contactForm.addEventListener('value-set', function(e) {
     console.log(this);              // pure form element
