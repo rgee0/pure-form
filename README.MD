@@ -389,9 +389,9 @@ TODO: Add JSON Schema data type/format to html type documentation
 
 ### The Vision
 
-The objective of this project is to create a single script _(web component)_ that caters for 80% of the requirements of a typical web form. This would include contact forms, user registration, credit card payments etc and all form UX recommendations. It's a big goal that I will be advancing daily and it would be great if you would join me!
+The objective of this project is to create a single script _(web component)_ that caters for 80% of the requirements of a typical web form and with UX best practices applied. Whilst also building up a collection of [common JSON Schema](/schema) forms for things such as user registration, credit card payments etc. It's a big goal and one that I will be advancing daily, but it would be great if you would join me!
 
-Your contribution could be a simple [feature suggestion](https://github.com/john-doherty/pure-form/issues), [reporting a bug](https://github.com/john-doherty/pure-form/issues), adding a little more documentation or [forking the project](https://github.com/john-doherty/pure-form#fork-destination-box) and coding a new feature/fix.
+Your contribution could be as simple as [suggesting a feature](https://github.com/john-doherty/pure-form/issues), [reporting a bug](https://github.com/john-doherty/pure-form/issues), adding a little more documentation or by [forking the project](https://github.com/john-doherty/pure-form#fork-destination-box) and coding a new feature/fix/unit test.
 
 ### Local Development
 
