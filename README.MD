@@ -32,10 +32,10 @@ Benefits:
   * [Events](#events)
   * [Data Types](#data-types)
 * [Contribute](#contribute)
-  * [Local Development](#local-development)
   * [The Vision](#the-vision)
+  * [Local Development](#local-development)
   * [Testing](#testing)
-  * [Build](#build)
+  * [Generate .min Files](#generate-.min-files)
 * [Reporting Bugs](#reporting-bugs)
 * [Pull Requests](#pull-requests)
 * [License](#license)
@@ -389,7 +389,7 @@ TODO: Add JSON Schema data type/format to html type documentation
 
 ### The Vision
 
-The objective of this project is to create a single script _(web component)_ that caters for 80% of the requirements of a typical web form. This would include contact forms, user registration, credit card payments etc and all form UX recommendations. It's a big goal that I will be advancing daily and would be great if you would join me!
+The objective of this project is to create a single script _(web component)_ that caters for 80% of the requirements of a typical web form. This would include contact forms, user registration, credit card payments etc and all form UX recommendations. It's a big goal that I will be advancing daily and it would be great if you would join me!
 
 Your contribution could be a simple [feature suggestion](https://github.com/john-doherty/pure-form/issues), [reporting a bug](https://github.com/john-doherty/pure-form/issues), adding a little more documentation or [forking the project](https://github.com/john-doherty/pure-form#fork-destination-box) and coding a new feature/fix.
 
@@ -424,7 +424,7 @@ Tests are written using [jsdom](https://github.com/tmpvar/jsdom), [nock](https:/
 | `pure-form-method-spec.js` | Tests that execute methods and verify their functionality |
 | `pure-form-rendering-spec.js` | Tests that tweak properties and verify the rendered output |
 
-### Build
+### Generate .min Files
 
 The minified [pure-form.min.js](dist/pure-form.min.js) and [pure-form.min.css](dist/pure-form.min.css) files included in this project are the latest version. To generate .min files, execute the following:
 
