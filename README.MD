@@ -31,7 +31,9 @@ Benefits:
   * [Methods](#methods)
   * [Events](#events)
   * [Data Types](#data-types)
-* [Continued Development](#continued-development)
+* [Contribute](#contribute)
+  * [Local Development](#local-development)
+  * [The Vision](#the-vision)
   * [Testing](#testing)
   * [Build](#build)
 * [Reporting Bugs](#reporting-bugs)
@@ -385,9 +387,13 @@ TODO: Add JSON Schema data type/format to html type documentation
 
 ## Contribute
 
-This project is a work in progress, my objective is to advance the component to handle all common form tasks - ideally incorporating all major UX tips. The project includes everything needed to continue development, including a node webserver.
+### The Vision
 
-If you'd like to help out, run the following to get started:
+The objective of this project is to create a single script _(web component)_ that caters for 80% of the requirements of a typical web form. This would include contact forms, user registration, credit card payments etc and all form UX recommendations. It's a big goal that I will be advancing daily and would be great if you would join me!
+
+### Local Development
+
+The project includes everything needed to continue development, including a node webserver. If you'd like to help out, run the following to get started:
 
 ```bash
 git clone https://github.com/john-doherty/pure-form
