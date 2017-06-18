@@ -5,7 +5,7 @@
 A simple, framework free, pure JavaScript web component that removes the need to manually craft and validate HTML forms. Simply define your form requirements in a [JSON Schema](https://tools.ietf.org/html/draft-zyp-json-schema-03) and assign it to the new `pure-form` HTML tag:
 
 ```html
-<pure-form src="path-to-json-schema.json"></pure-form>
+<pure-form id="contactForm" src="path-to-json-schema.json"></pure-form>
 ```
 
 Works in all modern desktop and mobile browsers from IE9+, including Cordova/PhoneGap and iconic projects.
@@ -58,7 +58,7 @@ Add the [dist/pure-form.min.js](dist/pure-form.min.js) and [dist/pure-form.min.c
   </head>
   <body>
     <!-- create just like a regular HTML tag (can also be created using document.createElement) -->
-    <pure-form id="example" src="contact-form.json" validate-on-blur="true"></pure-form>
+    <pure-form id="contactForm" src="contact-form.json" validate-on-blur="true"></pure-form>
   </body>
 </html>
 ```
@@ -147,25 +147,25 @@ Attribute                | Description
 
 The following properties can be set via JavaScript:
 
-Property                | Type      | Default | Description
------------------------ | --------- | ------- | -----------------------------------------------------------------------------------------------------
-[src](#src)             | _string_  | `""`    | Path to the JSON Schema that defines the form
-[schema](#schema)       | _object_  | `null`  | Schema object to use
-[value](#value)         | _object_  | `{}`    | Object containing key/value pair of values
-`.createUrl`            | _string_  | `""`    | Url to post the form to when the user clicks Create
-`.updateUrl`            | _string_  | `""`    | Url to post the form to when the user clicks Save
-`.readonly`             | _boolean_ | `false` | If true, adds readonly property to all form fields
-`.title`                | _string_  | `""`    | The title to be rendered before the form
-`.description`          | _string_  | `""`    | The description before the form
-`.buttons`              | _string_  | `[]`    | Comma separated list of button labels _(excludes buttons created by schema links)_
-`.persist`              | _boolean_ | `false` | Partially completed forms survive refreshes _(until browser is closed)_
-`.disableValidation`    | _boolean_ | `false` | Disables all form validation
-`.placeholderMaxLength` | _boolean_ | `75`    | Max description length to be used as placeholder, values greater than are inlined
-`.autofocusError`       | _boolean_ | `false` | If set to true, sets focus to the first input containing an error after validation
-`.validateOnBlur`       | _boolean_ | `false` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_
-`.tabOnEnter`           | _boolean_ | `false` | If true, moves focus to the next field in the form when enter is pressed
-`.useFormTag`           | _boolean_ | `false` | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_
-`.enforceMaxLength`     | _boolean_ | `false` | If true, does not allow the user to enter more characters that the value of schema maxLength property
+Property                     | Type      | Default | Description
+---------------------------- | --------- | ------- | -----------------------------------------------------------------------------------------------------
+[src](#src)                 | _string_  | `""`    | Path to the JSON Schema that defines the form
+[schema](#schema)           | _object_  | `null`  | Schema object to use
+[value](#value)             | _object_  | `{}`    | Object containing key/value pair of values
+[createUrl](#createUrl)     | _string_  | `""`    | Url to post the form to when the user clicks Create
+[updateUrl](#updateUrl)     | _string_  | `""`    | Url to post the form to when the user clicks Save
+[readonly](#readonly)       | _boolean_ | `false` | If true, adds readonly property to all form fields
+[title](#title)             | _string_  | `""`    | The title to be rendered before the form
+[description](#description) | _string_  | `""`    | The description before the form
+`.buttons`                  | _string_  | `[]`    | Comma separated list of button labels _(excludes buttons created by schema links)_
+`.persist`                  | _boolean_ | `false` | Partially completed forms survive refreshes _(until browser is closed)_
+`.disableValidation`        | _boolean_ | `false` | Disables all form validation
+`.placeholderMaxLength`     | _boolean_ | `75`    | Max description length to be used as placeholder, values greater than are inlined
+`.autofocusError`           | _boolean_ | `false` | If set to true, sets focus to the first input containing an error after validation
+`.validateOnBlur`           | _boolean_ | `false` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_
+`.tabOnEnter`               | _boolean_ | `false` | If true, moves focus to the next field in the form when enter is pressed
+`.useFormTag`               | _boolean_ | `false` | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_
+`.enforceMaxLength`         | _boolean_ | `false` | If true, does not allow the user to enter more characters that the value of schema maxLength property
 
 #### src
 
@@ -193,6 +193,41 @@ document.getElementById('contactForm').value = {
   firstName: "John",
   surname: "Doherty"
 };
+```
+
+#### createUrl
+
+```js
+// set the create URL
+document.getElementById('contactForm').createUrl = 'http://myapp.com/contact';
+```
+
+#### updateUrl
+
+```js
+// set the update URL
+document.getElementById('contactForm').updateUrl = 'http://myapp.com/contact/c258e7ed-242f-46cc-ad1a-a5dd1d4bbe01';
+```
+
+#### readonly
+
+```js
+// set the form an all fields to readonly
+document.getElementById('contactForm').readonly = true;
+```
+
+#### title
+
+```js
+// set the title rendered at the top of the form
+document.getElementById('contactForm').title = 'Contact Us';
+```
+
+#### description
+
+```js
+// set the description rendered at the top of the form
+document.getElementById('contactForm').description = 'Got a question? Get in touch.';
 ```
 
 ### Methods
@@ -348,7 +383,7 @@ contactForm.addEventListener('value-set', function(e) {
 
 TODO: Add JSON Schema data type/format to html type documentation
 
-## Continued Development
+## Contribute
 
 This project is a work in progress, my objective is to advance the component to handle all common form tasks - ideally incorporating all major UX tips. The project includes everything needed to continue development, including a node webserver.
 
