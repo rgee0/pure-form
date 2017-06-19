@@ -440,7 +440,7 @@ If you find a bug, please create an [issue](https://github.com/john-doherty/pure
 
 ## Pull Requests
 
-Feel free to submit a pull requests, but please ensure your work is covered with unit tests and you code follows the current ESLint coding style defined in the [package.json](package.json) file.
+Feel free to submit a pull requests, but please ensure your work is covered with unit tests and your code follows the current ESLint coding style defined in the [package.json](package.json) file.
 
 ## License
 

@@ -9,8 +9,6 @@
 
     'use strict';
 
-    var componentName = 'pure-form';
-
     // regex validation patterns
     var patterns = {
         email: '^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$'
@@ -1582,7 +1580,7 @@
 
     if (document.registerElement) {
         // register component with the dom
-        document.registerElement(componentName, { prototype: pureForm });
+        document.registerElement('pure-form', { prototype: pureForm });
     }
     else {
         throw new Error('document.registerElement does not exist. Are you missing the polyfill?');
