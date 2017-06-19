@@ -316,11 +316,29 @@ pure-form fires the following events _(additional information is stored event.de
 
 Event                               | Description
 ----------------------------------- | -------------------------------------------------------------------
+[submit](#submit)                   | Fired when the form is submitted to the server
 [schema-loaded](#schema-loaded)     | Fired when `.src` url is successfully loaded
 [schema-error](#schema-error)       | Fired when `.src` url fails to return a JSON Schema
 [render-complete](#render-complete) | Fired when pure-form completes rendering
 [button-clicked](#button-clicked)   | Fired when a pure-form button is clicked
 [value-set](#value-set)             | Fired when the form value is set
+
+#### submit
+
+```js
+var contactForm = document.getElementById('contactForm');
+
+contactForm.addEventListener('submit', function(e) {
+    console.log(this);            // pure form element
+    console.log(e.target);        // pure form element
+    console.log(e.detail.url);    // schema URL
+    console.log(e.detail.status); // http status 200
+    console.log(e.detail.body);   // JSON schema as a string
+});
+
+// trigger form submit
+contactForm.submit();
+```
 
 #### schema-loaded
 

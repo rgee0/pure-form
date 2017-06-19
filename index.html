@@ -17,32 +17,13 @@
             window.onload = function(){
                 var el = document.getElementById('contactForm');
 
-                el.addEventListener('submit', function(e){
-                    console.log('submitting...')
-                    e.preventDefault();
-                });
-
-
-                // var testValue = {
-                //     title: 'Mr',
-                //     firstName: 'John ' + (new Date()).getTime(),
-                //     surname: 'Doherty' + (new Date()).getTime(),
-                //     email: 'contact@johndoherty.info',
-                //     phone: '01223 223 332' + (new Date()).getTime(),
-                //     message: 'Test' + (new Date()).getTime()
-                // };
-
-                // el.addEventListener('render-complete', function(e) {
-                //     e.target.value = testValue;
-                //     e.target.submit();
+                // el.addEventListener('button-clicked', function(e){
+                //     e.stopImmediatePropagation();
                 // });
-
-                el.src="schemas/contact-form.json";
-
             }
         </script>
     </head>
     <body>
-        <pure-form id="contactForm" buttons="Save" validate-on-blur="true"></pure-form>
+        <pure-form id="contactForm" src="schemas/contact-form.json" buttons="Save" validate-on-blur="true"></pure-form>
     </body>
 </html>
