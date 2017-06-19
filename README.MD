@@ -168,7 +168,7 @@ Property                    | Type      | Default | Description
 `.autofocusError`           | _boolean_ | `false`                             | If set to true, sets focus to the first input containing an error after validation
 `.validateOnBlur`           | _boolean_ | `false`                             | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_
 `.tabOnEnter`               | _boolean_ | `false`                             | If true, moves focus to the next field in the form when enter is pressed
-`.useFormTag`               | _boolean_ | `false`                             | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_
+`.useFormTag`               | _boolean_ | `true`                              | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_
 `.enforceMaxLength`         | _boolean_ | `false`                             | If true, does not allow the user to enter more characters that the value of schema maxLength property
 
 #### action
@@ -247,11 +247,19 @@ Each pure-form element exposes the following methods:
 
 Method                                                               | Description
 -------------------------------------------------------------------- | ---------------------------------------------------------
+[submit](#submit)                                                    | Submits the form to the server
 [clearError(fieldName)](#clearerrorfieldname)                        | Clears error message on a form field
 [clearErrors()](#clearerrors)                                        | Clear all form error messages
 [setError(fieldName, errorMessage)](#seterrorfieldname-errormessage) | Sets a custom error message on a form field
 [isValid(object, silent)](#isvalidobject-silent)                     | Checks if the entire form is valid and updates UI
 [reset()](#reset)                                                    | Clears all form values and errors
+
+#### submit
+
+```js
+// submit the form to the server just like a regular HTML form
+document.getElementById('contactForm').submit();
+```
 
 #### clearError(fieldName)
 

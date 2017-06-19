@@ -104,7 +104,7 @@ describe('pure-form interface', function () {
         expect(el.autofocusError).toEqual(false);
         expect(el.validateOnBlur).toEqual(false);
         expect(el.tabOnEnter).toEqual(false);
-        expect(el.useFormTag).toEqual(false);
+        expect(el.useFormTag).toEqual(true);
         expect(el.enforceMaxLength).toEqual(false);
     });
 

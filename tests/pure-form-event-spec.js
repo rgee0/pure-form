@@ -9,6 +9,7 @@ var window = null;
 
 var tempSchemaUrl = 'http://localhost:8080/test-schema.json';
 var schema404Url = 'http://localhost:8080/404';
+var tempPostUrl = 'http://localhost:8080/post-test';
 
 // intercept request for schema
 nock.disableNetConnect();
@@ -28,6 +29,8 @@ describe('pure-form events', function () {
             .replyWithFile(200, path.resolve('./tests/test-schema.json'))
             .get('/404')
             .reply(404);
+            // .post('/post-test', '*')
+            // .reply(404);
 
         var virtualConsole = new jsdom.VirtualConsole();
 
@@ -115,7 +118,7 @@ describe('pure-form events', function () {
             expect(e.detail).toBeUndefined();
             expect(this).toEqual(el);
             expect(form).toBeDefined();
-            expect(form.tagName).toEqual('DIV');
+            expect(form.tagName).toEqual('FORM');
             expect(labels.length).toBeGreaterThan(0);
             done();
         });
@@ -160,13 +163,15 @@ describe('pure-form events', function () {
         var el = document.createElement('pure-form');
         var oldValue = null;
 
+        var now = (new Date()).getTime();
+
         var testValue = {
             title: 'Mr',
-            firstName: 'John ' + (new Date()).getTime(),
-            surname: 'Doherty' + (new Date()).getTime(),
-            email: 'contact@johndoherty.info',
-            phone: '01223 223 332' + (new Date()).getTime(),
-            message: 'Test' + (new Date()).getTime()
+            firstName: 'John ' + now,
+            surname: 'Doherty' + now,
+            email: 'contact@johndoherty' + now + '.info',
+            phone: '01223 223 332' + now,
+            message: 'Test' + now
         };
 
         el.addEventListener('value-set', function(e) {
@@ -200,5 +205,43 @@ describe('pure-form events', function () {
         el.src = tempSchemaUrl;
     });
     //
+
+
+    it('should fire submit event when submitted', function(done) {
+
+        var el = document.createElement('pure-form');
+
+        // el.action = tempPostUrl;
+        // el.method = 'post';
+
+        var now = (new Date()).getTime();
+
+        var testValue = {
+            title: 'Mr',
+            firstName: 'John ' + now,
+            surname: 'Doherty' + now,
+            email: 'contact@johndoherty' + now + '.info',
+            phone: '01223 223 332' + now,
+            message: 'Test' + now
+        };
+
+        el.addEventListener('submit', function(e) {
+
+            // check event data
+            expect(e).toBeDefined();
+            expect(this).toEqual(el);
+            expect(e.target).toEqual(el);
+            done();
+        });
+
+        el.addEventListener('schema-loaded', function(e) {
+            e.target.value = testValue;
+            e.target.submit();
+        });
+
+        document.body.appendChild(el);
+
+        el.src = tempSchemaUrl;
+    });
 
 });

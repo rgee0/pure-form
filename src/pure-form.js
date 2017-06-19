@@ -58,17 +58,6 @@
                 this.title = this._schema.title;
                 this.description = this._schema.description;
 
-                // // TODO: add link url for each option, but dont have set attributes!??!
-                // var updateInfo = arrayWhere(this._schema.links, 'rel', 'self', true);
-                // if (updateInfo) {
-                //     this.updateUrl = updateInfo.href;
-                // }
-
-                // var createInfo = arrayWhere(this._schema.links, 'rel', 'create', true);
-                // if (createInfo) {
-                //     this.createUrl = createInfo.href;
-                // }
-
                 renderForm.call(this);
             }
         },
@@ -174,7 +163,7 @@
         },
         useFormTag: {
             get: function () {
-                return (this.getAttribute('use-form-tag') === 'true');
+                return (this.getAttribute('use-form-tag') !== 'false');
             },
             set: function (value) {
                 this.setAttribute('use-form-tag', value === true);
@@ -389,6 +378,23 @@
         this.value = formData;
     };
 
+    /**
+     * Submits the form
+     * @returns {void}
+     */
+    pureForm.submit = function() {
+
+        if (this.form && this.useFormTag && (typeof this.form.submit === 'function')) {
+
+            // fire the submit event, allowing listeners to cancel the submission
+            var allowSubmit = this.dispatchEvent(new CustomEvent('submit', { bubbles: true, cancelable: true }));
+
+            if (allowSubmit) {
+                this.form.submit();
+            }
+        }
+    };
+
     /*-----------------*/
     /* PRIVATE METHODS */
     /*-----------------*/
@@ -460,85 +466,76 @@
             var orderedKeys = getSortedSchemaKeys(this.schema);
             var lbl = null;
 
-            this.form = this.querySelector('.pure-form-form');
-
-            // if we've not yet created the form, create and hook submit event
-            if (!this.form) {
-
-                if (self.useFormTag) {
-
-                    var formProps = {
-                        enctype: this.enctype,
-                        action: this.action,
-                        method: this.method,
-                        novalidate: 'novalidate',
-                        'class': 'pure-form-form'
-                    };
-
-                    this.form = createEl(null, 'form', formProps);
-
-                    // hook form submit event
-                    this.form.onsubmit = function (e) {
-
-                        var allowSubmit = this.dispatchEvent(new CustomEvent('submit', { bubbles: true, cancelable: true }));
-
-                        if (!allowSubmit || !self.disableValidation || !self.isValid()) {
-                            e.preventDefault();
-                        }
-                    };
-                }
-                else {
-                    this.form = createEl(null, 'div', { 'class': 'pure-form-form' });
-                }
-
-                // add validate on blur handler
-                this.form.addEventListener('focusout', function(e) {
-
-                    var el = e.target;
-
-                    if (el.type !== 'submit' && self.validateOnBlur) {
-                        validateField.call(self, el.id, el.value);
-                    }
-                }, true);
-
-                // listen for keyboard events in case tabOnEnter is later enabled
-                this.form.addEventListener('keyup', function(e) {
-
-                    var el = e.target;
-
-                    if (self.tabOnEnter) {
-
-                        // only intercept keyup for enter key on inputs
-                        if (e.keyCode === 13 && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')) {
-
-                            e.preventDefault();
-
-                            // get all form items, convert to array to make it easier to search
-                            var items = Array.prototype.slice.call(self.form.querySelectorAll('.pure-form-item'));
-
-                            // find the input that fired the keyup, grab its index and then move focus to the next input
-                            items.forEach(function(item, index) {
-
-                                if (el === item) {
-
-                                    // shift focus to the next visible item if it is present
-                                    if (items[index + 1]) {
-                                        items[index + 1].focus();
-                                    }
-                                }
-                            });
-                        }
-                    }
-
-                    // add max length attribute to inform the user
-                    //if (el.getAttribute('data-maxlength')) {
-                        setCharactersRemaining(el);
-                    //}
-                });
+            // always create a new form tag, therefore remove the old one
+            if (this.form) {
+                this.form.parentElement.removeChild(this.form);
             }
 
-            // erase current form
-            this.form.innerHTML = '';
+            if (this.useFormTag) {
+
+                this.form = createEl(null, 'form', {
+                    enctype: this.enctype,
+                    action: this.action,
+                    method: this.method,
+                    novalidate: 'novalidate',
+                    'class': 'pure-form-form'
+                });
+
+                // hook form submit event
+                this.form.onsubmit = function (e) {
+
+                    var allowSubmit = self.dispatchEvent(new CustomEvent('submit', { bubbles: true, cancelable: true }));
+
+                    if (!allowSubmit || !self.disableValidation || !self.isValid()) {
+                        e.preventDefault();
+                    }
+                };
+            }
+            else {
+                this.form = createEl(null, 'div', { 'class': 'pure-form-form' });
+            }
+
+            // add validate on blur handler
+            this.form.addEventListener('focusout', function(e) {
+
+                var el = e.target;
+
+                if (el.type !== 'submit' && self.validateOnBlur) {
+                    validateField.call(self, el.id, el.value);
+                }
+            }, true);
+
+            // listen for keyboard events in case tabOnEnter is later enabled
+            this.form.addEventListener('keyup', function(e) {
+
+                var el = e.target;
+
+                if (self.tabOnEnter) {
+
+                    // only intercept keyup for enter key on inputs
+                    if (e.keyCode === 13 && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')) {
+
+                        e.preventDefault();
+
+                        // get all form items, convert to array to make it easier to search
+                        var items = Array.prototype.slice.call(self.form.querySelectorAll('.pure-form-item'));
+
+                        // find the input that fired the keyup, grab its index and then move focus to the next input
+                        items.forEach(function(item, index) {
+
+                            if (el === item) {
+
+                                // shift focus to the next visible item if it is present
+                                if (items[index + 1]) {
+                                    items[index + 1].focus();
+                                }
+                            }
+                        });
+                    }
+                }
+
+                setCharactersRemaining(el);
+            });
 
             // go through array of keys (as string) and remove keys we're not interested in
             orderedKeys = orderedKeys.filter(function (key) {
