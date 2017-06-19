@@ -1075,6 +1075,10 @@
                             el = createEl(null, 'input', { name: id, id: id, type: 'date', value: '' });
                         } break;
 
+                        case 'password': {
+                            el = createEl(null, 'input', { name: id, id: id, type: 'password', value: '' });
+                        } break;
+
                         case 'email': {
                             el = createEl(null, 'input', { name: id, id: id, type: 'email', pattern: patterns.email, value: '' });
                         } break;
