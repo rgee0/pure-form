@@ -63,11 +63,12 @@ describe('pure-form interface', function () {
 
         var el = document.createElement('pure-form');
 
+        expect(typeof el.action).toEqual('string');
+        expect(typeof el.enctype).toEqual('string');
+        expect(typeof el.method).toEqual('string');
         expect(typeof el.src).toEqual('string');
         expect(typeof el.schema).toEqual('object');
         expect(typeof el.value).toEqual('object');
-        expect(typeof el.createUrl).toEqual('string');
-        expect(typeof el.updateUrl).toEqual('string');
         expect(typeof el.readonly).toEqual('boolean');
         expect(typeof el.title).toEqual('string');
         expect(typeof el.description).toEqual('string');
@@ -87,11 +88,12 @@ describe('pure-form interface', function () {
 
         var el = document.createElement('pure-form');
 
+        expect(el.action).toEqual('');
+        expect(el.enctype).toEqual('application/x-www-form-urlencoded');
+        expect(el.method).toEqual('get');
         expect(el.src).toEqual('');
         expect(el.schema).toEqual(null);
         expect(JSON.stringify(el.value)).toEqual('{}');
-        expect(el.createUrl).toEqual('');
-        expect(el.updateUrl).toEqual('');
         expect(el.readonly).toEqual(false);
         expect(el.title).toEqual('');
         expect(el.description).toEqual('');

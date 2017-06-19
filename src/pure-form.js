@@ -16,6 +16,30 @@
 
     // Create a new instance of the base object with these additional items
     var pureForm = Object.create(base, {
+        action: {
+            get: function () {
+                return this.getAttribute('action') || '';
+            },
+            set: function (value) {
+                this.setAttribute('action', value || '');
+            }
+        },
+        enctype: {
+            get: function () {
+                return this.getAttribute('enctype') || 'application/x-www-form-urlencoded';
+            },
+            set: function (value) {
+                this.setAttribute('enctype', value || 'application/x-www-form-urlencoded');
+            }
+        },
+        method: {
+            get: function () {
+                return this.getAttribute('method') || 'get';
+            },
+            set: function (value) {
+                this.setAttribute('method', value || 'get');
+            }
+        },
         src: {
             get: function () {
                 return this.getAttribute('src') || '';
@@ -34,16 +58,16 @@
                 this.title = this._schema.title;
                 this.description = this._schema.description;
 
-                // TODO: add link url for each option, but dont have set attributes!??!
-                var updateInfo = arrayWhere(this._schema.links, 'rel', 'self', true);
-                if (updateInfo) {
-                    this.updateUrl = updateInfo.href;
-                }
+                // // TODO: add link url for each option, but dont have set attributes!??!
+                // var updateInfo = arrayWhere(this._schema.links, 'rel', 'self', true);
+                // if (updateInfo) {
+                //     this.updateUrl = updateInfo.href;
+                // }
 
-                var createInfo = arrayWhere(this._schema.links, 'rel', 'create', true);
-                if (createInfo) {
-                    this.createUrl = createInfo.href;
-                }
+                // var createInfo = arrayWhere(this._schema.links, 'rel', 'create', true);
+                // if (createInfo) {
+                //     this.createUrl = createInfo.href;
+                // }
 
                 renderForm.call(this);
             }
@@ -54,22 +78,6 @@
             },
             set: function (data) {
                 populateForm.call(this, data);
-            }
-        },
-        createUrl: {
-            get: function () {
-                return this.getAttribute('create-url') || '';
-            },
-            set: function (value) {
-                this.setAttribute('create-url', value);
-            }
-        },
-        updateUrl: {
-            get: function () {
-                return this.getAttribute('update-url') || '';
-            },
-            set: function (value) {
-                this.setAttribute('update-url', value);
             }
         },
         readonly: {
@@ -233,6 +241,8 @@
                 renderButtons.call(this);
             } break;
 
+            case 'enctype':
+            case 'action':
             case 'use-form-tag':
             case 'enforce-maxlength': {
 
@@ -457,26 +467,25 @@
 
                 if (self.useFormTag) {
 
-                    this.form = createEl(null, 'form', { action: '', method: 'post', 'class': 'pure-form-form', novalidate: 'novalidate' });
+                    var formProps = {
+                        enctype: this.enctype,
+                        action: this.action,
+                        method: this.method,
+                        novalidate: 'novalidate',
+                        'class': 'pure-form-form'
+                    };
 
-                    // if we have a create/update url, dont submit the form
-                    if (this.getAttribute('create-url') !== '' || this.getAttribute('update-url') !== '') {
+                    this.form = createEl(null, 'form', formProps);
 
-                        // hook form submit event
-                        this.form.onsubmit = function (e) {
+                    // hook form submit event
+                    this.form.onsubmit = function (e) {
 
+                        var allowSubmit = this.dispatchEvent(new CustomEvent('submit', { bubbles: true, cancelable: true }));
+
+                        if (!allowSubmit || !self.disableValidation || !self.isValid()) {
                             e.preventDefault();
-
-                            // // TODO: review this!
-                            // if (!self.isValid()) {
-                            //     e.preventDefault();
-                            // }
-                            // else {
-                            //     console.log('submmitting....');
-                            //     save.call(self);
-                            // }
-                        };
-                    }
+                        }
+                    };
                 }
                 else {
                     this.form = createEl(null, 'div', { 'class': 'pure-form-form' });

@@ -2,7 +2,7 @@
 
 [![Linked In](https://img.shields.io/badge/Linked-In-blue.svg)](https://www.linkedin.com/in/john-i-doherty) [![Twitter Follow](https://img.shields.io/twitter/follow/CambridgeMVP.svg?style=social&label=Twitter&style=plastic)](https://twitter.com/CambridgeMVP)
 
-A simple, framework free, pure JavaScript web component that removes the need to manually craft and validate HTML forms. Simply define your form requirements in a [JSON Schema](https://tools.ietf.org/html/draft-zyp-json-schema-03) and assign it to the new `pure-form` HTML tag:
+A drop in replacement for the HTML FORM tag that removes the need to manually craft and validate HTML forms. Simply define your form requirements in a [JSON Schema](https://tools.ietf.org/html/draft-zyp-json-schema-03) and assign it to the new `pure-form` HTML tag:
 
 ```html
 <pure-form id="contactForm" src="path-to-json-schema.json"></pure-form>
@@ -129,9 +129,10 @@ The following attributes can be set in HTML or via `.setAttribute(propertyName, 
 
 Attribute                | Description
 ------------------------ | -----------------------------------------------------------------------------------------------------
+`action`                 | Specifies where to send the form-data when a form is submitted
+`enctype`                | The standard form enctype attribute specifies how the form-data should be encoded
+`method`                 | Specifies how to send form-data, options are **get** (send as URL variables or **post** (as HTTP post transaction)
 `src`                    | Path to the JSON Schema that defines the form
-`create-url`             | Url to post the form to when the user clicks Create
-`update-url`             | Url to post the form to when the user clicks Save
 `readonly`               | If true, adds read only property to all form fields
 `title`                  | The title to be rendered before the form
 `description`            | The description before the form
@@ -149,25 +150,47 @@ Attribute                | Description
 
 The following properties can be set via JavaScript:
 
-Property                     | Type      | Default | Description
----------------------------- | --------- | ------- | -----------------------------------------------------------------------------------------------------
-[src](#src)                 | _string_  | `""`    | Path to the JSON Schema that defines the form
-[schema](#schema)           | _object_  | `null`  | Schema object to use
-[value](#value)             | _object_  | `{}`    | Object containing key/value pair of values
-[createUrl](#createUrl)     | _string_  | `""`    | Url to post the form to when the user clicks Create
-[updateUrl](#updateUrl)     | _string_  | `""`    | Url to post the form to when the user clicks Save
-[readonly](#readonly)       | _boolean_ | `false` | If true, adds readonly property to all form fields
-[title](#title)             | _string_  | `""`    | The title to be rendered before the form
-[description](#description) | _string_  | `""`    | The description before the form
-`.buttons`                  | _string_  | `[]`    | Comma separated list of button labels _(excludes buttons created by schema links)_
-`.persist`                  | _boolean_ | `false` | Partially completed forms survive refreshes _(until browser is closed)_
-`.disableValidation`        | _boolean_ | `false` | Disables all form validation
-`.placeholderMaxLength`     | _boolean_ | `75`    | Max description length to be used as placeholder, values greater than are inlined
-`.autofocusError`           | _boolean_ | `false` | If set to true, sets focus to the first input containing an error after validation
-`.validateOnBlur`           | _boolean_ | `false` | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_
-`.tabOnEnter`               | _boolean_ | `false` | If true, moves focus to the next field in the form when enter is pressed
-`.useFormTag`               | _boolean_ | `false` | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_
-`.enforceMaxLength`         | _boolean_ | `false` | If true, does not allow the user to enter more characters that the value of schema maxLength property
+Property                    | Type      | Default | Description
+--------------------------- | --------- | ----------------------------------- | -----------------------------------------------------------------------------------------------------
+[action](#action)           | _string_  | _if empty posts to current page_    | Specifies where to send the form-data when a form is submitted
+[enctype](#enctype)         | _string_  | `application/x-www-form-urlencoded` | The standard form enctype attribute specifies how the form-data should be encoded
+[method](#method)           | _string_  | `get`                               | Specifies how to send form-data, options are **get** (send as URL variables or **post** (as HTTP post transaction)
+[src](#src)                 | _string_  | `""`                                | Path to the JSON Schema that defines the form
+[schema](#schema)           | _object_  | `null`                              | Schema object to use
+[value](#value)             | _object_  | `{}`                                | Object containing key/value pair of values
+[readonly](#readonly)       | _boolean_ | `false`                             | If true, adds readonly property to all form fields
+[title](#title)             | _string_  | `""`                                | The title to be rendered before the form
+[description](#description) | _string_  | `""`                                | The description before the form
+`.buttons`                  | _string_  | `[]`                                | Comma separated list of button labels _(excludes buttons created by schema links)_
+`.persist`                  | _boolean_ | `false`                             | Partially completed forms survive refreshes _(until browser is closed)_
+`.disableValidation`        | _boolean_ | `false`                             | Disables all form validation
+`.placeholderMaxLength`     | _boolean_ | `75`                                | Max description length to be used as placeholder, values greater than are inlined
+`.autofocusError`           | _boolean_ | `false`                             | If set to true, sets focus to the first input containing an error after validation
+`.validateOnBlur`           | _boolean_ | `false`                             | If set to true, validates each form field as it looses focus _(disabled .autofocusError)_
+`.tabOnEnter`               | _boolean_ | `false`                             | If true, moves focus to the next field in the form when enter is pressed
+`.useFormTag`               | _boolean_ | `false`                             | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_
+`.enforceMaxLength`         | _boolean_ | `false`                             | If true, does not allow the user to enter more characters that the value of schema maxLength property
+
+#### action
+
+```js
+// change the form post destination url
+document.getElementById('contactForm').action = 'http://www.example.com/example';
+```
+
+#### enctype
+
+```js
+// change the format data is sent to the server
+document.getElementById('contactForm').enctype = 'multipart/form-data';
+```
+
+#### method
+
+```js
+// post the form data to the server
+document.getElementById('contactForm').method = 'post';
+```
 
 #### src
 
@@ -195,20 +218,6 @@ document.getElementById('contactForm').value = {
   firstName: "John",
   surname: "Doherty"
 };
-```
-
-#### createUrl
-
-```js
-// set the create URL
-document.getElementById('contactForm').createUrl = 'http://myapp.com/contact';
-```
-
-#### updateUrl
-
-```js
-// set the update URL
-document.getElementById('contactForm').updateUrl = 'http://myapp.com/contact/c258e7ed-242f-46cc-ad1a-a5dd1d4bbe01';
 ```
 
 #### readonly
@@ -389,7 +398,7 @@ TODO: Add JSON Schema data type/format to html type documentation
 
 ### The Vision
 
-The objective of this project is to create a single script _(web component)_ that caters for 80% of the requirements of a typical web form and with UX best practices applied. Whilst also building up a collection of [common JSON Schema](/schema) forms for things such as user registration, credit card payments etc. It's a big goal and one that I will be advancing daily, but it would be great if you would join me!
+My objective is to create a single script, drop in replacement for the HTML FORM tag that allows users to define a form using JSON Schema and have it take care of all UX and validation issues. The end result should more intuitive, user friendly & consistent web form with a collection of predefined forms to handle things such as user registration, online payment etc. It's a big goal and one that I will be advancing daily, but it would be great if you would join me!
 
 Your contribution could be as simple as [suggesting a feature](https://github.com/john-doherty/pure-form/issues), [reporting a bug](https://github.com/john-doherty/pure-form/issues), adding a little more documentation or by [forking the project](https://github.com/john-doherty/pure-form#fork-destination-box) and coding a new feature/fix/unit test.
 

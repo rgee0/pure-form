@@ -169,11 +169,6 @@ describe('pure-form events', function () {
             message: 'Test' + (new Date()).getTime()
         };
 
-        // // store the old value when schema loads
-        // el.addEventListener('schema-loaded', function(e) {
-        //     oldValue = e.target.value;
-        // });
-
         el.addEventListener('value-set', function(e) {
 
             // check event data

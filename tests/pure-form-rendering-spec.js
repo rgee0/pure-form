@@ -233,12 +233,6 @@ describe('pure-form rendering', function () {
         el.src = src;
         expect(el.getAttribute('src')).toEqual(src);
 
-        el.createUrl = createUrl;
-        expect(el.getAttribute('create-url')).toEqual(createUrl);
-
-        el.updateUrl = updateUrl;
-        expect(el.getAttribute('update-url')).toEqual(updateUrl);
-
         el.readonly = true;
         expect(el.getAttribute('readonly')).toEqual('true');
 
