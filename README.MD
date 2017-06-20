@@ -19,7 +19,7 @@ Works in all modern desktop and mobile browsers from IE9+, including Cordova/Pho
 * Displays character limits (including characters remaining) when maxLength set
 * Preserves partially completed form values between refreshes _(optional)_
 
-**Table of Contents**
+## Table of Contents
 
 * [Install](#install)
 * [Usage](#usage)
