@@ -10,7 +10,7 @@ A drop in replacement for the HTML FORM tag that removes the need to manually cr
 
 Works in all modern desktop and mobile browsers from IE9+, including Cordova/PhoneGap and iconic projects.
 
-Benefits:
+## Features
 
 * Creates a schematic HTML FORM from a JSON Schema
 * Automatically handles client side validation
