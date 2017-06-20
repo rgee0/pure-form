@@ -1082,7 +1082,7 @@
                         } break;
 
                         case 'password': {
-                            el = createEl(null, 'input', { name: id, id: id, type: 'password', value: '' });
+                            el = createEl(null, 'input', { name: id, id: id, type: 'password', value: '', autocomplete: 'new-password' });
                         } break;
 
                         case 'email': {
@@ -1098,8 +1098,11 @@
         }
 
         if (el) {
-            // disable autocomplete for all input items
-            el.setAttribute('autocomplete', 'off');
+
+            if (!el.getAttribute('autocomplete')) {
+                // disable autocomplete for all input items
+                el.setAttribute('autocomplete', 'off');
+            }
 
             // assign validation if present
             if (item.readonly) el.setAttribute('readonly', 'true');
