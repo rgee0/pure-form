@@ -161,7 +161,7 @@ Property                    | Type      | Default | Description
 [readonly](#readonly)       | _boolean_ | `false`                             | If true, adds readonly property to all form fields
 [title](#title)             | _string_  | `""`                                | The title to be rendered before the form
 [description](#description) | _string_  | `""`                                | The description before the form
-`.buttons`                  | _string_  | `[]`                                | Comma separated list of button labels _(excludes buttons created by schema links)_
+[buttons](#buttons)         | _string_  | `""`                                | Comma separated list of button labels _(excludes buttons created by schema links)_
 `.persist`                  | _boolean_ | `false`                             | Partially completed forms survive refreshes _(until browser is closed)_
 `.disableValidation`        | _boolean_ | `false`                             | Disables all form validation
 `.placeholderMaxLength`     | _boolean_ | `75`                                | Max description length to be used as placeholder, values greater than are inlined
@@ -239,6 +239,19 @@ document.getElementById('contactForm').title = 'Contact Us';
 ```js
 // set the description rendered at the top of the form
 document.getElementById('contactForm').description = 'Got a question? Get in touch.';
+```
+
+#### buttons
+
+```js
+// Add Ok and Cancel buttons
+document.getElementById('contactForm').buttons = 'Ok, Cancel';
+
+document.getElementById('contactForm').addEventListener('button-clicked', function(e) {
+  if (e.detail === 'Ok') {
+    // Ok clicked, do something
+  }
+});
 ```
 
 ### Methods
