@@ -15,15 +15,89 @@
         </style>
         <script>
             window.onload = function(){
-                var el = document.getElementById('contactForm');
+                //var el = document.getElementById('contactForm');
 
-                // el.addEventListener('button-clicked', function(e){
-                //     e.stopImmediatePropagation();
-                // });
+                document.addEventListener('submit', function(e) {
+                    console.log('--------------------');
+                    console.log(e.type);            // event name
+                    console.log(e.target);          // actual HTML element clicked
+                    console.log(e.target.value);    // form value
+                    console.log('--------------------');
+                });
+
+                // schema failed to load
+                document.addEventListener('schema-error', function(e) {
+                    console.log('--------------------');
+                    console.log(e.type);            // event name
+                    console.log(e.target);          // actual HTML element clicked
+                    console.log(e.detail.url);      // requested URL
+                    console.log(e.detail.status);   // HTTP status code
+                    console.log(e.detail.body);     // HTTP response body
+                    console.log('--------------------');
+                });
+
+                // schema loaded
+                document.addEventListener('schema-loaded', function(e) {
+                    console.log('--------------------');
+                    console.log(e.type);            // event name
+                    console.log(e.target);          // actual HTML element clicked
+                    console.log(e.detail.url);      // requested URL
+                    console.log(e.detail.status);   // HTTP status code
+                    console.log(e.detail.body);     // HTTP response body
+                    console.log('--------------------');
+                });
+
+                // render has complete
+                document.addEventListener('render-complete', function(e) {
+                    console.log('--------------------');
+                    console.log(e.type);            // event name
+                    console.log(e.target);          // actual HTML element clicked
+                    console.log('--------------------');
+                });
+
+                document.addEventListener('value-set', function(e) {
+                    console.log('--------------------');
+                    console.log(e.type);            // event name
+                    console.log(e.target);          // actual HTML element clicked
+                    console.log(e.detail.oldValue); // old form value
+                    console.log(e.detail.newValue); // new form value
+                    console.log('--------------------');
+                })
+
+                document.addEventListener('button-clicked', function(e) {
+                    console.log('--------------------');
+                    console.log(e.type);            // event name
+                    console.log(e.target);          // actual HTML element clicked
+                    console.log(e.detail.value);    // value of the button
+                    console.log(e.detail.link);     // JSON schema link object if present
+                    console.log('--------------------');
+                });
+
+                // data submitted to schema link failed
+                document.addEventListener('submit-failed', function(e) {
+                    console.log('--------------------');
+                    console.log(e.type);            // event name
+                    console.log(e.target);          // actual HTML element clicked
+                    console.log(e.detail.url);      // requested URL
+                    console.log(e.detail.status);   // HTTP status code
+                    console.log(e.detail.body);     // HTTP response body
+                    console.log('--------------------');
+                });
+
+                // data submitted to schema link object successful
+                document.addEventListener('submit-successful', function(e) {
+                    console.log('--------------------');
+                    console.log(e.type);            // event name
+                    console.log(e.target);          // actual HTML element clicked
+                    console.log(e.detail.url);      // requested URL
+                    console.log(e.detail.status);   // HTTP status code
+                    console.log(e.detail.body);     // HTTP response body
+                    console.log('--------------------');
+                });
             }
         </script>
     </head>
     <body>
-        <pure-form id="contactForm" src="schemas/contact-form.json" buttons="Save" validate-on-blur="true"></pure-form>
+        <pure-form id="contactForm" src="schemas/contact-form.json" validate-on-blur="true"></pure-form>
     </body>
 </html>

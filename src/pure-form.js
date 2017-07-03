@@ -11,7 +11,7 @@
 
     // regex validation patterns
     var patterns = {
-        email: '^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$'
+        email: /^[a-zA-Z0-9-_.]{1,}@[a-zA-Z0-9.-]{2,}[.]{1}[a-zA-Z]{2,}$/
     };
 
     // Create a new instance of the base object with these additional items
@@ -323,9 +323,18 @@
 
         Object.keys(data).forEach(function(key) {
 
-            // if the item has a regex patter, grab the raw string - we do this because parseInt strips zero's
+            // if the item has a regex pattern, grab the raw string - we do this because parseInt strips zero's
             var inputEl = self.querySelector('[name="' + key + '"]');
-            var value = (schema.properties[key].pattern) ? inputEl && inputEl.value || data[key] : data[key];
+            var schemaItem = schema.properties[key];
+            var pattern = (schemaItem) ? schemaItem.pattern : null;
+            var value = '';
+
+            if (pattern) {
+                value = (inputEl) ? inputEl.value : data[key];
+            }
+            else {
+                value = data[key];
+            }
 
             var error = validateAgainstSchema(schema, key, value);
 
@@ -430,7 +439,7 @@
 
         http.get(schemaUrl, 'application/json', function(error) {
             // fire error event
-            self.dispatchEvent(new CustomEvent('schema-error', { detail: error, bubbles: false }));
+            self.dispatchEvent(new CustomEvent('schema-error', { detail: error, bubbles: true, cancelable: true }));
         },
         function(data) {
 
@@ -438,7 +447,7 @@
             self.schema = JSON.parse(data.body);
 
             // fire onload event
-            self.dispatchEvent(new CustomEvent('schema-loaded', { detail: data, bubbles: false }));
+            self.dispatchEvent(new CustomEvent('schema-loaded', { detail: data, bubbles: true, cancelable: true }));
 
             // apply session stored form data if it exists
             if (self.persist && window.sessionStorage && window.sessionStorage[self.src]) {
@@ -478,7 +487,7 @@
                     action: this.action,
                     method: this.method,
                     novalidate: 'novalidate',
-                    'class': 'pure-form-form'
+                    class: 'pure-form-form'
                 });
 
                 // hook form submit event
@@ -492,7 +501,7 @@
                 };
             }
             else {
-                this.form = createEl(null, 'div', { 'class': 'pure-form-form' });
+                this.form = createEl(null, 'div', { class: 'pure-form-form' });
             }
 
             // add validate on blur handler
@@ -500,7 +509,7 @@
 
                 var el = e.target;
 
-                if (el.type !== 'submit' && self.validateOnBlur) {
+                if (el.type !== 'submit' && el.type !== 'button' && self.validateOnBlur) {
                     validateField.call(self, el.id, el.value);
                 }
             }, true);
@@ -619,17 +628,14 @@
             renderButtons.call(this);
 
             // fire onload event
-            self.dispatchEvent(new CustomEvent('render-complete', { bubbles: false }));
+            self.dispatchEvent(new CustomEvent('render-complete', { bubbles: true, cancelable: true }));
 
             // when a button is clicked, check if we have a link object for it and if so, execute the request
             self.addEventListener('button-clicked', function(e) {
 
-                var buttonValue = e.detail;
-
-                // find the link either by title or rel
-                var link = arrayWhere((self.schema || {}).links, 'title', buttonValue, true) || arrayWhere((self.schema || {}).links, 'rel', buttonValue, true);
-
-                submit.call(self, link);
+                if (e.detail.link) {
+                    submit.call(self, e.detail.link);
+                }
             });
         }
     }
@@ -675,11 +681,13 @@
 
         var self = this;
 
-        // add buttons from array if we have them
-        if (this.form && this.buttons !== '') {
+        var schemaButtons = (this.schema && Array.isArray(this.schema.links)) ? this.schema.links : [];
 
-            // convert buttons string into array for processing
-            var buttons = this.buttons.split(',');
+        // add buttons from array if we have them
+        if (this.form && (this.buttons !== '' || schemaButtons.length > 0)) {
+
+            // convert buttons string into array for processing (removing empty items)
+            var buttons = this.buttons.split(',').filter(Boolean);
 
             // insert button container if it does not already exist
             var buttonContainer = this.form.querySelector('.pure-form-buttons') || createEl(this.form, 'div', { 'class': 'pure-form-buttons' });
@@ -687,26 +695,53 @@
             // ensure it's empty (this could be a re-render)
             buttonContainer.innerHTML = '';
 
-            // insert buttons
+            // insert buttons set via this.buttons
             buttons.forEach(function(item) {
                 // insert button
                 createEl(buttonContainer, 'input', { type: 'submit', value: item.trim(), class: 'pure-form-button' });
             });
 
-            // add a button for each item in the schema links array
-            if (this.schema && Array.isArray(this.schema.links)) {
-                this.schema.links.forEach(function(link) {
-                    createEl(buttonContainer, 'input', { type: 'submit', value: (link.title || link.rel).trim(), class: 'pure-form-button' });
-                });
-            }
+            // add button for each schema link
+            schemaButtons.forEach(function(link) {
+
+                // use link title if it exists, otherwise use rel
+                var label = (link.title || link.rel).trim();
+
+                // add data-rel so we can map clicks back to schema link items
+                createEl(buttonContainer, 'input', { type: 'button', 'data-rel': link.rel, value: label, class: 'pure-form-button' });
+            });
 
             // listen for button click events
             buttonContainer.onclick = function(e) {
 
                 var el = e.target;
 
-                if (el.tagName === 'INPUT' && el.type === 'submit') {
-                    self.dispatchEvent(new CustomEvent('button-clicked', { detail: el.value, bubbles: true, cancelable: true }));
+                if (el.tagName === 'INPUT') {
+
+                    var eventData = {
+                        value: el.value,
+                        link: null
+                    };
+
+                    switch (el.type) {
+
+                        case 'submit': {
+                            self.dispatchEvent(new CustomEvent('button-clicked', { detail: { value: el.value }, bubbles: true, cancelable: true }));
+                        } break;
+
+                        case 'button': {
+
+                            // get rel from button
+                            var rel = el.getAttribute('data-rel');
+
+                            // get the schema link item matching this button
+                            eventData.link = (self.schema && Array.isArray(self.schema.links)) ? arrayWhere(self.schema.links, 'rel', rel, true) : null;
+
+                            // fire button-clicked event
+                            self.dispatchEvent(new CustomEvent('button-clicked', { detail: eventData, bubbles: true, cancelable: true }));
+
+                        } break;
+                    }
                 }
             };
         }
@@ -898,90 +933,13 @@
 
         http[method](url, contentType, formData, function(err) {
             // fire error event
-            self.dispatchEvent(new CustomEvent('submit-failed', { detail: url, bubbles: false }));
+            self.dispatchEvent(new CustomEvent('submit-failed', { detail: err, bubbles: true, cancelable: true }));
         },
         function(data) {
             // fire onload event
-            self.dispatchEvent(new CustomEvent('submit-successful', { detail: data, bubbles: false }));
+            self.dispatchEvent(new CustomEvent('submit-successful', { detail: data, bubbles: true, cancelable: true }));
         });
     }
-
-    // /**
-    //  * Saves the form data back to the server
-    //  * @access private
-    //  * @returns {void}
-    //  */
-    // function save() {
-
-    //     var self = this;
-    //     var createUrl = this.getAttribute('create-url') || '';
-    //     var updateUrl = this.getAttribute('update-url') || '';
-    //     var formData = getData.call(this);
-
-    //     self.clearErrors();
-
-    //     // exit if not valid
-    //     if (!self.isValid(formData)) return;
-
-    //     // execute update or create request
-    //     if (updateUrl !== '') {
-
-    //         fetch(updateUrl, {
-    //                 method: 'PUT',
-    //                 body: formData,
-    //                 headers: new Headers({
-    //                     'Content-Type': 'application/json'
-    //                 })
-    //             })
-    //             .then(function(res) {
-    //                 return res.json();
-    //             })
-    //             .then(function (data) {
-
-    //                 // get next schema from response is present
-    //                 var next = arrayWhere((data || {}).links, 'rel', 'next', true);
-
-    //                 // TODO: fire 'update-successful' event and if we have a next schema, load that
-
-    //                 // // if event handler returns true and we have a next object, load the next step
-    //                 // if (self.onupdate.call(self, data, next) && next) {
-    //                 //     self.src = next.href;
-    //                 // }
-    //             });
-
-    //             // TODO: add catch block to fire 'update-failed'
-    //     }
-    //     else if (createUrl !== '') {
-
-    //         fetch(createUrl, {
-    //                 method: 'POST',
-    //                 body: formData,
-    //                 headers: new Headers({
-    //                     'Content-Type': 'application/json'
-    //                 })
-    //             })
-    //             .then(function(res) {
-    //                 return res.json();
-    //             })
-    //             .then(function (data) {
-
-    //                 // get next schema from response is present
-    //                 var next = arrayWhere((data || {}).links, 'rel', 'next', true);
-
-    //                 // TODO: fire 'create-successful' event, if next has a schema, load it
-
-    //                 // // if event handler returns true and we have a next object, load the next step
-    //                 // if (self.oncreate.call(self, data, next) && next) {
-    //                 //     self.src = next.href;
-    //                 // }
-    //             });
-
-    //             // TODO: add catch block to fire 'create-failed'
-    //     }
-    //     else {
-    //         self.onsave.call(self, formData);
-    //     }
-    // }
 
     /**
      * Go through the data, for each key get the element and set it's value based on element type
@@ -991,25 +949,9 @@
      */
     function populateForm(data) {
 
+        var self = this;
         var newData = data;
         var oldData = this.value;
-
-        var self = this;
-
-        // go through all keys in data object, if we have an element and a value, set it
-        Object.keys(newData).forEach(function(key) {
-
-            var el = self.querySelector('[name="' + key + '"]');
-            var value = (typeof newData[key] !== 'undefined') ? newData[key] : '';
-
-            if (el) {
-                setElementValue(el, value);
-
-                if (self.schema.properties[key].maxLength) {
-                    setCharactersRemaining(el);
-                }
-            }
-        });
 
         var eventData = {
             oldValue: oldData,
@@ -1017,7 +959,26 @@
         };
 
         // fire onload event
-        self.dispatchEvent(new CustomEvent('value-set', { detail: eventData, bubbles: false }));
+        var allow = self.dispatchEvent(new CustomEvent('value-set', { detail: eventData, bubbles: true, cancelable: true }));
+
+        // user did not cancel, update form
+        if (allow) {
+
+            // go through all keys in data object, if we have an element and a value, set it
+            Object.keys(newData).forEach(function(key) {
+
+                var el = self.querySelector('[name="' + key + '"]');
+                var value = (typeof newData[key] !== 'undefined') ? newData[key] : '';
+
+                if (el) {
+                    setElementValue(el, value);
+
+                    if (self.schema.properties[key].maxLength) {
+                        setCharactersRemaining(el);
+                    }
+                }
+            });
+        }
     }
 
     /**
@@ -1122,7 +1083,6 @@
 
         return el;
     }
-
 
     /*------------------------*/
     /* PRIVATE HELPER METHODS */
@@ -1534,6 +1494,13 @@
                 xhr.withCredentials = true;
                 xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                 xhr.setRequestHeader('Content-Type', contentType);
+                xhr.onerror = function() {
+                    error({
+                        url: url,
+                        status: xhr.status,
+                        body: xhr.responseText || ''
+                    });
+                };
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4) {
                         if (xhr.status === 200 || (xhr.status === 0 && xhr.responseText !== '')) {

@@ -408,9 +408,10 @@ contactForm.addEventListener('render-complete', function(e) {
 var contactForm = document.getElementById('contactForm');
 
 contactForm.addEventListener('button-clicked', function(e) {
-    console.log(this);      // pure form element
-    console.log(e.target);  // pure form element
-    console.log(e.detail);  // value of button clicked (Delete or Disable)
+    console.log(this);            // pure form element
+    console.log(e.target);        // pure form element
+    console.log(e.detail.value);  // value of button clicked (Delete or Disable)
+    console.log(e.detail.link);   // associated schema link object if present
 });
 ```
 
