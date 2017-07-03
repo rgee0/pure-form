@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "id": "contact-form",
+  "$schema": "http://json-schema.org/draft-03/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "firstName": {
+      "title": "First name",
+      "id": "order:010",
+      "type": "string",
+      "required": true,
+      "description": "First name"
+    },
+    "lastName": {
+      "title": "Last name",
+      "id": "order:020",
+      "type": "string",
+      "required": true,
+      "description": "Last name"
+    },
+    "email": {
+      "title": "Email",
+      "id": "order:030",
+      "type": "string",
+      "required": true,
+      "description": "Email address"
+    },
+    "phone": {
+      "title": "Phone",
+      "id": "order:040",
+      "type": "string",
+      "required": true,
+      "description": "Telephone number"
+    }
+  }
+}

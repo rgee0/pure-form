@@ -20,6 +20,7 @@ describe('pure-form events', function () {
     beforeEach(function (done) {
 
         nock('http://localhost:8080')
+            .defaultReplyHeaders({ 'Content-Type': 'application/json' })
             .get('/polyfills/document-register-element.js')
             .replyWithFile(200, path.resolve('./polyfills/document-register-element.js'))
             .get('/src/pure-form.js')
@@ -72,7 +73,7 @@ describe('pure-form events', function () {
             expect(typeof e.detail).toEqual('object');
             expect(e.detail.url).toEqual(tempSchemaUrl);
             expect(e.detail.status).toEqual(200);
-            expect(e.detail.body.length).toBeGreaterThan(0);
+            expect(e.detail.body).toBeDefined();
 
             expect(el.schema).toBeDefined();
             expect(el.schema.id).toEqual('contact-form');

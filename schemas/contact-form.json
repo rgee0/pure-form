@@ -6,6 +6,7 @@
   "description": "Got a question? Get in touch!",
   "links": [
     { "rel": "self", "title": "Save", "href": "http://localhost:8080/223423423342", "method": "PUT" },
+    { "rel": "register", "title": "Request access", "href": "http://localhost:8080/register", "method": "GET" },
     { "rel": "create", "title": "Create new", "href": "http://localhost:8080/contact", "method": "POST" },
     { "rel": "error", "title": "Error", "href": "http://localhost:8080/223423423342/error", "method": "PUT" }
   ],

@@ -437,7 +437,7 @@
         var self = this;
         var schemaUrl = this.src;
 
-        http.get(schemaUrl, 'application/json', function(error) {
+        http.get(schemaUrl, 'application/json', null, function(error) {
             // fire error event
             self.dispatchEvent(new CustomEvent('schema-error', { detail: error, bubbles: true, cancelable: true }));
         },
@@ -558,7 +558,7 @@
                 var item = properties[key];
 
                 // create a form label container (acts as a row)
-                lbl = createEl(null, 'label', { for: key, 'class': 'pure-form-label' });
+                lbl = createEl(null, 'label', { for: key, class: 'pure-form-label' });
 
                 if (item.format) {
                     lbl.setAttribute('data-format', item.format);
@@ -931,14 +931,23 @@
         // exit if not valid
         if (!self.isValid(formData)) return;
 
+//url, contentType, error, callback
         http[method](url, contentType, formData, function(err) {
             // fire error event
             self.dispatchEvent(new CustomEvent('submit-failed', { detail: err, bubbles: true, cancelable: true }));
         },
         function(data) {
-            debugger;
+
             // fire onload event
             self.dispatchEvent(new CustomEvent('submit-successful', { detail: data, bubbles: true, cancelable: true }));
+
+            if (data.body && data.body.$schema) {
+                debugger;
+                // render next schema
+                self.schema = data.body;
+                // fire onload event
+                //self.dispatchEvent(new CustomEvent('submit-successful', { detail: data, bubbles: true, cancelable: true }));
+            }
         });
     }
 
@@ -1478,7 +1487,7 @@
          */
         function castResponseData(type, data) {
 
-            if (type.indexOf('application/json') > -1) {
+            if ((type || '').indexOf('application/json') > -1) {
                 return JSON.parse(data || '{}');
             }
 
@@ -1510,13 +1519,13 @@
                 xhr.withCredentials = true;
                 xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                 xhr.setRequestHeader('Content-Type', contentType);
-                xhr.onerror = function() {
-                    error({
-                        url: url,
-                        status: xhr.status,
-                        body: castResponseData(xhr.getResponseHeader('content-type'), xhr.responseText)
-                    });
-                };
+                // xhr.onerror = function() {
+                //     error({
+                //         url: url,
+                //         status: xhr.status,
+                //         body: castResponseData(xhr.getResponseHeader('content-type'), xhr.responseText)
+                //     });
+                // };
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4) {
 
@@ -1559,20 +1568,20 @@
         }
 
         return {
-            get: function(url, contentType, callback, error) {
-                exec('GET', url, contentType, null, callback, error);
+            get: function(url, contentType, data, error, callback) {
+                exec('GET', url, contentType, data, error, callback);
             },
-            post: function(url, contentType, data, callback, error) {
-                exec('POST', url, contentType, data, callback, error);
+            post: function(url, contentType, data, error, callback) {
+                exec('POST', url, contentType, data, error, callback);
             },
-            put: function(url, contentType, data, callback, error) {
-                exec('PUT', url, contentType, data, callback, error);
+            put: function(url, contentType, data, error, callback) {
+                exec('PUT', url, contentType, data, error, callback);
             },
-            patch: function(url, contentType, callback, error) {
-                exec('PATCH', url, contentType, callback, error);
+            patch: function(url, contentType, data, error, callback) {
+                exec('PATCH', url, contentType, data, error, callback);
             },
-            delete: function(url, contentType, callback, error) {
-                exec('DELETE', url, contentType, callback, error);
+            delete: function(url, contentType, data, error, callback) {
+                exec('DELETE', url, contentType, data, error, callback);
             }
         };
     })();
