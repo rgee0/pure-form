@@ -186,6 +186,7 @@ describe('pure-form events', function () {
             expect(JSON.stringify(e.detail.oldValue)).toEqual(JSON.stringify(oldValue));
             expect(e.detail.newValue).toEqual(testValue);
 
+            // REMOVE the checks below as this event now fires before setting!
             // // check value was set correctly
             // expect(e.target.value.title).toEqual(testValue.title);
             // expect(e.target.value.firstName).toEqual(testValue.firstName);

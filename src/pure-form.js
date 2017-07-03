@@ -444,7 +444,7 @@
         function(data) {
 
             // store the schema
-            self.schema = JSON.parse(data.body);
+            self.schema = data.body;
 
             // fire onload event
             self.dispatchEvent(new CustomEvent('schema-loaded', { detail: data, bubbles: true, cancelable: true }));
@@ -936,6 +936,7 @@
             self.dispatchEvent(new CustomEvent('submit-failed', { detail: err, bubbles: true, cancelable: true }));
         },
         function(data) {
+            debugger;
             // fire onload event
             self.dispatchEvent(new CustomEvent('submit-successful', { detail: data, bubbles: true, cancelable: true }));
         });
@@ -1470,6 +1471,21 @@
         }
 
         /**
+         * Converts response data to type to match response content-type header
+         * @param {string} type - response content type
+         * @param {string} data - response text
+         * @returns {object} raw string or JSON object
+         */
+        function castResponseData(type, data) {
+
+            if (type.indexOf('application/json') > -1) {
+                return JSON.parse(data || '{}');
+            }
+
+            return data || '';
+        }
+
+        /**
          * Executes an AJAX GET request
          * @param {string} method - HTTP method to use
          * @param {string} url - url to request
@@ -1498,23 +1514,26 @@
                     error({
                         url: url,
                         status: xhr.status,
-                        body: xhr.responseText || ''
+                        body: castResponseData(xhr.getResponseHeader('content-type'), xhr.responseText)
                     });
                 };
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4) {
+
+                        var responseData = castResponseData(xhr.getResponseHeader('content-type'), xhr.responseText);
+
                         if (xhr.status === 200 || (xhr.status === 0 && xhr.responseText !== '')) {
                             callback({
                                 url: url,
                                 status: 200,
-                                body: xhr.responseText || ''
+                                body: castResponseData(xhr.getResponseHeader('content-type'), xhr.responseText)
                             });
                         }
                         else {
                             error({
                                 url: url,
                                 status: xhr.status,
-                                body: xhr.responseText || ''
+                                body: castResponseData(xhr.getResponseHeader('content-type'), xhr.responseText)
                             });
                         }
                     }

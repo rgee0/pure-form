@@ -21,14 +21,14 @@ function Server() {
 
     // capture post backs
     app.post('/contact', function(req, res) {
-        res.status(200).send(req.body);
+        res.status(200).json(req.body);
     });
     app.post('/save', function(req, res) {
-        res.status(200).send(req.body);
+        res.status(200).json(req.body);
     });
 
     app.put('/:id', function(req, res) {
-        res.send(req.body);
+        res.json(req.body);
     });
 
     // throw an error
