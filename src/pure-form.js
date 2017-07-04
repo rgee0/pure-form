@@ -389,14 +389,35 @@
 
     /**
      * Submits the form
+     * @param {string} rel - optional rel of link object to submit to
      * @returns {void}
      */
-    pureForm.submit = function() {
+    pureForm.submit = function(rel) {
 
-        if (this.form && this.useFormTag && (typeof this.form.submit === 'function')) {
+        if (!this.disableValidation && !this.isValid()) return;
+
+        var allowSubmit = false;
+
+        if (rel) {
+
+            // attempt to find the link object matching this rel
+            var link = (this.schema && Array.isArray(this.schema.links)) ? arrayWhere(this.schema.links, 'rel', rel, true) : null;
+
+            if (link) {
+
+                // fire the submit event, allowing listeners to cancel the submission
+                allowSubmit = this.dispatchEvent(new CustomEvent('submit', { bubbles: true, cancelable: true }));
+
+                // if consumer does not cancel the event, proceed with submit
+                if (allowSubmit) {
+                    submitViaLink.call(this, link);
+                }
+            }
+        }
+        else if (this.form && this.form.tagName === 'FORM' && typeof this.form.submit === 'function') {
 
             // fire the submit event, allowing listeners to cancel the submission
-            var allowSubmit = this.dispatchEvent(new CustomEvent('submit', { bubbles: true, cancelable: true }));
+            allowSubmit = this.dispatchEvent(new CustomEvent('submit', { bubbles: true, cancelable: true }));
 
             if (allowSubmit) {
                 this.form.submit();
@@ -634,7 +655,7 @@
             self.addEventListener('button-clicked', function(e) {
 
                 if (e.detail.link) {
-                    submit.call(self, e.detail.link);
+                    submitViaLink.call(self, e.detail.link);
                 }
             });
         }
@@ -913,10 +934,11 @@
 
     /**
      * Submits the form to the server via whichever method detailed in the link object
+     * @access private
      * @param {object} linkDescObject - the link object retrieved from the schema .links collection
      * @returns {void}
      */
-    function submit(linkDescObject) {
+    function submitViaLink(linkDescObject) {
 
         if (!linkDescObject) return;
 
@@ -931,7 +953,6 @@
         // exit if not valid
         if (!self.isValid(formData)) return;
 
-//url, contentType, error, callback
         http[method](url, contentType, formData, function(err) {
             // fire error event
             self.dispatchEvent(new CustomEvent('submit-failed', { detail: err, bubbles: true, cancelable: true }));
@@ -942,11 +963,8 @@
             self.dispatchEvent(new CustomEvent('submit-successful', { detail: data, bubbles: true, cancelable: true }));
 
             if (data.body && data.body.$schema) {
-                debugger;
                 // render next schema
                 self.schema = data.body;
-                // fire onload event
-                //self.dispatchEvent(new CustomEvent('submit-successful', { detail: data, bubbles: true, cancelable: true }));
             }
         });
     }

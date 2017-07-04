@@ -260,7 +260,7 @@ Each pure-form element exposes the following methods:
 
 Method                                                               | Description
 -------------------------------------------------------------------- | ---------------------------------------------------------
-[submit](#submit)                                                    | Submits the form to the server
+[submit(optionalRel)](#submit)                                       | Submits the form to the server
 [clearError(fieldName)](#clearerrorfieldname)                        | Clears error message on a form field
 [clearErrors()](#clearerrors)                                        | Clear all form error messages
 [setError(fieldName, errorMessage)](#seterrorfieldname-errormessage) | Sets a custom error message on a form field
@@ -272,6 +272,9 @@ Method                                                               | Descripti
 ```js
 // submit the form to the server just like a regular HTML form
 document.getElementById('contactForm').submit();
+
+// submit the form to the server using one of the schema link objects
+document.getElementById('contactForm').submit('self');
 ```
 
 #### clearError(fieldName)
