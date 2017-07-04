@@ -1474,28 +1474,6 @@
     var http = (function() {
 
         /**
-         * Cross browser method to create a AJAX object
-         * @returns {XMLHttpRequest} returns an ajax request object
-         */
-        function createXMLHttpRequest() {
-
-            try {
-                return new XMLHttpRequest();
-            }
-            catch (e1) {
-                try {
-                    return new ActiveXObject('Msxml2.XMLHTTP');
-                }
-                catch (e2) {
-                    if (console) {
-                        console.log('pure-form: XMLHttpRequest not supported');
-                    }
-                    return null;
-                }
-            }
-        }
-
-        /**
          * Converts a JSON object into HTTP encoded data
          * @param {object} data - key/value object containing data
          * @returns {string} containing object flattened and concat with '&'
@@ -1533,9 +1511,7 @@
          */
         function exec(method, url, contentType, data, error, callback) {
 
-            var xhr = createXMLHttpRequest();
-
-            xhr = (!('withCredentials' in xhr)) ? new XDomainRequest() : xhr;  // fix IE9
+            var xhr = ('withCredentials' in new XMLHttpRequest()) ? new XMLHttpRequest() : new XDomainRequest();
 
             if (xhr) {
 
@@ -1546,13 +1522,6 @@
                 xhr.withCredentials = true;
                 xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                 xhr.setRequestHeader('Content-Type', contentType);
-                // xhr.onerror = function() {
-                //     error({
-                //         url: url,
-                //         status: xhr.status,
-                //         body: castResponseData(xhr.getResponseHeader('content-type'), xhr.responseText)
-                //     });
-                // };
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4) {
 
@@ -1562,14 +1531,14 @@
                             callback({
                                 url: url,
                                 status: 200,
-                                body: castResponseData(xhr.getResponseHeader('content-type'), xhr.responseText)
+                                body: responseData
                             });
                         }
                         else {
                             error({
                                 url: url,
                                 status: xhr.status,
-                                body: castResponseData(xhr.getResponseHeader('content-type'), xhr.responseText)
+                                body: responseData
                             });
                         }
                     }
