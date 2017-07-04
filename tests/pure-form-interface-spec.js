@@ -15,6 +15,7 @@ describe('pure-form interface', function () {
     beforeEach(function (done) {
 
         nock('http://localhost:8080')
+            .defaultReplyHeaders({ 'Content-Type': 'application/json' })
             .get('/polyfills/document-register-element.js')
             .replyWithFile(200, path.resolve('./polyfills/document-register-element.js'))
             .get('/src/pure-form.js')

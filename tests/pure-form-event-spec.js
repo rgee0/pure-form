@@ -30,8 +30,6 @@ describe('pure-form events', function () {
             .replyWithFile(200, path.resolve('./tests/test-schema.json'))
             .get('/404')
             .reply(404);
-            // .post('/post-test', '*')
-            // .reply(404);
 
         var virtualConsole = new jsdom.VirtualConsole();
 
@@ -96,7 +94,7 @@ describe('pure-form events', function () {
             expect(typeof e.detail).toEqual('object');
             expect(e.detail.url).toEqual(schema404Url);
             expect(e.detail.status).toEqual(404);
-            expect(e.detail.body).toEqual('');
+            expect(e.detail.body).toEqual({});
 
             expect(el.schema).toBe(null);
             done();
