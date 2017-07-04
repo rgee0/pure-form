@@ -9,6 +9,8 @@
 
     'use strict';
 
+    // TODO: consider adding method to check if fieldName is currently valid!?
+
     // regex validation patterns
     var patterns = {
         email: /^[a-zA-Z0-9-_.]{1,}@[a-zA-Z0-9.-]{2,}[.]{1}[a-zA-Z]{2,}$/
@@ -675,8 +677,18 @@
             // when a button is clicked, check if we have a link object for it and if so, execute the request
             self.addEventListener('button-clicked', function(e) {
 
-                if (e.detail.link) {
-                    submitViaLink.call(self, e.detail.link);
+                var link = e.detail.link;
+
+                if (link) {
+
+                    // if this is a link to a schema, just load it
+                    if (link.rel.toLowerCase().indexOf('describedby:') === 0) {
+                        self.src = link.href;
+                    }
+                    else {
+                        // otherwise submit data to endpoint
+                        submitViaLink.call(self, link);
+                    }
                 }
             });
         }

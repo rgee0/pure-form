@@ -115,6 +115,8 @@ Pure form uses JSON Schema (v3) to define the forms input requirements and valid
 }
 ```
 
+A button is rendered for each link item, the title property is used as the button label. If the link object contains a rel that starts with `describedby:`, it is assumed to be a link to another schema - therefore clicking the button simply loads that schema.
+
 ### Rendered Output
 
 Produces the following form, including validation.
