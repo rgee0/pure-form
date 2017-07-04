@@ -330,14 +330,16 @@ document.getElementById('contactForm').reset();
 
 pure-form fires the following events _(additional information is stored event.detail property)_:
 
-Event                               | Description
------------------------------------ | -------------------------------------------------------------------
-[submit](#submit)                   | Fired when the form is submitted to the server
-[schema-loaded](#schema-loaded)     | Fired when `.src` url is successfully loaded
-[schema-error](#schema-error)       | Fired when `.src` url fails to return a JSON Schema
-[render-complete](#render-complete) | Fired when pure-form completes rendering
-[button-clicked](#button-clicked)   | Fired when a pure-form button is clicked
-[value-set](#value-set)             | Fired when the form value is set
+Event                                   | Description
+--------------------------------------- | -------------------------------------------------------------------
+[submit](#submit)                       | Fired when the form is submitted to the server
+[schema-loaded](#schema-loaded)         | Fired when `.src` url is successfully loaded
+[schema-error](#schema-error)           | Fired when `.src` url fails to return a JSON Schema
+[render-complete](#render-complete)     | Fired when pure-form completes rendering
+[button-clicked](#button-clicked)       | Fired when a pure-form button is clicked
+[value-set](#value-set)                 | Fired when the form value is set
+[validation-failed](#validation-failed) | Validation failed, some field items are invalid
+[validation-passed](#validation-passed) | Validation passed, all field values are valid
 
 #### submit
 
@@ -431,7 +433,33 @@ contactForm.addEventListener('value-set', function(e) {
 });
 ```
 
-**TODO** add more events!! (submit etc)
+#### validation-failed
+
+Fires when pure-form .isValid method returns false.
+
+```js
+var contactForm = document.getElementById('contactForm');
+
+contactForm.addEventListener('validation-failed', function(e) {
+    console.log(this);          // pure form element
+    console.log(e.target);      // pure form element
+    console.log(e.target.value) // form value
+});
+```
+
+#### validation-passed
+
+Fires when pure-form .isValid method returns true.
+
+```js
+var contactForm = document.getElementById('contactForm');
+
+contactForm.addEventListener('validation-passed', function(e) {
+    console.log(this);          // pure form element
+    console.log(e.target);      // pure form element
+    console.log(e.target.value) // form value
+});
+```
 
 ### Data Types
 

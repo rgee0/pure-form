@@ -93,6 +93,24 @@
                     console.log(e.detail.body);     // HTTP response body
                     console.log('--------------------');
                 });
+
+                document.addEventListener('validation-failed', function(e) {
+                    console.log('--------------------');
+                    console.log(e.type);        // event name
+                    console.log(this);          // pure form element
+                    console.log(e.target);      // pure form element
+                    console.log(e.target.value) // form value
+                    console.log('--------------------');
+                });
+
+                document.addEventListener('validation-passed', function(e) {
+                    console.log('--------------------');
+                    console.log(e.type);        // event name
+                    console.log(this);          // pure form element
+                    console.log(e.target);      // pure form element
+                    console.log(e.target.value) // form value
+                    console.log('--------------------');
+                });
             }
         </script>
     </head>

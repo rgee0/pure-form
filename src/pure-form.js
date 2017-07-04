@@ -305,7 +305,7 @@
     /**
      * Validates either the passed in object or current form data against the schema
      * @access public
-     * @param {object} [data] - key/value data object to check against schema
+     * @param {object} data - key/value data object to check against schema
      * @param {bool} silent - if true does not update the UI to reflect errors
      * @returns {boolean} true if valid otherwise false
      */
@@ -361,6 +361,15 @@
             var firstErrorEl = this.querySelector('form [data-valid="false"]');
             if (firstErrorEl) {
                 firstErrorEl.focus();
+            }
+        }
+
+        if (!silent) {
+            if (!valid) {
+                this.dispatchEvent(new CustomEvent('validation-failed', { bubbles: true, cancelable: true }));
+            }
+            else {
+                this.dispatchEvent(new CustomEvent('validation-passed', { bubbles: true, cancelable: true }));
             }
         }
 
