@@ -145,6 +145,7 @@ Attribute                | Description
 `tab-on-enter`           | If true, moves focus to the next field in the form when enter is pressed
 `use-form-tag`           | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_
 `enforce-max-length`     | If true, does not allow the user to enter more characters that the value of schema maxLength property
+`schema-id`              | the id of the current schema _(readonly)_
 
 ### Properties
 
@@ -170,6 +171,7 @@ Property                    | Type      | Default | Description
 `.tabOnEnter`               | _boolean_ | `false`                             | If true, moves focus to the next field in the form when enter is pressed
 `.useFormTag`               | _boolean_ | `true`                              | If false, uses a DIV rather than a HTML FORM tag _(helps overcome iOS GO button issue)_
 `.enforceMaxLength`         | _boolean_ | `false`                             | If true, does not allow the user to enter more characters that the value of schema maxLength property
+`.schemaId`                 | _string_  | _empty_                             | id valid of the currently rendered schema _(readonly)_
 
 #### action
 

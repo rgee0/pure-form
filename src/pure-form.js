@@ -58,6 +58,13 @@
                 this.title = this._schema.title;
                 this.description = this._schema.description;
 
+                if (value.id) {
+                    this.setAttribute('schema-id', value.id);
+                }
+                else {
+                    this.removeAttribute('schema-id');
+                }
+
                 renderForm.call(this);
             }
         },
@@ -175,6 +182,11 @@
             },
             set: function (value) {
                 this.setAttribute('enforce-max-length', value === true);
+            }
+        },
+        schemaId: {
+            get: function () {
+                return this.getAttribute('schema-id') || '';
             }
         }
     });
