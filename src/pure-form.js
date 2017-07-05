@@ -211,6 +211,23 @@
         attributes.forEach(function(item) {
             self.attributeChangedCallback(item.name, null, item.value);
         });
+
+        // when a button is clicked, check if we have a link object for it and if so, execute the request
+        self.addEventListener('button-clicked', function(e) {
+            var link = e.detail.link;
+
+            if (link) {
+
+                // if this is a link to a schema, just load it
+                if (link.rel.toLowerCase().indexOf('describedby:') === 0) {
+                    this.src = link.href;
+                }
+                else {
+                    // otherwise submit data to endpoint
+                    submitViaLink.call(this, link);
+                }
+            }
+        });
     };
 
     /**
@@ -673,24 +690,6 @@
 
             // fire onload event
             self.dispatchEvent(new CustomEvent('render-complete', { bubbles: true, cancelable: true }));
-
-            // when a button is clicked, check if we have a link object for it and if so, execute the request
-            self.addEventListener('button-clicked', function(e) {
-
-                var link = e.detail.link;
-
-                if (link) {
-
-                    // if this is a link to a schema, just load it
-                    if (link.rel.toLowerCase().indexOf('describedby:') === 0) {
-                        self.src = link.href;
-                    }
-                    else {
-                        // otherwise submit data to endpoint
-                        submitViaLink.call(self, link);
-                    }
-                }
-            });
         }
     }
 
