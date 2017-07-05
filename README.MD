@@ -344,6 +344,7 @@ Event                                   | Description
 [value-set](#value-set)                 | Fired when the form value is set
 [validation-failed](#validation-failed) | Validation failed, some field items are invalid
 [validation-passed](#validation-passed) | Validation passed, all field values are valid
+[submit-complete](#submit-complete)     | Data posted to server and response received
 
 #### submit
 
@@ -417,7 +418,6 @@ contactForm.addEventListener('render-complete', function(e) {
 var contactForm = document.getElementById('contactForm');
 
 contactForm.addEventListener('button-clicked', function(e) {
-    console.log(this);            // pure form element
     console.log(e.target);        // pure form element
     console.log(e.detail.value);  // value of button clicked (Delete or Disable)
     console.log(e.detail.link);   // associated schema link object if present
@@ -430,7 +430,6 @@ contactForm.addEventListener('button-clicked', function(e) {
 var contactForm = document.getElementById('contactForm');
 
 contactForm.addEventListener('value-set', function(e) {
-    console.log(this);              // pure form element
     console.log(e.target);          // pure form element
     console.log(e.detail.oldValue); // OLD value of the form before the new value was set
     console.log(e.detail.newValue); // NEW value of the form
@@ -445,7 +444,6 @@ Fires when pure-form .isValid method returns false.
 var contactForm = document.getElementById('contactForm');
 
 contactForm.addEventListener('validation-failed', function(e) {
-    console.log(this);          // pure form element
     console.log(e.target);      // pure form element
     console.log(e.target.value) // form value
 });
@@ -459,9 +457,21 @@ Fires when pure-form .isValid method returns true.
 var contactForm = document.getElementById('contactForm');
 
 contactForm.addEventListener('validation-passed', function(e) {
-    console.log(this);          // pure form element
     console.log(e.target);      // pure form element
     console.log(e.target.value) // form value
+});
+```
+
+#### submit-complete
+
+```js
+// data submitted and response received
+document.addEventListener('submit-complete', function(e) {
+    console.log(e.type);            // event name
+    console.log(e.target);          // actual HTML element clicked
+    console.log(e.detail.url);      // requested URL
+    console.log(e.detail.status);   // HTTP status code
+    console.log(e.detail.body);     // HTTP response body
 });
 ```
 

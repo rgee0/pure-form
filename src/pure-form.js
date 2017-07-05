@@ -987,12 +987,12 @@
 
         http[method](url, contentType, formData, function(err) {
             // fire error event
-            self.dispatchEvent(new CustomEvent('submit-failed', { detail: err, bubbles: true, cancelable: true }));
+            self.dispatchEvent(new CustomEvent('submit-complete', { detail: err, bubbles: true, cancelable: true }));
         },
         function(data) {
 
             // fire onload event
-            self.dispatchEvent(new CustomEvent('submit-successful', { detail: data, bubbles: true, cancelable: true }));
+            self.dispatchEvent(new CustomEvent('submit-complete', { detail: data, bubbles: true, cancelable: true }));
 
             if (data.body && data.body.$schema) {
                 // render next schema

@@ -72,19 +72,8 @@
                     console.log('--------------------');
                 });
 
-                // data submitted to schema link failed
-                document.addEventListener('submit-failed', function(e) {
-                    console.log('--------------------');
-                    console.log(e.type);            // event name
-                    console.log(e.target);          // actual HTML element clicked
-                    console.log(e.detail.url);      // requested URL
-                    console.log(e.detail.status);   // HTTP status code
-                    console.log(e.detail.body);     // HTTP response body
-                    console.log('--------------------');
-                });
-
-                // data submitted to schema link object successful
-                document.addEventListener('submit-successful', function(e) {
+                // data submitted and response recieved
+                document.addEventListener('submit-complete', function(e) {
                     console.log('--------------------');
                     console.log(e.type);            // event name
                     console.log(e.target);          // actual HTML element clicked
@@ -115,6 +104,6 @@
         </script>
     </head>
     <body>
-        <pure-form id="contactForm" src="schemas/contact-form.json" validate-on-blur="true"></pure-form>
+        <pure-form id="contactForm" src="http://localhost:8081/authentication/login/$schema" validate-on-blur="true"></pure-form>
     </body>
 </html>
