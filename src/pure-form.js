@@ -214,17 +214,24 @@
 
         // when a button is clicked, check if we have a link object for it and if so, execute the request
         self.addEventListener('button-clicked', function(e) {
+
             var link = e.detail.link;
 
             if (link) {
 
-                // if this is a link to a schema, just load it
-                if (link.rel.toLowerCase().indexOf('describedby:') === 0) {
-                    this.src = link.href;
-                }
-                else {
-                    // otherwise submit data to endpoint
-                    submitViaLink.call(this, link);
+                // fire the submit event, allowing listeners to cancel the submission
+                var allowSubmit = self.dispatchEvent(new CustomEvent('submit', { bubbles: true, cancelable: true }));
+
+                if (allowSubmit) {
+
+                    // if this is a link to a schema, just load it
+                    if (link.rel.toLowerCase().indexOf('describedby:') === 0) {
+                        this.src = link.href;
+                    }
+                    else {
+                        // otherwise submit data to endpoint
+                        submitViaLink.call(this, link);
+                    }
                 }
             }
         });
@@ -1545,6 +1552,11 @@
                 xhr.withCredentials = true;
                 xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                 xhr.setRequestHeader('Content-Type', contentType);
+
+                if (window.sessionStorage && sessionStorage.authToken && sessionStorage.authToken !== '') {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.authToken);
+                }
+
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4) {
 
