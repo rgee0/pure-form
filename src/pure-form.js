@@ -219,16 +219,17 @@
 
             if (link) {
 
-                // fire the submit event, allowing listeners to cancel the submission
-                var allowSubmit = self.dispatchEvent(new CustomEvent('submit', { bubbles: true, cancelable: true }));
+                // if this is a link to a schema, just load it (dont need to fire events)
+                if (link.rel.toLowerCase().indexOf('describedby:') === 0) {
+                    this.src = link.href;
+                }
+                else {
 
-                if (allowSubmit) {
+                    // fire the submit event, allowing listeners to cancel the submission
+                    var allowSubmit = self.dispatchEvent(new CustomEvent('submit', { bubbles: true, cancelable: true }));
 
-                    // if this is a link to a schema, just load it
-                    if (link.rel.toLowerCase().indexOf('describedby:') === 0) {
-                        this.src = link.href;
-                    }
-                    else {
+                    if (allowSubmit) {
+
                         // otherwise submit data to endpoint
                         submitViaLink.call(this, link);
                     }
