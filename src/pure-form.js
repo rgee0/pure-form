@@ -47,7 +47,7 @@
                 return this.getAttribute('src') || '';
             },
             set: function (value) {
-                this.setAttribute('src', value);
+                this.setAttribute('src', value || '');
             }
         },
         schema: {
@@ -545,7 +545,7 @@
             var lbl = null;
 
             // always create a new form tag, therefore remove the old one
-            if (this.form) {
+            if (this.form && this.form.parentElement) {
                 this.form.parentElement.removeChild(this.form);
             }
 
