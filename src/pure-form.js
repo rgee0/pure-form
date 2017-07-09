@@ -904,7 +904,13 @@
                         } break;
 
                         default: {
-                            formData[key] = (element.value || '').trim();
+
+                            if (schemaItem.format === 'html') {
+                                formData[key] = (element.innerHTML || '').trim();
+                            }
+                            else {
+                                formData[key] = (element.value || '').trim();
+                            }
 
                             if (schemaItem.maxLength) {
                                 formData[key] = formData[key].substr(0, Math.max(schemaItem.maxLength, 0));
@@ -1109,6 +1115,10 @@
 
                         case 'textarea': {
                             el = createEl(null, 'textarea', { name: id, id: id, value: '', rows: 3 });
+                        } break;
+
+                        case 'html': {
+                            el = createEl(null, 'div', { name: id, id: id, contenteditable: true, rows: 3 });
                         } break;
 
                         case 'date': {
@@ -1430,6 +1440,10 @@
 
             case 'textarea': {
                 el.value = (value.join) ? value.join('\n') : value;
+            } break;
+
+            case 'div': {
+                el.innerHTML = value || '';
             } break;
 
             default: {

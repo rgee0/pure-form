@@ -57,6 +57,13 @@
       "format": "textarea",
       "required": true,
       "maxLength": 10
+    },
+    "message2": {
+      "title": "Message2",
+      "id": "order:070",
+      "type": "string",
+      "format": "html",
+      "required": true
     }
   }
 }

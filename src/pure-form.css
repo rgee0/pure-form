@@ -151,6 +151,10 @@ pure-form .pure-form-item[data-valid="false"] {
     background-size: 34px;
 }
 
+pure-form .pure-form-item[contenteditable="true"] {
+    min-height: 100px;
+}
+
 pure-form .pure-form-item-description {
     display: block;
     font-size: 12px;
