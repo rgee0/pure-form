@@ -537,7 +537,7 @@
      */
     function renderForm() {
 
-        if (this.schema) {
+        if (typeof this.schema === 'object') {
 
             var self = this;
             var properties = this.schema.properties;
@@ -760,6 +760,11 @@
             buttons.forEach(function(item) {
                 // insert button
                 createEl(buttonContainer, 'input', { type: 'submit', value: item.trim(), class: 'pure-form-button' });
+            });
+
+            // remove items we would not want a button for
+            schemaButtons = schemaButtons.filter(function(link) {
+                return link.rel !== 'instances';
             });
 
             // add button for each schema link
