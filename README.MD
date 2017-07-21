@@ -2,15 +2,15 @@
 
 [![Linked In](https://img.shields.io/badge/Linked-In-blue.svg)](https://www.linkedin.com/in/john-i-doherty) [![Twitter Follow](https://img.shields.io/twitter/follow/CambridgeMVP.svg?style=social&label=Twitter&style=plastic)](https://twitter.com/CambridgeMVP)
 
-A drop in replacement for the HTML FORM tag that removes the need to manually craft and validate HTML forms. Simply define your form requirements in a [JSON Schema](https://tools.ietf.org/html/draft-zyp-json-schema-03) and assign it to the new `pure-form` HTML tag:
+Pure JavaScript Web Component that acts as a drop in replacement for the HTML FORM, removing the need to manually craft/validate/UX HTML forms. Simply define your form requirements in a [JSON Schema](https://tools.ietf.org/html/draft-zyp-json-schema-03) and assign it to the new `pure-form` HTML tag:
 
 ```html
-<pure-form id="contactForm" src="path-to-json-schema.json"></pure-form>
+<pure-form src="space-camp-application.json"></pure-form>
 ```
 
 Works in all modern desktop and mobile browsers from IE9+, including Cordova/PhoneGap and iconic projects.
 
-## Features
+**Features**
 
 * Creates a schematic HTML FORM from a JSON Schema
 * Automatically handles client side validation
@@ -19,7 +19,7 @@ Works in all modern desktop and mobile browsers from IE9+, including Cordova/Pho
 * Displays character limits (including characters remaining) when maxLength set
 * Preserves partially completed form values between refreshes _(optional)_
 
-## Table of Contents
+**Table of Contents**
 
 * [Install](#install)
 * [Usage](#usage)
@@ -121,7 +121,7 @@ A button is rendered for each link item, the title property is used as the butto
 
 Produces the following form, including validation.
 
-![Cucumber HTML report](docs/img/pure-form-screenshot.png)
+![Cucumber HTML report](docs/img/pure-form-screenshot.jpeg)
 
 The markup created within the `pure-form` tag is just regular HTML and can be [styled accordingly](docs/STYLING.MD).
 

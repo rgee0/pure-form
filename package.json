@@ -1,17 +1,23 @@
 {
   "name": "pure-form",
   "version": "1.0.0",
-  "description": "JSON Schema driven Form written in pure JavaScript as a Web Component",
+  "description": "Pure JavaScript Web Component that acts as a drop in replacement for the HTML FORM",
   "main": "dev-server.js",
   "scripts": {
     "start": "node server/dev-server.js",
     "test": "jasmine-node tests --verbose --color --forceexit --junitreport || true",
-    "_test": "DEBUG=nock.* jasmine-node tests --verbose --color --forceexit --junitreport || true",
     "build": "node_modules/gulp/bin/gulp.js build",
     "clean": "node_modules/gulp/bin/gulp.js clean"
   },
-  "author": "John Doherty <contact@johndoherty.info> (www.johndoherty.info)",
+  "author": {
+    "name": "John Doherty",
+    "email": "contact@johndoherty.info",
+    "url": "http://www.johndoherty.info"
+  },
   "license": "MIT",
+  "engines": {
+    "node": ">= 6.9.0"
+  },
   "devDependencies": {
     "body-parser": "^1.17.2",
     "cors": "^2.8.3",

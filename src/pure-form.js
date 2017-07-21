@@ -1,6 +1,6 @@
 /*!
  * pure-form - v@version@
- * JSON Schema driven Form written in pure JavaScript as a Web Component
+ * JSON Schema driven form written in pure JavaScript as a Web Component
  * https://github.com/john-doherty/pure-form
  * @author John Doherty <www.johndoherty.info>
  * @license MIT
@@ -8,8 +8,6 @@
 (function (base, window, document) {
 
     'use strict';
-
-    // TODO: consider adding method to check if fieldName is currently valid!?
 
     // regex validation patterns
     var patterns = {
@@ -1290,9 +1288,6 @@
      * @returns {string} string containing error message or null
      */
     function validateAgainstSchema(schema, prop, value) {
-
-        // TODO: Add support for the following
-        // exclusiveMiimum, exclusiveMaximum (number)
 
         var schemaItem = getPropertyByPath(schema, prop, true);
         var valLen = (value + '').length;
