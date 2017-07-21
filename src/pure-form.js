@@ -535,7 +535,7 @@
      */
     function renderForm() {
 
-        if (typeof this.schema === 'object') {
+        if (this.schema && typeof this.schema === 'object') {
 
             var self = this;
             var properties = this.schema.properties;
@@ -749,7 +749,7 @@
             var buttons = this.buttons.split(',').filter(Boolean);
 
             // insert button container if it does not already exist
-            var buttonContainer = this.form.querySelector('.pure-form-buttons') || createEl(this.form, 'div', { 'class': 'pure-form-buttons' });
+            var buttonContainer = this.form.querySelector('.pure-form-buttons') || createEl(this.form, 'div', { class: 'pure-form-buttons' });
 
             // ensure it's empty (this could be a re-render)
             buttonContainer.innerHTML = '';
@@ -816,7 +816,7 @@
 
     /**
      * Updated data-characters-remaining attribute of a input label (CSS adds UX tips)
-     * @param {HTMLElemenet} input - HTML element to set char attributes on
+     * @param {HTMLElement} input - HTML element to set char attributes on
      * @returns {void}
      */
     function setCharactersRemaining(input) {
@@ -935,48 +935,84 @@
     /**
      * Gets form data regardless of validation rules
      * @access private
-     * @returns {object} object containing invalidated for data
+     * @returns {object} object containing raw un-validated form data
      */
     function getRawData() {
 
         var schema = this.schema.properties;
         var formData = {};
 
-        // go through the schema and get the form values
-        for (var key in schema) {
+        // get a list of keys we're interested in
+        var keys = Object.keys(schema).filter(function(key) {
+            return (key !== 'links' && key.indexOf('$') === -1 && !schema[key].readonly);
+        });
 
-            if (key !== 'links' && key.indexOf('$') === -1 && !schema[key].readonly && schema.hasOwnProperty(key)) {
+        // go through the schema and get the form values for each key
+        keys.forEach(function(key) {
 
-                var item = schema[key],
-                    element = this.querySelector('[name="' + key + '"]'),
-                    value = '';
+            var item = schema[key];
+            var element = this.querySelector('[name="' + key + '"]');
 
-                if (element) {
+            if (element) {
 
-                    switch (item.type) {
+                switch (item.type) {
 
-                        case 'array': {
+                    case 'array': {
 
-                            if (item.items.format === 'uri' || item.items.type === 'object') {
-                                formData[key] = element.data;
-                            }
-                            else {
-                                formData[key] = element.value;
-                            }
-
-                        } break;
-
-                        case 'boolean': {
-                            formData[key] = (element.checked);
-                        } break;
-
-                        default: {
-                            formData[key] = (element.value || '').trim();
+                        if (item.items.format === 'uri' || item.items.type === 'object') {
+                            formData[key] = element.data;
                         }
+                        else {
+                            formData[key] = element.value;
+                        }
+
+                    } break;
+
+                    case 'boolean': {
+                        formData[key] = (element.checked);
+                    } break;
+
+                    default: {
+                        formData[key] = (element.value || '').trim();
                     }
                 }
             }
-        }
+        });
+
+        // // go through the schema and get the form values
+        // for (var key in schema) {
+
+        //     if (key !== 'links' && key.indexOf('$') === -1 && !schema[key].readonly && schema.hasOwnProperty(key)) {
+
+        //         var item = schema[key];
+        //         var element = this.querySelector('[name="' + key + '"]');
+
+        //         if (element) {
+
+        //             switch (item.type) {
+
+        //                 case 'array': {
+
+        //                     if (item.items.format === 'uri' || item.items.type === 'object') {
+        //                         formData[key] = element.data;
+        //                     }
+        //                     else {
+        //                         formData[key] = element.value;
+        //                     }
+
+        //                 } break;
+
+        //                 case 'boolean': {
+        //                     formData[key] = (element.checked);
+        //                 } break;
+
+        //                 default: {
+        //                     formData[key] = (element.value || '').trim();
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
 
         return formData;
     }
@@ -1079,10 +1115,10 @@
                 if (Number.isInteger(item.minimum) && Number.isInteger(item.maximum)) {
 
                     el = createEl(null, 'select', { name: id, id: id });
-                    createEl(el, 'option', { 'value': '' });
+                    createEl(el, 'option', { value: '' });
 
                     for (var i = item.minimum; i <= item.maximum; i++) {
-                        createEl(el, 'option', { 'value': i }, i);
+                        createEl(el, 'option', { value: i }, i);
                     }
                 }
                 else {
@@ -1182,57 +1218,63 @@
         attName = (attName === 'class') ? 'className' : attName;
         attValue = (attName === 'className') ? '(^|\\s)' + attValue + '(\\s|$)' : attValue;
         var tmp = el.parentNode;
-        while (tmp !== null && tmp.tagName && tmp.tagName.toLowerCase() !== "html") {
+
+        while (tmp !== null && tmp.tagName && tmp.tagName.toLowerCase() !== 'html') {
             if (tmp[attName] === attValue || tmp.getAttribute(attName) === attValue || (attName === 'className' && tmp[attName].matches(attValue))) {
                 return tmp;
             }
             tmp = tmp.parentNode;
         }
+
         return null;
     }
 
     /**
     * Creates, configures & optionally inserts DOM elements via one function call
-    * @access private
-    * @param {object} parentEl HTML element to insert into, null if no insert is required
+    * @param {object|string} parent - HTML element or selector string to insert into, null if no insert is required
     * @param {string} tagName of the element to create
-    * @param {object} attrs key : value collection of element attributes to create (if key is not a string, value is set as expando property)
-    * @param {string} text to insert into element once created
-    * @param {string} html to insert into element once created
+    * @param {object?} attrs key:value collection of element attributes to create (if key is not a string, value is set as expando property)
+    * @param {string?} text to insert into element once created
+    * @param {string?} html to insert into element once created
     * @returns {object} newly constructed html element
     */
-    function createEl(parentEl, tagName, attrs, text, html) {
+    function createEl(parent, tagName, attrs, text, html) {
 
         var el = document.createElement(tagName);
         var customEl = tagName.indexOf('-') > 0;
 
-        if (attrs) {
+        // convert selector into parent element if present
+        parent = (typeof parent === 'string' && parent !== '') ? document.querySelector(parent) : parent;
+        attrs = attrs || {};
 
-            for (var key in attrs) {
-                // assign className
-                if (key === 'class') {
-                    el.className = attrs[key];
-                }
-                // assign id
-                else if (key === 'id') {
-                    el.id = attrs[key];
-                }
-                // assign name attribute, even for customEl
-                else if (key === 'name') {
-                    el.setAttribute(key, attrs[key]);
-                }
-                // assign object properties
-                else if (customEl || (key in el)) {
-                    el[key] = attrs[key];
-                }
-                // assign regular attribute
-                else {
-                    el.setAttribute(key, attrs[key]);
-                }
+        Object.keys(attrs).forEach(function(key) {
+            // assign className
+            if (key === 'class') {
+                el.className = attrs[key];
             }
-        }
+            // assign styles
+            else if (key === 'style') {
+                el.setAttribute('style', attrs[key]);
+            }
+            // assign id
+            else if (key === 'id') {
+                el.id = attrs[key];
+            }
+            // assign name attribute, even for customEl
+            else if (key === 'name') {
+                el.setAttribute(key, attrs[key]);
+            }
+            // assign object properties
+            else if (customEl || (key in el)) {
+                el[key] = attrs[key];
+            }
+            // assign regular attribute
+            else {
+                el.setAttribute(key, attrs[key]);
+            }
+        });
 
-        if (typeof text !== 'undefined') {
+        if (typeof text !== 'undefined' && typeof text !== 'object') {
             el.appendChild(document.createTextNode(text));
         }
 
@@ -1240,9 +1282,8 @@
             el.innerHTML = '';
             stringToDOM(html, el);
         }
-
-        if (parentEl) {
-            parentEl.appendChild(el);
+        if (parent) {
+            parent.appendChild(el);
         }
 
         return el;
