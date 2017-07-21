@@ -1,7 +1,7 @@
 {
   "name": "pure-form",
-  "version": "1.0.0",
-  "description": "Pure JavaScript Web Component that acts as a drop in replacement for the HTML FORM",
+  "version": "1.0.1",
+  "description": "Pure JS drop in replacement for the HTML FORM using JSON Schemas",
   "main": "dev-server.js",
   "scripts": {
     "start": "node server/dev-server.js",
