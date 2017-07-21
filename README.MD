@@ -12,7 +12,7 @@ Produces:
 
 ![Cucumber HTML report](docs/img/pure-form-screenshot.png)
 
-Works in all modern desktop and mobile browsers from IE9+, including Cordova/PhoneGap and iconic projects. Try the [demo](https://codepen.io/anon/pen/brbGza)
+Try the [demo](https://codepen.io/anon/pen/brbGza). Works in all modern web/mobile browsers from IE9+ - including Cordova/PhoneGap and iconic projects.
 
 **Features**
 
