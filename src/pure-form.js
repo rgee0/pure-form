@@ -979,41 +979,6 @@
             }
         });
 
-        // // go through the schema and get the form values
-        // for (var key in schema) {
-
-        //     if (key !== 'links' && key.indexOf('$') === -1 && !schema[key].readonly && schema.hasOwnProperty(key)) {
-
-        //         var item = schema[key];
-        //         var element = this.querySelector('[name="' + key + '"]');
-
-        //         if (element) {
-
-        //             switch (item.type) {
-
-        //                 case 'array': {
-
-        //                     if (item.items.format === 'uri' || item.items.type === 'object') {
-        //                         formData[key] = element.data;
-        //                     }
-        //                     else {
-        //                         formData[key] = element.value;
-        //                     }
-
-        //                 } break;
-
-        //                 case 'boolean': {
-        //                     formData[key] = (element.checked);
-        //                 } break;
-
-        //                 default: {
-        //                     formData[key] = (element.value || '').trim();
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-
         return formData;
     }
 
