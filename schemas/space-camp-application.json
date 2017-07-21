@@ -5,7 +5,7 @@
   "title": "Space Camp Scholarship Application",
   "description": "Please provide as much detail as possible",
   "links": [
-    { "rel": "self", "title": "Send", "href": "http://localhost:8080/223423423342", "method": "PUT" }
+    { "rel": "self", "title": "Apply", "href": "http://localhost:8080/223423423342", "method": "PUT" }
   ],
   "additionalProperties": false,
   "properties": {

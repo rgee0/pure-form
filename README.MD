@@ -2,15 +2,17 @@
 
 [![Linked In](https://img.shields.io/badge/Linked-In-blue.svg)](https://www.linkedin.com/in/john-i-doherty) [![Twitter Follow](https://img.shields.io/twitter/follow/CambridgeMVP.svg?style=social&label=Twitter&style=plastic)](https://twitter.com/CambridgeMVP)
 
-Pure JavaScript drop in replacement for the HTML FORM, removing the need to manually craft/validate/UX HTML forms. Simply define your form requirements in a [JSON Schema](https://tools.ietf.org/html/draft-zyp-json-schema-03) and assign it to the new `pure-form` HTML tag:
+Pure JavaScript drop in replacement for the HTML FORM, removing the need to manually craft/validate/UX HTML forms.Simply define your form requirements in a [JSON Schema](https://tools.ietf.org/html/draft-zyp-json-schema-03) and assign it to the new `pure-form` HTML tag.
+
+For example:
 
 ```html
 <pure-form src="space-camp-application.json"></pure-form>
 ```
 
-Becomes:
+Produces:
 
-![Cucumber HTML report](docs/img/pure-form-screenshot.jpeg)
+![Cucumber HTML report](docs/img/pure-form-screenshot.png)
 
 Works in all modern desktop and mobile browsers from IE9+, including Cordova/PhoneGap and iconic projects.
 
@@ -71,25 +73,27 @@ Add the [dist/pure-form.min.js](dist/pure-form.min.js) and [dist/pure-form.min.c
 
 ### JSON Schema
 
-Pure form uses JSON Schema (v3) to define the forms input requirements and validation. The following `contact-form.json` referenced above:
+Pure form uses JSON Schema (v3) to define the forms input requirements and validation. The `space-camp-application.json` referenced above:
 
 ```json
 {
   "type": "object",
-  "id": "contact-form",
+  "id": "space-camp-application",
   "$schema": "http://json-schema.org/draft-03/schema#",
-  "title": "Contact Us",
-  "description": "Got a question? Get in touch!",
+  "title": "Space Camp Scholarship Application",
+  "description": "Please provide as much detail as possible",
   "links": [
-    { "rel": "create", "title": "Save", "href": "http://localhost:8080/contact", "method": "POST" }
+    { "rel": "self", "title": "Apply", "href": "http://localhost:8080/223423423342", "method": "PUT" }
   ],
+  "additionalProperties": false,
   "properties": {
     "title": {
       "title": "Title",
-      "id": "order:010",
+      "id": "order1",
       "type": "string",
       "required": true,
       "enum": [
+        "Dr",
         "Mr",
         "Mrs",
         "Ms"
@@ -97,35 +101,46 @@ Pure form uses JSON Schema (v3) to define the forms input requirements and valid
     },
     "firstName": {
       "title": "First name",
-      "id": "order:020",
+      "id": "order2",
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "John"
     },
     "surname": {
       "title": "Surname",
-      "id": "order:030",
+      "id": "order3",
       "type": "string",
       "required": true,
-      "description": "Family name"
+      "description": "Appleseed"
     },
-    "dateOfBirth": {
+    "email": {
       "title": "Email",
-      "id": "order:040",
+      "id": "order4",
+      "type": "string",
+      "format": "email",
+      "required": true,
+      "description": "example@domain.com"
+    },
+    "phone": {
+      "title": "Telephone",
+      "id": "order5",
+      "type": "string"
+    },
+    "message": {
+      "title": "Experience",
+      "id": "order6",
       "type": "string",
       "format": "textarea",
-      "required": true
+      "required": true,
+      "maxLength": 100
     }
   }
 }
 ```
 
-A button is rendered for each link item, the title property is used as the button label. If the link object contains a rel that starts with `describedby:`, it is assumed to be a link to another schema - therefore clicking the button simply loads that schema.
+A button is rendered for each link item, the title property is used as the button label.
 
-### Rendered Output
-
-Produces the following form, including validation.
-
-![Cucumber HTML report](docs/img/pure-form-screenshot.jpeg)
+__If the link object contains a rel that starts with `describedby:`, it is assumed to be a link to another schema - therefore clicking that button simply loads that schema.__
 
 The markup created within the `pure-form` tag is just regular HTML and can be [styled accordingly](docs/STYLING.MD).
 
