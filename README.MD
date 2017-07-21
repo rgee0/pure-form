@@ -2,7 +2,7 @@
 
 [![Linked In](https://img.shields.io/badge/Linked-In-blue.svg)](https://www.linkedin.com/in/john-i-doherty) [![Twitter Follow](https://img.shields.io/twitter/follow/CambridgeMVP.svg?style=social&label=Twitter&style=plastic)](https://twitter.com/CambridgeMVP)
 
-Pure JavaScript drop in replacement for the HTML FORM, removing the need to manually craft/validate/UX HTML forms.Simply define your form requirements in a [JSON Schema](https://tools.ietf.org/html/draft-zyp-json-schema-03) and assign it to the new `pure-form` HTML tag.
+Pure JavaScript drop in replacement for the HTML FORM, removing the need to manually craft/validate/UX HTML forms. Define your form requirements as a [JSON Schema](https://tools.ietf.org/html/draft-zyp-json-schema-03) and assign it to the new `pure-form` HTML tag.
 
 For example:
 
