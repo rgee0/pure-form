@@ -42,8 +42,8 @@ Works in all modern desktop and mobile browsers from IE9+, including Cordova/Pho
   * [Local Development](#local-development)
   * [Testing](#testing)
   * [Generate .min Files](#generate-.min-files)
-* [Reporting Bugs](#reporting-bugs)
-* [Pull Requests](#pull-requests)
+  * [Reporting Bugs](#reporting-bugs)
+  * [Pull Requests](#pull-requests)
 * [License](#license)
 
 ## Install
@@ -138,9 +138,7 @@ Pure form uses JSON Schema (v3) to define the forms input requirements and valid
 }
 ```
 
-A button is rendered for each link item, the title property is used as the button label.
-
-__If the link object contains a rel that starts with `describedby:`, it is assumed to be a link to another schema - therefore clicking that button simply loads that schema.__
+A button is rendered for each link item, the title property is used as the button label. If a link contains a rel that starts with `describedby:`, it is assumed to be a link to another schema, clicking that button therefore simply loads that schema.
 
 The markup created within the `pure-form` tag is just regular HTML and can be [styled accordingly](docs/STYLING.MD).
 
@@ -547,11 +545,11 @@ npm run build
 
 The version number is picked up from the `package.json` file.
 
-## Reporting Bugs
+### Reporting Bugs
 
 If you find a bug, please create an [issue](https://github.com/john-doherty/pure-form/issues) and provide as much detail as possible - include a [jsfiddle](https://jsfiddle.net) if possible.
 
-## Pull Requests
+### Pull Requests
 
 Feel free to submit a pull requests, but please ensure your work is covered with unit tests and your code follows the current ESLint coding style defined in the [package.json](package.json) file.
 
