@@ -29,7 +29,6 @@ Try the [demo](https://codepen.io/anon/pen/brbGza). Works in all modern web/mobi
 * [Usage](#usage)
   * [HTML](#html)
   * [JSON Schema](#json-schema)
-  * [Rendered Output](#rendered-output)
   * [Attributes](#attributes)
   * [Properties](#properties)
   * [Methods](#methods)
