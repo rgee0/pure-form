@@ -1,0 +1,15 @@
+language: node_js
+
+node_js:
+  - 6.9.0
+
+env:
+    - NODE_ENV=test
+
+build:
+
+  ci:
+    # Install dependencies
+    - shippable_retry npm install --unsafe-perm
+    # Unit tests
+    - npm test
