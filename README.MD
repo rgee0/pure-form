@@ -2,7 +2,7 @@
 
 [![Shippable branch](https://img.shields.io/shippable/593a3f6e937b7c07003292bd/master.svg)](https://app.shippable.com/projects/593a3f6e937b7c07003292bd) [![Linked In](https://img.shields.io/badge/Linked-In-blue.svg)](https://www.linkedin.com/in/john-i-doherty) [![Twitter Follow](https://img.shields.io/twitter/follow/CambridgeMVP.svg?style=social&label=Twitter&style=plastic)](https://twitter.com/CambridgeMVP)
 
-Pure JavaScript drop in replacement for the HTML FORM, removing the need to manually craft/validate/UX HTML forms. Simply define your form requirements as a [JSON Schema](https://tools.ietf.org/html/draft-zyp-json-schema-03) and assign it to the new `pure-form` HTML tag. For example:
+A pure JavaScript drop in replacement for the HTML FORM. Removes the need to manually craft/validate/UX HTML forms. Simply define your form requirements as a [JSON Schema](https://tools.ietf.org/html/draft-zyp-json-schema-03) and assign it to the new `pure-form` HTML tag. For example:
 
 ```html
 <pure-form src="space-camp-application.json"></pure-form>
@@ -242,7 +242,7 @@ document.getElementById('contactForm').value = {
 #### readonly
 
 ```js
-// set the form an all fields to readonly
+// set all form fields to readonly
 document.getElementById('contactForm').readonly = true;
 ```
 
@@ -271,6 +271,13 @@ document.getElementById('contactForm').addEventListener('button-clicked', functi
     // Ok clicked, do something
   }
 });
+```
+
+### persist
+
+```js
+// preserve form data between page reloads
+document.getElementById('contactForm').persist = true;
 ```
 
 ### Methods
@@ -498,7 +505,9 @@ TODO: Add JSON Schema data type/format to html type documentation
 
 ### The Vision
 
-My objective is to create a single script, drop in replacement for the HTML FORM tag that allows users to define a form using JSON Schema and have it take care of all UX and validation issues. The end result should more intuitive, user friendly & consistent web form with a collection of predefined forms to handle things such as user registration, online payment etc. It's a big goal and one that I will be advancing daily, but it would be great if you would join me!
+My objective is to create a single script, drop in replacement for the HTML FORM tag that separates a forms requirements from the UI, UX, validation logic. The end result should be a more intuitive, user-friendly & consistent web form with a collection of predefined schemas to handle things such as user registration, online payment etc.
+
+It's a big goal and one that I will be advancing daily, it would be great if you could join me!
 
 Your contribution could be as simple as [suggesting a feature](https://github.com/john-doherty/pure-form/issues), [reporting a bug](https://github.com/john-doherty/pure-form/issues), adding a little more documentation or by [forking the project](https://github.com/john-doherty/pure-form#fork-destination-box) and coding a new feature/fix/unit test.
 
