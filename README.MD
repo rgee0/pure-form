@@ -334,7 +334,7 @@ document.getElementById('contactForm').enforceMaxLength = true;
 
 ```js
 // get the currently rendered schema id
-var schemaId = document.getElememtById('contactForm).schemaId;
+var schemaId = document.getElememtById('contactForm').schemaId;
 ```
 
 ### Methods
