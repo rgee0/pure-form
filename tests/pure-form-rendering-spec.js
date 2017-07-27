@@ -111,6 +111,30 @@ describe('pure-form rendering', function () {
         expect(el.querySelector('.pure-form-title')).toBe(null);
     });
 
+    it('should only ever render 1 title', function () {
+
+        var el = document.createElement('pure-form');
+
+        var title1 = 'Hello World' + new Date().getTime();
+        var title2 = 'Hello World' + new Date().getTime();
+        var title3 = 'Hello World' + new Date().getTime();
+
+        el.title = title1;
+        expect(el.querySelector('.pure-form-title')).toBeDefined();
+        expect(el.querySelector('.pure-form-title').textContent).toEqual(title1);
+        expect(el.querySelectorAll('.pure-form-title').length).toEqual(1);
+
+        el.title = title2;
+        expect(el.querySelector('.pure-form-title')).toBeDefined();
+        expect(el.querySelector('.pure-form-title').textContent).toEqual(title2);
+        expect(el.querySelectorAll('.pure-form-title').length).toEqual(1);
+
+        el.title = title3;
+        expect(el.querySelector('.pure-form-title')).toBeDefined();
+        expect(el.querySelector('.pure-form-title').textContent).toEqual(title3);
+        expect(el.querySelectorAll('.pure-form-title').length).toEqual(1);
+    });
+
     it('should render description when set', function () {
 
         var el = document.createElement('pure-form');
@@ -133,6 +157,30 @@ describe('pure-form rendering', function () {
 
         el.description = '';
         expect(el.querySelector('.pure-form-description')).toBe(null);
+    });
+
+    it('should only ever render 1 description', function () {
+
+        var el = document.createElement('pure-form');
+
+        var description1 = 'Description ' + new Date().getTime();
+        var description2 = 'Description ' + new Date().getTime();
+        var description3 = 'Description ' + new Date().getTime();
+
+        el.description = description1;
+        expect(el.querySelector('.pure-form-description')).toBeDefined();
+        expect(el.querySelector('.pure-form-description').textContent).toEqual(description1);
+        expect(el.querySelectorAll('.pure-form-description').length).toEqual(1);
+
+        el.description = description2;
+        expect(el.querySelector('.pure-form-description')).toBeDefined();
+        expect(el.querySelector('.pure-form-description').textContent).toEqual(description2);
+        expect(el.querySelectorAll('.pure-form-description').length).toEqual(1);
+
+        el.description = description3;
+        expect(el.querySelector('.pure-form-description')).toBeDefined();
+        expect(el.querySelector('.pure-form-description').textContent).toEqual(description3);
+        expect(el.querySelectorAll('.pure-form-description').length).toEqual(1);
     });
 
     it('should render buttons when set', function () {
