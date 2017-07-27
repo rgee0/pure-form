@@ -1,5 +1,5 @@
 /*!
- * pure-form - v1.0.2
+ * pure-form - v1.0.3
  * Pure JS drop in replacement for the HTML FORM using JSON Schemas
  * https://github.com/john-doherty/pure-form
  * @author John Doherty <www.johndoherty.info>
