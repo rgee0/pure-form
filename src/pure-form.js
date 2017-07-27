@@ -707,10 +707,19 @@
     function renderTitle() {
 
         if (this.title !== '') {
-            var titleEl = createEl(null, 'div', { class: 'pure-form-title' }, this.title);
-            this.insertBefore(titleEl, this.form);
+
+            // either get existing title tag or create a new one
+            var el = this.querySelector('.pure-form-title') || createEl(null, 'div', { class: 'pure-form-title' });
+
+            el.textContent = this.title;
+
+            // if its not in the DOM, append it in the correct location
+            if (!el.parentElement) {
+                this.insertBefore(el, this.form);
+            }
         }
         else {
+            // remove close button
             removeElementBySelector(this, '.pure-form-title');
         }
     }
@@ -723,10 +732,19 @@
     function renderDescription() {
 
         if (this.description !== '') {
-            var descEl = createEl(null, 'div', { class: 'pure-form-description' }, this.description);
-            this.insertBefore(descEl, this.form);
+
+            // either get existing title tag or create a new one
+            var el = this.querySelector('.pure-form-description') || createEl(null, 'div', { class: 'pure-form-description' });
+
+            el.textContent = this.description;
+
+            // if its not in the DOM, append it in the correct location
+            if (!el.parentElement) {
+                this.insertBefore(el, this.form);
+            }
         }
         else {
+            // remove close button
             removeElementBySelector(this, '.pure-form-description');
         }
     }
