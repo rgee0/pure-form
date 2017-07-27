@@ -1,6 +1,6 @@
 {
   "name": "pure-form",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Pure JS drop in replacement for the HTML FORM using JSON Schemas",
   "main": "dev-server.js",
   "scripts": {
